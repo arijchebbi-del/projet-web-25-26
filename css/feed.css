@@ -1,6 +1,7 @@
 body{
     background-color: rgb(255, 252, 249);
 }
+/*Debut taa css NAVBAR  */
 /* Alumini */
 .navbar.bg-body-tertiary .navbar-brand {
     color: #ffffff !important; /* blue color */
@@ -54,4 +55,5 @@ body{
 .navbar.bg-body-tertiary .dropdown-item:hover {
     background-color: #163e79 !important; /* loun ki thot l curseur aal les filieres */
 }
+/*Fin taa css NAVBAR  */
 
