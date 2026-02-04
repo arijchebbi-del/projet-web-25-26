@@ -1,4 +1,57 @@
 body{
     background-color: rgb(255, 252, 249);
 }
+/* Alumini */
+.navbar.bg-body-tertiary .navbar-brand {
+    color: #ffffff !important; /* blue color */
+    font-family: 'Times New Roman', Times, serif !important;    
+     text-decoration: solid !important;
+    font-size: 24px !important;
+}
+
+.navbar.bg-body-tertiary {
+    background-color: #a30c0c !important; /*important bch tforcih ybadel khater  par defaut css teou houa taa bootstrap*/
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+    
+}
+
+
+.navbar.bg-body-tertiary .nav-link {
+    color: white !important;
+}
+
+.navbar.bg-body-tertiary .nav-link:hover {
+    color: #bca5a5 !important; /* i tnzl aala options */
+}
+
+/* Profile icon abyedh */
+.navbar.bg-body-tertiary i.bi-person-circle {
+    color: white !important;
+}
+/*search loun teeha li fi wost l input*/
+.navbar.bg-body-tertiary .form-control::placeholder {
+    color: #163e79 !important; 
+    opacity: 1; 
+}
+/* Search button */
+.navbar.bg-body-tertiary .btn-outline-success {
+    color: white !important;
+    border-color: white !important;
+    background-color: transparent !important;
+}
+
+/* Dropdown menu text */
+.navbar.bg-body-tertiary .dropdown-menu {
+    background-color: #4f4f763f !important;/*loun taa l dropdown ki tnzl aa resources*/
+    border-radius: 15px;
+    text-align: center;
+}
+
+.navbar.bg-body-tertiary .dropdown-item {
+    color: white !important;
+}
+
+.navbar.bg-body-tertiary .dropdown-item:hover {
+    background-color: #163e79 !important; /* loun ki thot l curseur aal les filieres */
+}
 
