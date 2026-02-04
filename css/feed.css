@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(255, 252, 249);
+    background: linear-gradient(to bottom, #a30c0c, #f4eee1 30%);
 }
 /*Debut taa css NAVBAR  */
 /* Alumini */
@@ -22,7 +22,7 @@ body{
 }
 
 .navbar.bg-body-tertiary .nav-link:hover {
-    color: #bca5a5 !important; /* i tnzl aala options */
+    color: hwb(0 65% 26%) !important; /* i tnzl aala options */
 }
 
 /* Profile icon abyedh */
@@ -56,4 +56,82 @@ body{
     background-color: #163e79 !important; /* loun ki thot l curseur aal les filieres */
 }
 /*Fin taa css NAVBAR  */
+/*partie taa lmarque wl cards*/
+.h1{
+    color: #163e79 !important;
+    font-family: 'Times New Roman', Times, serif !important;
+    margin-top: 80px !important;
+    text-align: center !important;
+    font-size: 80px !important;
+}
+
+.marquee-wrapper {
+  width: 100%;          
+  overflow: hidden;     
+  padding: 1rem 0;      
+}
+
+.marquee-track {
+  display: flex; /*bch ymchiw horiz*/
+  gap: 1.5rem;     
+  width: max-content; 
+  animation: marquee 40s linear infinite; 
+  animation-play-state: running;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+ }
+}
+.card{
+    width: 300px !important;
+    height: 200px !important;
+    border-radius: 15px !important;
+
+}
+
+.btn-primary {
+    background-color: #163e79 !important; 
+    border-color: #163e79 !important;
+    color: #fff;
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.btn-primary:hover {
+    background-color: #0f2b50 !important;
+    border-color: #0f2b50 !important;
+    color: #fff;
+}
+/*hedouma ll li b taswira mainly l profile card*/
+.profile-card {
+  width: 300px!important;
+  height: 300px!important; 
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.profile-card .card-img-top {
+  width: 100% !important;
+  height: 120px !important;
+  object-fit: cover !important;
+}
+
+.profile-card .card-body {
+  flex: 1   !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
 
