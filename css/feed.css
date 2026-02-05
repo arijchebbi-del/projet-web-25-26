@@ -1,114 +1,207 @@
-body {
-    background: linear-gradient(to bottom right,  #a30c0c, #eecfc5 40%,  #dbe7f0 70%, #5b8fd4);
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-/*Debut taa css NAVBAR  */
-/* Alumini */
-.navbar.bg-body-tertiary .navbar-brand {
-    color: #ffffff !important;
-    font-family: 'Times New Roman', Times, serif !important;    
-     text-decoration: solid !important;
-    font-size: 24px !important;
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #263a48, #581225, #263a48, #581225, #263a48);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .navbar.bg-body-tertiary {
-    background-color: #a30c0c !important; /*important bch tforcih ybadel khater  par defaut css teou houa taa bootstrap*/
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
-    
+    background-color: transparent!important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none !important;
 }
 
+.navbar.bg-body-tertiary .navbar-brand {
+    color: #ffffff !important;
+    font-family: 'Georgia', serif !important;
+    font-size: 24px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+}
 
 .navbar.bg-body-tertiary .nav-link {
     color: white !important;
+    font-size: 14px !important;
+    transition: color 0.3s ease;
 }
 
 .navbar.bg-body-tertiary .nav-link:hover {
-    color: hwb(0 65% 26%) !important; /* i tnzl aala options */
+    color: #d4a574 !important;
 }
 
-/* Profile icon abyedh */
-.navbar.bg-body-tertiary i.bi-person-circle {
-    color: white !important;
+.navbar.bg-body-tertiary .form-control {
+    background: #f0f0f0 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 15px !important;
+    color: #333 !important;
+    transition: background 0.3s ease;
 }
-/*search loun teeha li fi wost l input*/
+
+.navbar.bg-body-tertiary .form-control:focus {
+    background: #e8e8e8 !important;
+    outline: none !important;
+    box-shadow: 0 0 8px rgba(88, 18, 37, 0.2) !important;
+}
+
 .navbar.bg-body-tertiary .form-control::placeholder {
-    color: #163e79 !important; 
-    opacity: 1; 
-}
-/* Search button */
-.navbar.bg-body-tertiary .btn-outline-success {
-    color: white !important;
-    border-color: white !important;
-    background-color: transparent !important;
+    color: #888 !important;
+    opacity: 1 !important;
 }
 
-/* Dropdown menu text */
+.navbar.bg-body-tertiary .btn-outline-success {
+    background: #3e769e !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.navbar.bg-body-tertiary .btn-outline-success:hover {
+    background: #2c5875 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}
 .navbar.bg-body-tertiary .dropdown-menu {
-    background-color: #4f4f763f !important;/*loun taa l dropdown ki tnzl aa resources*/
-    border-radius: 15px;
+    background-color: #f9f9f9 !important;
+    border-radius: 10px;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: none !important;
 }
 
 .navbar.bg-body-tertiary .dropdown-item {
-    color: white !important;
+    color: #333 !important;
+    font-size: 14px !important;
+    transition: background 0.3s ease;
 }
 
 .navbar.bg-body-tertiary .dropdown-item:hover {
-    background-color: #163e79 !important; /* loun ki thot l curseur aal les filieres */
+    background-color: #f0f0f0 !important;
+    color: #581225 !important;
 }
-/*Fin taa css NAVBAR  */
 /*partie taa lmarque wl cards*/
-.h1{
-    color: #163e79 !important;
-    font-family: 'Times New Roman', Times, serif !important;
-    margin-top: 80px !important;
+.h1 {
+    color: #ffffff !important;
+    font-family: 'Georgia', serif !important;
+    margin-top: 40px !important;
+    margin-bottom: 30px !important;
     text-align: center !important;
-    font-size: 80px !important;
+    font-size: 48px !important;
+    font-weight: bold !important;
 }
 
 .marquee-wrapper {
-  width: 100%;          
-  overflow: hidden;     
-  padding: 1rem 0;      
+    width: 100%;
+    overflow: hidden;
+    padding: 2rem 0;
+    background: transparent;
 }
 
 .marquee-track {
-  display: flex; /*bch ymchiw horiz*/
-  gap: 1.5rem;     
-  width: max-content; 
-  animation: marquee 40s linear infinite; 
-  animation-play-state: running;
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+    animation-play-state: running;
 }
 
 .marquee-wrapper:hover .marquee-track {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
 @keyframes marquee {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(100%);
- }
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.marquee-track > * {
+    color: #ffffff !important;
+    font-family: 'Georgia', serif !important;
+    font-size: 32px !important;
+    font-weight: bold !important;
+    white-space: nowrap;
 }
 .card{
     width: 300px !important;
-    height: 200px !important;
-    border-radius: 15px !important;
+    height: auto !important;
+    min-height: 200px !important;
+    border-radius: 12px !important;
+    background: #ffffff !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    overflow: visible !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card .card-body {
+    padding: 1rem !important;
+    color: #333 !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+}
+
+.card .card-title {
+    color: #581225 !important;
+    font-family: 'Georgia', serif !important;
+    font-weight: bold !important;
+    font-size: 15px !important;
+    margin-bottom: 0.5rem !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
 }
 
 .btn-primary {
-    background-color: #163e79 !important; 
-    border-color: #163e79 !important;
+    background-color: #3e769e !important;
+    border-color: #3e769e !important;
     color: #fff;
-    transition: background-color 0.3s, border-color 0.3s; 
+    border-radius: 8px !important;
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary:hover {
-    background-color: #0f2b50 !important;
-    border-color: #0f2b50 !important;
-    color: #fff;
+    background-color: #2c5875 !important;
+    border-color: #2c5875 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 /*hedouma ll li b taswira mainly l profile card*/
 .profile-card {
@@ -116,9 +209,11 @@ body {
   height: 300px!important; 
   display: flex !important;
   flex-direction: column !important;
-  border-radius: 15px !important;
+  border-radius: 12px !important;
   overflow: hidden !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background: #ffffff !important;
+  transition: all 0.3s ease;
 }
 
 .profile-card .card-img-top {
@@ -132,23 +227,24 @@ body {
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
-}
-.profile-card:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 1rem !important;
+  color: #333 !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
 }
 
-.card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 25px rgba(22, 62, 121, 0.6);
+.profile-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .footer {
-    background-color: #2d3436;
+    background-color: rgba(40, 60, 72, 0.9);
     color: white;
     text-align: center;
     padding: 2rem 0;
+    margin-top: 3rem;
+    font-family: 'Georgia', serif;
 }
 
 .footer p {
@@ -158,4 +254,10 @@ body {
 
 .footer small {
     opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .h1 { font-size: 32px; margin-top: 20px; }
+    .marquee-track > * { font-size: 24px; }
 }
