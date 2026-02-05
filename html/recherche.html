@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Alumini | Research</title>
+
+    
+        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/recherche.css">
+    </head>
+<body>
+     <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Alumini</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Jobs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Ressources
+          </a>
+          <!--hedha taa l ressources -->
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">MPI</a></li>
+            <li><a class="dropdown-item" href="#">GL</a></li>
+            <li><a class="dropdown-item" href="#">RT</a></li>
+            <li><a class="dropdown-item" href="#">IIA</a></li>
+            <li><a class="dropdown-item" href="#">IMI</a></li>
+            <li><a class="dropdown-item" href="#">CBA</a></li>
+            <li><a class="dropdown-item" href="#">BIO</a></li>
+            <li><a class="dropdown-item" href="#">CH</a></li>
+          </ul>
+        </li>
+        </ul>
+
+      <form class="d-flex flex-grow-1 " role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline" id="search-button" type="submit">Search</button>
+      </form>
+
+      <!--hedhi lpartie limin taa l bar -->
+       <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Help</a>  
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Log out</a>  
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <a class="nav-link d-flex align-items-center" href="#">
+            Profil
+            <i class="bi bi-person-circle ms-2"></i>
+          </a>
+        </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Search Bar Section -->
+<div class="container">
+    <div class="search-bar col-sm-12 col-md-8 col-lg-6 d-flex justify-content-center align-items-center gap-2 mt-5 mx-auto">
+    
+        <input
+            type="text"
+            class="form-control flex-grow-1 col-sm-12 col-md-8 col-lg-6"
+            placeholder="Search..."
+        >
+
+        <select class="form-select w-auto">
+            <option>Filter by</option>
+            <option>Promo</option>
+            <option>Skills</option>
+            <option>Parcours</option>
+        </select>
+
+        <button id="search-button" class="btn btn-outline-danger" type="submit" onclick="searchFunction()">
+            Search
+        </button>
+    </div>
+
+    <!-- Search Results Section (White Box in Center) -->
+    <div class="row justify-content-center mt-4">
+        <div class="col-sm-12 col-md-10 col-lg-8">
+            <div class="search-results bg-white p-4 rounded shadow">
+                <!-- Search results will be displayed here -->
+                 <!-- Placeholder text when there are no results(bech ttbadl kif twali dynamique w ttna7a hal tag) -->
+                <p class="text-muted text-center">No results yet. Use the search bar above.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
