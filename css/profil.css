@@ -1,0 +1,299 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #263a48, #581225, #263a48, #581225, #263a48);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.html{
+    margin:0;
+    padding: 0;
+}
+.navbar .form-control::placeholder {
+    color: rgba(255, 4, 4, 0.626);
+    opacity: 1; /* important for Firefox */
+  }
+.navbar .btn {
+  color: rgb(255, 4, 4,0.626) ;
+  border-color: rgb(255, 4, 4,0.626);}
+
+/* Alumini */
+.navbar.bg-body-tertiary .navbar-brand {
+    color: #ffffff !important; /* blue color */
+    font-family: 'Times New Roman', Times, serif !important;    
+     text-decoration: solid !important;
+    font-size: 24px !important;
+}
+
+.navbar.bg-body-tertiary {
+    background-color: transparent !important; /*important bch tforcih ybadel khater  par defaut css teou houa taa bootstrap*/
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); 
+    
+}
+
+
+.navbar.bg-body-tertiary .nav-link {
+    color: white !important;
+}
+
+.navbar.bg-body-tertiary .nav-link:hover {
+    color:#d4a574 !important; /* i tnzl aala options */
+}
+
+/* Profile icon abyedh */
+.navbar.bg-body-tertiary i.bi-person-circle {
+    color: white !important;
+}
+/*search loun teeha li fi wost l input*/
+.navbar.bg-body-tertiary .form-control::placeholder {
+    color: #163e79 !important; 
+    opacity: 1; 
+}
+/* Search button */
+.navbar.bg-body-tertiary .btn-outline-success {
+    color: white !important;
+    border-color: white !important;
+    background-color: transparent !important;
+}
+
+/* Dropdown menu text */
+.navbar.bg-body-tertiary .dropdown-menu {
+    background-color: #4f4f763f !important;/*loun taa l dropdown ki tnzl aa resources*/
+    border-radius: 15px;
+    text-align: center;
+}
+
+.navbar.bg-body-tertiary .dropdown-item {
+    color: white !important;
+}
+
+.navbar.bg-body-tertiary .dropdown-item:hover {
+    background-color: #163e79 !important;} /* loun ki thot l curseur aal les filieres */
+
+.container{
+    max-width: 1200px;
+    padding: 0 20px;
+    margin: 0;
+}
+.profile-main{
+    margin-top: 30px;
+    background-color: #fafafa;
+    padding: 30px;
+    border-radius: 20px;
+    width: 100%;
+    display: flex;
+        display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 30px;
+}
+.profile-container-inner{
+    padding:10px;
+    margin: 10px;
+    min-height: 50px;
+
+}
+
+.profile-pic{
+    border: #000000;
+    width: 250px;
+    border-radius : 50%;
+    background: #fff;
+    display: block;
+
+}
+.nom-button{
+    background-image:none;
+    display: flex;
+    gap:20px;
+}
+.nom{
+    align-content: center;
+    align-items: center;
+    margin: 10px;
+    font-style: italic;
+    font-size: 35px;
+    font-weight: 700;
+}
+.edit-button{
+    padding-top: 20px;
+    width: 30px;
+    height: 45px;
+    align-items: center;
+}
+.infoo{
+    list-style:none;
+    width: 50%;
+}
+.id{padding-right: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    color:#000000;
+    display:contents;
+}
+.icons-img{
+    margin-left: 40px;
+    width: 25px;
+    border-radius: 40%;
+}
+.liste-lien{
+    list-style: none;
+}
+.liens{
+    color: rgb(2, 6, 51);
+    width: 15px;
+    padding :1%
+}
+.liens:hover{
+    color: rgb(134, 133, 145);
+    text-decoration: none;
+
+}
+.partie3-1{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: #ffffff;
+    font-style: carena;
+
+}
+.scroll-container {
+    padding: 10px;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    display: flex;          
+    gap: 40px;        
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+}
+.card{ 
+    color: rgb(58, 57, 57);
+    border-radius: 40%;
+    background: linear-gradient(135deg, #fafafa, #eaeaea); 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+    padding :0px;
+    min-width: 500px;
+    min-height: 300px;
+}
+.card:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+}
+.card-scroll {
+    min-width: 500px;  
+    flex-shrink:200px;
+}
+.card-title{
+    text-align: center;
+    font-size :28px; 
+    color: #000000;
+
+}
+.card-body{
+    border-radius: 10%;
+    font-size: 18px;
+    list-style: circle;
+    max-width: 300px;
+    min-width: 300px;
+    margin-left:20px;
+    color: #000000;
+}
+.card-text{
+    color:#000000;
+}
+.scroll-container::-webkit-scrollbar {
+  display: none;
+  height: 10px;
+}
+.separator{
+    border: none;
+    height: 0.5px; 
+    background: #010101;
+    margin: 20px 0;
+}
+/* reviews*/
+.reviews-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px;
+    scroll-behavior: smooth;
+    box-shadow: #000000;
+}
+.reviews-container::-webkit-scrollbar {
+    display: none;
+}
+.reviews-container {
+    scrollbar-width: none;
+    padding-bottom: 40px;
+}
+.review-card {
+    min-width: 300px;
+    max-width: 300px;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+.review-card:hover {
+    transform: translateY(-5px);
+  }
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.review-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+.review-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+.review-time {
+    font-size: 12px;
+    color: gray;
+}
+.review-text {
+    font-size: 14px;
+    margin-top: 5px;
+}
+.reviews{
+    margin-top: 50px;
+    max-width: 100%;
+    justify-content: space-between;
+    gap:20px;
+    padding-bottom: 50px;
+}
+.info{
+    padding-top: 20px;
+    min-width: 200px;
+}
+.info-body{
+    font-style: normal;
+    font-size: 20px;
+}
+.info-text{
+    font-size: 20px;
+}
+/* end reviews*/
