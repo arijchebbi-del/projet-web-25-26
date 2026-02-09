@@ -43,11 +43,7 @@
         </li>
         </ul>
 
-      <form class="d-flex flex-grow-1 " role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline" id="search-button" type="submit">Search</button>
-      </form>
-
+      
       <!--hedhi lpartie limin taa l bar -->
        <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
         <li class="nav-item">
@@ -67,39 +63,7 @@
   </div>
 </nav>
 
-<!-- Search Bar Section -->
-<div class="container">
-    <div class="search-bar col-sm-12 col-md-8 col-lg-6 d-flex justify-content-center align-items-center gap-2 mt-5 mx-auto">
-    
-        <input
-            type="text"
-            class="form-control flex-grow-1 col-sm-12 col-md-8 col-lg-6"
-            placeholder="Search..."
-        >
 
-        <select class="form-select w-auto">
-            <option>Filter by</option>
-            <option>Promo</option>
-            <option>Skills</option>
-            <option>Parcours</option>
-        </select>
-
-        <button id="search-button" class="btn btn-outline-danger" type="submit" onclick="searchFunction()">
-            Search
-        </button>
-    </div>
-
-    <!-- Search Results Section (White Box in Center) -->
-    <div class="row justify-content-center mt-4">
-        <div class="col-sm-12 col-md-10 col-lg-8">
-            <div class="search-results bg-white p-4 rounded shadow">
-                <!-- Search results will be displayed here -->
-                 <!-- Placeholder text when there are no results(bech ttbadl kif twali dynamique w ttna7a hal tag) -->
-                <p class="text-muted text-center">No results yet. Use the search bar above.</p>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
