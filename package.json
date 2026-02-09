@@ -1,5 +1,7 @@
 {
-  "name": "web",
+
+  "name": "projet-web-25-26",
+
   "version": "1.0.0",
   "description": "",
   "homepage": "https://github.com/arijchebbi-del/projet-web-25-26#readme",
@@ -18,6 +20,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "bootstrap": "^5.3.8"
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1"
   }
 }
