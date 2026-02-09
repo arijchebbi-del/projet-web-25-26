@@ -164,3 +164,30 @@ body {
 .btn-primary:active {
     transform: translateY(0);
 }
+#search_button {
+    color : white !important;
+    background-color: transparent !important;
+}
+#search_button:hover
+{
+    background-color: white !important;
+    color:black !important;
+
+}
+.pagination .page-link {
+    background-color: transparent !important;
+    color:white !important;
+    
+}
+.pagination .page-link:hover {
+    background-color: white !important;
+    color:black !important;
+    
+
+}
+#filter_dropdown
+{
+    background-color:white !important ;
+    color: black !important;
+
+}

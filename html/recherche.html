@@ -1,70 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Alumini | Research</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alumini | Research</title>
 
-    
-        <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="../css/recherche.css">
-    </head>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/recherche.css">
+</head>
+
 <body>
-     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Alumini</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Jobs</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Ressources
-          </a>
-          <!--hedha taa l ressources -->
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">MPI</a></li>
-            <li><a class="dropdown-item" href="#">GL</a></li>
-            <li><a class="dropdown-item" href="#">RT</a></li>
-            <li><a class="dropdown-item" href="#">IIA</a></li>
-            <li><a class="dropdown-item" href="#">IMI</a></li>
-            <li><a class="dropdown-item" href="#">CBA</a></li>
-            <li><a class="dropdown-item" href="#">BIO</a></li>
-            <li><a class="dropdown-item" href="#">CH</a></li>
-          </ul>
-        </li>
-        </ul>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Alumini</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Jobs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Ressources
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">MPI</a></li>
+                            <li><a class="dropdown-item" href="#">GL</a></li>
+                            <li><a class="dropdown-item" href="#">RT</a></li>
+                            <li><a class="dropdown-item" href="#">IIA</a></li>
+                            <li><a class="dropdown-item" href="#">IMI</a></li>
+                            <li><a class="dropdown-item" href="#">CBA</a></li>
+                            <li><a class="dropdown-item" href="#">BIO</a></li>
+                            <li><a class="dropdown-item" href="#">CH</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-      
-      <!--hedhi lpartie limin taa l bar -->
-       <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Help</a>  
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Log out</a>  
-        </li>
-        <li class="nav-item d-flex align-items-center">
-          <a class="nav-link d-flex align-items-center" href="#">
-            Profil
-            <i class="bi bi-person-circle ms-2"></i>
-          </a>
-        </li>
-        </ul>
+                <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Log out</a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center">
+                        <a class="nav-link d-flex align-items-center" href="#">
+                            Profil
+                            <i class="bi bi-person-circle ms-2"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <form>
+            <div class="row justify-content-center align-items-center g-2">
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" class="form-control" placeholder="Enter keywords or research title…">
+                </div>
+
+                <div class="col-sm-6 col-md-3 col-lg-2">
+                    <select class="form-select w-100" id="filter_dropdown">
+                        <option selected disabled>Filter By</option>
+                        <option value="promo">Promo</option>
+                        <option value="skills">Skills</option>
+                        <option value="filiere">Filiere</option>
+                        <option value="parcours">Parcours</option>
+                    </select>
+                </div>
+
+                <div class="col-sm-6 col-md-3 col-lg-2">
+                    <button type="submit" class="btn btn-light w-100" id="search_button">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-sm-12 col-md-8 col-lg-6">
+                <div class="bg-white p-4 rounded shadow" id="search_results">
+                    <p class="text-muted">Your search results will appear here...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-auto">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
-  </div>
-</nav>
 
-
-
-<script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
