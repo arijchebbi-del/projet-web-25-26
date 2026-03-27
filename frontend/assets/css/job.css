@@ -1,0 +1,78 @@
+/* LEFT SIDEBAR */
+.container {
+  position: fixed;
+  top: 65px;
+  left: 0;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+  width: 280px;
+  height: calc(100vh - 80px); /* match the same value */
+
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+
+  padding: 20px;
+  overflow-y: auto;
+
+  z-index: 1;
+}
+/* Optional: push content (if you add later) */
+body {
+  margin-left: 300px; /* leave space for sidebar */
+}
+
+
+.filter,.clear {
+  display: inline-block;
+  font-size: 18px;  
+  font-weight: 600;
+}
+
+.filter {
+  float: left;
+}
+
+.clear {
+  float: right;
+  color: #642112;
+  cursor: pointer;
+
+}
+
+.container::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.slide_bar {
+    text-align: left;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* Range value */
+#rangeValue {
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+  color:#7d86b0;
+}
+.h5{
+    size:20px;
+
+}
+
+.right_container {
+  position: fixed;
+  top: 65px;
+  left: 285px;
+  width: calc(100% - 300px); 
+  height: calc(100vh - 80px);
+
+  background-color: #f8f9fa; 
+  padding: 0px;
+  overflow-y: auto;
+
+  z-index: 1;
+  box-shadow: none; }
+
