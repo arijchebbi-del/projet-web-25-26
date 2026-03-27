@@ -41,7 +41,6 @@
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* ================= GLOBAL ================= */
 body {
     background: var(--bg);
     color: var(--text-main);
@@ -76,7 +75,6 @@ body {
     color: var(--primary) !important;
 }
 
-/* dropdown */
 .dropdown-menu {
     background: var(--bg-soft);
     border: 1px solid var(--border);
@@ -88,7 +86,6 @@ body {
     color: white;
 }
 
-/* search */
 .form-control {
     background: var(--bg-soft);
     border: 1px solid var(--border);
@@ -99,7 +96,6 @@ body {
     color: var(--text-muted);
 }
 
-/* button */
 .btn-outline-success {
     background: var(--primary);
     color: white;
@@ -110,7 +106,6 @@ body {
     background: var(--primary-light);
 }
 
-/* ================= THEME BUTTON ================= */
 .theme-btn {
     border: 1px solid var(--border);
     color: var(--text-main);
@@ -128,7 +123,6 @@ body {
     transform: scale(1.1);
 }
 
-/* ================= FOOTER ================= */
 .footer {
     background: var(--footer-bg);
     color: var(--text-main);
