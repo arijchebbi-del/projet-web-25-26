@@ -8,60 +8,23 @@
 
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/frontend/assets/css/recherche.css">
+    <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
 </head>
+<script>
+function loadComponent(id, file) {
+  fetch(file)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById(id).innerHTML = data;
+    })
+    .catch(err => console.error("Error loading:", file, err));
+}
 
+loadComponent("navbar", "../components/navbar.html");
+loadComponent("footer", "../components/footer.html");
+</script>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Alumini</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Jobs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Ressources
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">MPI</a></li>
-                            <li><a class="dropdown-item" href="#">GL</a></li>
-                            <li><a class="dropdown-item" href="#">RT</a></li>
-                            <li><a class="dropdown-item" href="#">IIA</a></li>
-                            <li><a class="dropdown-item" href="#">IMI</a></li>
-                            <li><a class="dropdown-item" href="#">CBA</a></li>
-                            <li><a class="dropdown-item" href="#">BIO</a></li>
-                            <li><a class="dropdown-item" href="#">CH</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Help</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Log out</a>
-                    </li>
-                    <li class="nav-item d-flex align-items-center">
-                        <a class="nav-link d-flex align-items-center" href="#">
-                            Profil
-                            <i class="bi bi-person-circle ms-2"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
+    <div id="navbar"></div>
     <div class="container mt-4">
         <form>
             <div class="row justify-content-center align-items-center g-2">
@@ -113,7 +76,6 @@
             </div>
         </div>
     </div>
-
     <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 </body>
 

@@ -1,0 +1,92 @@
+.navbar.bg-body-tertiary {
+    background-color: transparent!important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none !important;
+}
+
+.navbar.bg-body-tertiary .navbar-brand {
+    color: #ffffff !important;
+    font-family: 'Georgia', serif !important;
+    font-size: 24px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+}
+
+.navbar.bg-body-tertiary .nav-link {
+    color: white !important;
+    font-size: 14px !important;
+    transition: color 0.3s ease;
+}
+
+.navbar.bg-body-tertiary .nav-link:hover {
+    color: #d47c74 !important;
+}
+
+.navbar.bg-body-tertiary .form-control {
+    background: #f0f0f0 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 15px !important;
+    color: #333 !important;
+    transition: background 0.3s ease;
+}
+
+.navbar.bg-body-tertiary .form-control:focus {
+    background: #e8e8e8 !important;
+    outline: none !important;
+    box-shadow: 0 0 8px rgba(88, 18, 37, 0.2) !important;
+}
+
+.navbar.bg-body-tertiary .form-control::placeholder {
+    color: #888 !important;
+    opacity: 1 !important;
+}
+
+.navbar.bg-body-tertiary .btn-outline-success {
+    background: #3e769e !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 8px 18px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.navbar.bg-body-tertiary .btn-outline-success:hover {
+    background: #2c5875 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
+}
+.navbar.bg-body-tertiary .dropdown-menu {
+    background-color: #f9f9f9 !important;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: none !important;
+}
+
+.navbar.bg-body-tertiary .dropdown-item {
+    color: #333 !important;
+    font-size: 14px !important;
+    transition: background 0.3s ease;
+}
+
+.navbar.bg-body-tertiary .dropdown-item:hover {
+    background-color: #f0f0f0 !important;
+    color: #581225 !important;
+}
+.footer {
+    background-color: #2d3436;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.footer p {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer small {
+    opacity: 0.7;
+}
