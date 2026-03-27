@@ -11,6 +11,9 @@
       <!-- LEFT -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
+          <a class="nav-link active" href="Feed.html">Feed</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link active" href="#">Jobs</a>
         </li>
 
@@ -24,11 +27,11 @@
           </a>
 
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">MPI</a></li>
-            <li><a class="dropdown-item" href="#">GL</a></li>
-            <li><a class="dropdown-item" href="#">RT</a></li>
-            <li><a class="dropdown-item" href="#">IIA</a></li>
-            <li><a class="dropdown-item" href="#">IMI</a></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/u/0/folders/1gmyDar1F7A_5itlMtrdKcO4xON_G6gX3">MPI</a></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/u/0/folders/1iFiXHyYHEI5hSPseynVy3mOP3sLbn9Mq">GL</a></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/u/0/folders/1_FBnV_eIPdl8joTYitQMPFqXGrzQ31h3">RT</a></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/u/0/folders/1CACO-y17rCYt0pWhXwJDsyAFs5Icl-MT">IIA</a></li>
+            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/102hdpB_RiEL_L95fKdvGPeGccIm0Gq5Z">IMI</a></li>
             <li><a class="dropdown-item" href="#">CBA</a></li>
             <li><a class="dropdown-item" href="#">BIO</a></li>
             <li><a class="dropdown-item" href="#">CH</a></li>
@@ -39,11 +42,18 @@
       <!-- SEARCH -->
       <form class="d-flex flex-grow-1">
         <input class="form-control me-2" type="search" placeholder="Search">
-        <button class="btn btn-outline-success">Search</button>
+          <button type="button" onclick="window.location.href='/frontend/pages/recherche.html'" class="btn btn-outline-success">
+           Search
+           </button>
       </form>
 
       <!-- RIGHT -->
       <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
+        <li class="nav-item">
+          <button id="themeBtn" class="btn btn-sm theme-btn">
+            <i class="fa-regular fa-moon"></i>
+           </button>
+        </li>
         <li class="nav-item">
           <a class="nav-link" href="help.html">Help</a>  
         </li>

@@ -8,7 +8,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: linear-gradient(90deg, #263a48, #581225, #263a48, #581225, #263a48);
+    background: linear-gradient(90deg, #c7c8c9, #cfcfcf, #b6b9ba, #d5d5d5, #c6c7c8);
     background-size: 400% 400%;
     animation: gradientShift 15s ease infinite;
 }
@@ -120,7 +120,7 @@ body {
 }
 
 .btn-primary {
-    background-color: #3e769e !important;
+    background-color: #65171e !important;
     border-color: #3e769e !important;
     color: #fff;
     border-radius: 8px !important;
