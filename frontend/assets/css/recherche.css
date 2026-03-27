@@ -1,8 +1,11 @@
-* {
+html,body{
+    height: 100%;
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to bottom, #a30c0c, #ff6b6b);
+    
 }
+
 
 body {
     display: flex;
@@ -10,7 +13,7 @@ body {
     min-height: 100vh;
     background: linear-gradient(90deg, #263a48, #581225, #263a48, #581225, #263a48);
     background-size: 400% 400%;
-    animation: gradientShift 15s ease infinite;
+    animation: gradientShift 30s ease infinite;
 }
 
 @keyframes gradientShift {
@@ -43,48 +46,6 @@ body {
     color: #d4a574 !important;
 }
 
-.navbar.bg-body-tertiary .form-control {
-    background: #f0f0f0 !important;
-    border: none !important;
-    border-radius: 8px !important;
-    padding: 8px 15px !important;
-    color: #333 !important;
-    transition: background 0.3s ease;
-}
-
-.navbar.bg-body-tertiary .form-control:focus {
-    background: #e8e8e8 !important;
-    outline: none !important;
-    box-shadow: 0 0 8px rgba(88, 18, 37, 0.2) !important;
-}
-
-.navbar.bg-body-tertiary .form-control::placeholder {
-    color: #888 !important;
-    opacity: 1 !important;
-}
-
-.navbar.bg-body-tertiary .btn-outline-success {
-    background: #3e769e !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 8px !important;
-    padding: 8px 18px !important;
-    font-weight: 600 !important;
-    transition: all 0.3s ease !important;
-}
-
-.navbar.bg-body-tertiary .btn-outline-success:hover {
-    background: #2c5875 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
-}
-.navbar.bg-body-tertiary .dropdown-menu {
-    background-color: #f9f9f9 !important;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    border: none !important;
-}
 
 .navbar.bg-body-tertiary .dropdown-item {
     color: #333 !important;
@@ -203,61 +164,35 @@ body {
 .btn-primary:active {
     transform: translateY(0);
 }
-/*hedouma ll li b taswira mainly l profile card*/
-.profile-card {
-  width: 300px!important;
-  height: 300px!important; 
-  display: flex !important;
-  flex-direction: column !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background: #ffffff !important;
-  transition: all 0.3s ease;
+#search_button {
+    color : white !important;
+    background-color: transparent !important;
 }
+#search_button:hover
+{
+    background-color: white !important;
+    color:black !important;
 
-.profile-card .card-img-top {
-  width: 100% !important;
-  height: 120px !important;
-  object-fit: cover !important;
 }
+.pagination .page-link {
+    background-color: transparent !important;
+    color:white !important;
+    
+}
+.pagination .page-link:hover {
+    background-color: white !important;
+    color:black !important;
+    
 
-.profile-card .card-body {
-  flex: 1   !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  padding: 1rem !important;
-  color: #333 !important;
-  font-size: 13px !important;
-  line-height: 1.4 !important;
 }
+#filter_dropdown
+{
+    background-color:white !important ;
+    color: black !important;
 
-.profile-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.footer {
-    background-color: rgba(40, 60, 72, 0.9);
-    color: white;
-    text-align: center;
-    padding: 2rem 0;
-    margin-top: 3rem;
-    font-family: 'Georgia', serif;
-}
-
-.footer p {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.footer small {
-    opacity: 0.7;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .h1 { font-size: 32px; margin-top: 20px; }
-    .marquee-track > * { font-size: 24px; }
+#filter_dropdown .dropdown-item:hover
+{
+    background-color: #f0f0f0 !important;
+    color: #581225 !important;
 }

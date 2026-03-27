@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="../bootstrap/dict/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
 
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="../css/feed.css">
+  <link rel="stylesheet" href="/frontend/assets/css/feed.css">
   <title>Feed | Alumini</title>
 </head>
 <body>
@@ -71,8 +71,10 @@
 <!--FIN houni youfa enav-->
 <!--houni tebda l placeholders wl crds taa job offer -->
 <h1 class="h1">Job Offers</h1>
-<div class="marquee-wrapper"><!--marque hia elakta li tkhalehom yetharkou -->
-  <div class="marquee-track">
+<div class="marquee-container">
+  <button class="marquee-btn btn-left" onclick="scrollMarquee(this, -1)">&#60;</button>
+  <div class="marquee-wrapper"><!--marque hia elakta li tkhalehom yetharkou -->
+    <div class="marquee-track">
 <!--les cartes li yokhrjou fl jobs-->
 
     <div class="card">
@@ -140,10 +142,14 @@
 
   </div>
 </div>
+  <button class="marquee-btn btn-right" onclick="scrollMarquee(this, 1)">&#62;</button>
+</div>
 <!--internships-->
 <h1 class="h1">Internship Offers</h1>
-<div class="marquee-wrapper"><!--marque hia elakta li tkhalehom yetharkou -->
-  <div class="marquee-track">
+<div class="marquee-container">
+  <button class="marquee-btn btn-left" onclick="scrollMarquee(this, -1)">&#60;</button>
+  <div class="marquee-wrapper"><!--marque hia elakta li tkhalehom yetharkou -->
+    <div class="marquee-track">
 
 
     <div class="card">
@@ -211,11 +217,14 @@
 
   </div>
 </div>
+  <button class="marquee-btn btn-right" onclick="scrollMarquee(this, 1)">&#62;</button>
+</div>
 <!--profile recommendations-->
 <h1 class="h1">Profile Recommendations</h1>
-
-<div class="marquee-wrapper">
-  <div class="marquee-track">
+<div class="marquee-container">
+  <button class="marquee-btn btn-left" onclick="scrollMarquee(this, -1)">&#60;</button>
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
 
     <div class="profile-card card">
       <img src="images/arij.jpg" class="card-img-top" alt="Arij Chebbi">
@@ -305,6 +314,8 @@
 
   </div>
 </div>
+  <button class="marquee-btn btn-right" onclick="scrollMarquee(this, 1)">&#62;</button>
+</div>
 <!--lreddit style mezel-->
 <footer class="footer">
         <div class="container">
@@ -314,6 +325,23 @@
     </footer>
 
   <!-- Bootstrap JS -->
-  <script src="../bootstrap/dict/js/bootstrap.bundle.min.js"></script>
+  <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function scrollMarquee(button, direction) {
+      const container = button.parentElement;
+      const marqueeWrapper = container.querySelector('.marquee-wrapper');
+      const scrollAmount = 320; // Adjust based on card width + gap
+      
+      // Get current scroll position
+      let currentScroll = marqueeWrapper.scrollLeft || 0;
+      let newScroll = currentScroll + (direction * scrollAmount);
+      
+      // Smooth scroll
+      marqueeWrapper.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
+      });
+    }
+  </script>
 </body>
 </html>
