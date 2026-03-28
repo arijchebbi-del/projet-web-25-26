@@ -1,8 +1,7 @@
-/* ===== Variables ===== */
 :root {
   --bg: #ffffff;
   --text: #000000;
-  --card-bg: #f5f5f5;
+  --card-bg: #ffffff;
   --btn-bg: #65171e;      /* Search button color */
   --btn-text: #ffffff;
   --border: #fff9f9;
@@ -13,17 +12,16 @@
 
 /* Dark mode using data-theme attribute */
 [data-theme="dark"] {
-  --bg: #080c2d;           /* Dark blue/black background */
+  --bg: #080c2d;           /* background */
   --text: #ffffff;
   --card-bg: #16192e;      /* Darker cards and sidebar */
-  --btn-bg: #602626;        /* Red search button */
+  --btn-bg: #602626;        /* search button */
   --btn-text: #ffffff;
   --border: #ffffff;
-  --range-thumb: #5d1c1c;   /* Red dot for range slider */
-  --hover-btn: #455470;     /* Grayish hover for apply buttons */
+  --range-thumb: #5d1c1c;   /*  slider */
+  --hover-btn: #455470;     /*buttons */
 }
 
-/* ===== Body ===== */
 body {
   padding-top: 65px;
   background-color: var(--bg);
@@ -36,15 +34,12 @@ body {
   transition: all 0.3s ease;
 }
 
-/* ===== Page Layout ===== */
 .page-content {
   display: flex;
   flex: 1;
-  gap: 1rem;
+  gap: 0rem;
   width: 100%;
 }
-
-/* ===== Sidebar ===== */
 .container {
   width: 280px;
   background-color: var(--card-bg);
@@ -54,17 +49,13 @@ body {
   flex-shrink: 0;
   transition: background 0.3s ease, color 0.3s ease;
 }
-
-/* ===== Right Container ===== */
 .right_container {
   flex: 1;
   background-color: var(--card-bg);
-  padding: 20px;
+  padding: 0px;
   overflow-y: auto;
   transition: background 0.3s ease, color 0.3s ease;
 }
-
-/* ===== Job Cards ===== */
 .card, .profile-card {
   background-color: var(--card-bg);
   color: var(--text);
@@ -74,8 +65,6 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* ===== Buttons ===== */
 .card .btn, .profile-card .btn {
   background-color: var(--btn-bg);
   color: var(--btn-text);
@@ -85,34 +74,53 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .card .btn:hover, .profile-card .btn:hover {
   background-color: var(--hover-btn);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
-
-/* ===== Inputs & Selects ===== */
 .form-control, .form-select {
   background-color: var(--card-bg);
   color: var(--text);
   border: 1px solid var(--border);
   transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
 }
-
-/* ===== Range Input ===== */
 .form-range {
   accent-color: var(--range-thumb);
 }
 
-/* ===== Footer ===== */
 footer.footer {
   background-color: var(--card-bg);
   color: var(--text);
-  text-align: center;
-  padding: 2rem;
+  padding: 80px 20px;
   border-top: 1px solid var(--border);
-  transition: background 0.3s ease, color 0.3s ease;
+  margin-top: auto;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+footer.footer .container {
+  width: 100% !important;
+  max-width: 100% !important;
+  border: none !important;
+  display: block !important;
+  padding: 0 !important;
+}
 
+footer.footer p {
+  margin: 0;
+  display: block;
+  white-space: nowrap;
+}
+
+footer.footer small {
+  display: block;
+  margin-top: 5px;
+  color: gray;
+}
+
+#clear {
+  color: rgb(113, 112, 147) !important;
+  size-adjust:auto!important;
+}
