@@ -15,18 +15,18 @@
 
 <body>
     <script>
-    function loadComponent(id, file) {
-        fetch(file)
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById(id).innerHTML = data;
-            })
-            .catch(err => console.error("Error loading:", file, err));
-    }
+        function loadComponent(id, file) {
+            fetch(file)
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById(id).innerHTML = data;
+                })
+                .catch(err => console.error("Error loading:", file, err));
+        }
 
-    loadComponent("navbar", "../components/navbar.html");
-    loadComponent("footer", "../components/footer.html");
-</script>
+        loadComponent("navbar", "../components/navbar.html");
+        loadComponent("footer", "../components/footer.html");
+    </script>
     <div id="navbar"></div>
     <div class="container mt-4">
         <form>
@@ -57,7 +57,9 @@
             <div class="col-sm-12 col-md-8 col-lg-6">
                 <div class="bg-white p-4 rounded shadow" id="search_results">
                     <p class="text-muted">Your search results will appear here...</p>
+                    
                 </div>
+                
             </div>
         </div>
 
