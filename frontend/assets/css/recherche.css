@@ -1,4 +1,4 @@
-html,body{
+html{
     height: 100%;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: linear-gradient(90deg, #263a48, #581225, #263a48, #581225, #263a48);
+    background: linear-gradient(to bottom, #a30c0c, #ff6b6b);
     background-size: 400% 400%;
     animation: gradientShift 30s ease infinite;
 }
