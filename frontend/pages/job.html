@@ -58,73 +58,68 @@ function toggleTheme() {
 <div id="navbar"></div>
 <div class="page-content">
 <div class="container">
+  
+  <!-- Filter Header -->
+  <div class="filter-header">
     <h2 class="filter">Filter</h2>
     <button type="button" id="clear" class="btn">Clear All</button>
-    <div class="slide_bar">
-        <h5>Job Type</h5>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-            <label class="form-check-label" for="checkDefault">
-                Full-time
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-            <label class="form-check-label" for="checkDefault">
-                Part-time
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-            <label class="form-check-label" for="checkDefault">
-                Internship
-            </label>
-        </div>
+  </div>
+
+  <!-- Job Type -->
+  <div class="slide_bar">
+    <h5>Job Type</h5>
+    <div class="form-checks-wrapper">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="fulltime">
+        <label class="form-check-label" for="fulltime">Full-time</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="parttime">
+        <label class="form-check-label" for="parttime">Part-time</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="internship">
+        <label class="form-check-label" for="internship">Internship</label>
+      </div>
     </div>
-    <div class="slide_bar" id="remote">
-    <input class="form-check-input" type="checkbox" value="" id="checkNativeSwitch" switch>
-        <label class="form-check-label" for="checkNativeSwitch">
-         Open to remote
-        </label>
-    </div>
+  </div>
+    <!-- Remote -->
+<div class="slide_bar">
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="remoteCheck">
+    <label class="form-check-label" for="remoteCheck">Open to remote</label>
+  </div>
+</div>
+  <!-- Salary -->
+  <div class="salary-section">
     <h5>Range Salary</h5>
-    <label for="range4" class="form-label"></label>
-        <input type="range" class="form-range" min="100" max="5000" value="2500" id="range4">
-        <output for="range4" id="rangeValue" aria-hidden="true"></output>
-        <script>
-            const rangeInput = document.getElementById('range4');
-            const rangeOutput = document.getElementById('rangeValue');
-            rangeOutput.textContent = rangeInput.value;
-            rangeInput.addEventListener('input', function() {
-                rangeOutput.textContent = this.value+"DT";});
-        </script>
-    <div class="slide_bar">
-        <h5>Experience</h5>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-            <label class="form-check-label" for="checkDefault">
-                Less than a year
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-            <label class="form-check-label" for="checkDefault">
-                1-3 years
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-            <label class="form-check-label" for="checkDefault">
-                3-5 years
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkDefault">
-            <label class="form-check-label" for="checkDefault">
-                More than 5 years
-            </label>
-        </div>
+    <input type="range" class="form-range" min="100" max="5000" value="2500" id="range4">
+    <output id="rangeValue">2500 DT</output>
+  </div>
+
+  <!-- Experience -->
+  <div class="slide_bar">
+    <h5>Experience</h5>
+    <div class="form-checks-wrapper">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp1">
+        <label class="form-check-label" for="exp1">Less than a year</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp2">
+        <label class="form-check-label" for="exp2">1-3 years</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp3">
+        <label class="form-check-label" for="exp3">3-5 years</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp4">
+        <label class="form-check-label" for="exp4">More than 5 years</label>
+      </div>
     </div>
+  </div>
+
 </div>
 <div class="right_container">
   <div class="search_up d-flex align-items-end gap-2 mb-4">
@@ -197,6 +192,16 @@ function toggleTheme() {
 </div>
 <div id="footer"></div>
 </body>
+<script>
+  const rangeInput = document.getElementById('range4');
+  const rangeOutput = document.getElementById('rangeValue');
+  if (rangeInput && rangeOutput) {
+    rangeOutput.textContent = rangeInput.value + " DT";
+    rangeInput.addEventListener('input', function () {
+      rangeOutput.textContent = this.value + " DT";
+    });
+  }
+</script>
 <script src="/frontend/assets/js/bootstrap.bundle.min.js">  </script>
 <script src="/frontend/assets/js/root.js"></script>
 </html>
