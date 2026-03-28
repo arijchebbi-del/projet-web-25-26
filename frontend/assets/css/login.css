@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(90deg, #263a48, #581225, #263a48, #581225, #263a48);
+    background: linear-gradient(90deg, #ffffff, #62151b39, #ffffff, #62151b39);
     background-size: 400% 400%;
     animation: gradientShift 15s ease infinite;
 }
@@ -143,7 +143,7 @@ form {
 .submitbtn {
     width: 100%;
     height: 48px;
-    background: #3e769e;
+    background: #6E6E86;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border: none;
@@ -155,7 +155,7 @@ form {
 }
 
 .submitbtn:hover {
-    background: #2c5875;
+    background: #5b5b73;
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -192,8 +192,8 @@ form {
 }
 
 .socialmedia-icons a:hover {
-    color: #3e769e;
-    border-color: #3e769e;
+    color: #5d5d7a;
+    border-color: #5d5d7a;
     transform: translateY(-3px);
 }
 
@@ -239,12 +239,12 @@ form {
 }
 
 .toggle-left {
-    background: linear-gradient(135deg, #b2103b 0%, #8a0c2e 100%);
+    background: linear-gradient(135deg, #65171e  0%, #62151b 100%);
     left: -100%;
 }
 
 .toggle-right {
-    background: linear-gradient(135deg, #b2103b 0%, #8a0c2e 100%);
+    background: linear-gradient(135deg, #65171e  0%, #62151b 100%);
     left: 0;
 }
 
