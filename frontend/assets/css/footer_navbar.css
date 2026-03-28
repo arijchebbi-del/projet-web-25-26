@@ -1,6 +1,4 @@
-/* ================= ROOT ================= */
-
-/* 🌞 LIGHT MODE */
+/* light mode chabeb*/
 :root {
     --primary: #711e1e;
     --primary-light: #6d6160;
@@ -21,8 +19,7 @@
     --radius: 12px;
     --transition: all 0.3s ease;
 }
-
-/* 🌙 DARK MODE */
+/*dark mode chabeb */
 [data-theme="dark"] {
     --primary: #710a0a;
     --primary-light: #9f7878;
@@ -85,10 +82,12 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius);
 }
-
+.dropdown-item{
+    color:#6b7280;
+}
 .dropdown-item:hover {
     background: var(--primary);
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .form-control {
