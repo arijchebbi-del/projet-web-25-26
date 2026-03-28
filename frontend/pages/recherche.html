@@ -15,18 +15,47 @@
 
 <body>
     <script>
-        function loadComponent(id, file) {
-            fetch(file)
-                .then(res => res.text())
-                .then(data => {
-                    document.getElementById(id).innerHTML = data;
-                })
-                .catch(err => console.error("Error loading:", file, err));
-        }
+function loadComponent(id, file, callback) {
+  fetch(file)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById(id).innerHTML = data;
+      if (callback) callback();
+    })
+    .catch(err => console.error("Error loading:", file, err));
+}
 
-        loadComponent("navbar", "../components/navbar.html");
-        loadComponent("footer", "../components/footer.html");
-    </script>
+
+loadComponent("navbar", "/frontend/components/navbar.html", initTheme);
+loadComponent("footer", "/frontend/components/footer.html");
+
+function initTheme() {
+    const btn = document.getElementById("themeBtn");
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+    if (btn) {
+        btn.onclick = toggleTheme;
+    }
+}
+
+function toggleTheme() {
+    const root = document.documentElement;
+    const btn = document.getElementById("themeBtn");
+
+    if (root.getAttribute("data-theme") === "dark") {
+        root.removeAttribute("data-theme");
+        localStorage.setItem("theme", "light");
+        if (btn) btn.innerHTML = '<i class="fa-regular fa-moon"></i>';
+    } else {
+        root.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+}
+</script>
     <div id="navbar"></div>
     <div class="container mt-4">
         <form>
