@@ -10,6 +10,7 @@ html{
 body {
     display: flex;
     flex-direction: column;
+    padding : 70px;
     min-height: 100vh;
     background: linear-gradient(to bottom, #a30c0c, #ff6b6b);
     background-size: 400% 400%;
@@ -131,13 +132,14 @@ body {
     transform: translateY(0);
 }
 #search_button {
-    color : white !important;
+    color : #581225 !important;
     background-color: transparent !important;
 }
 #search_button:hover
 {
-    background-color: white !important;
-    color:black !important;
+    background-color: #581225 !important;
+    color : white !important;
+
 
 }
 .pagination .page-link {
@@ -159,8 +161,8 @@ body {
 }
 
 #filter_dropdown:focus {
-    background-color: #581225  !important ;
-    color: white !important ;
+    background-color: white  !important ;
+    color:#581225  !important;
     border-color: white !important;                        
     box-shadow: 0 0 0 0.2rem rgba(255,255,255,0.25) !important; 
 }

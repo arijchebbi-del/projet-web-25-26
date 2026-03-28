@@ -11,7 +11,10 @@
     <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<script>
+
+
+<body>
+    <script>
     function loadComponent(id, file) {
         fetch(file)
             .then(res => res.text())
@@ -24,8 +27,6 @@
     loadComponent("navbar", "../components/navbar.html");
     loadComponent("footer", "../components/footer.html");
 </script>
-
-<body>
     <div id="navbar"></div>
     <div class="container mt-4">
         <form>
@@ -35,7 +36,7 @@
                     <input type="text" class="form-control" placeholder="Enter keywords or research title…">
                 </div>
 
-                <div class="col-6 col-md-3 col-lg-3">
+                <div class="col-12 col-md-6 col-lg-3">
                     <select class="form-select w-100" id="filter_dropdown">
                         <option selected disabled>Filter By</option>
                         <option value="promo">Promo</option>
@@ -45,7 +46,7 @@
                     </select>
                 </div>
 
-                <div class="col-6 col-md-3 col-lg-2">
+                <div class="col-6 col-md-3 col-lg-1">
                     <button type="submit" class="btn btn-light w-100" id="search_button">Search</button>
                 </div>
 
@@ -82,6 +83,7 @@
     </div>
 
     <div id="footer"></div>
+
 </body>
 <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>
