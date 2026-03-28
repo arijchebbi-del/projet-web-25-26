@@ -142,23 +142,25 @@ body {
 }
 .pagination .page-link {
     background-color: transparent !important;
-    color:white !important;
+    color:#581225   !important;
     
 }
 .pagination .page-link:hover {
-    background-color: white !important;
-    color:black !important;
+    background-color: #581225  !important;
+    color:white !important;
     
 
 }
-#filter_dropdown
-{
-    background-color:white !important ;
-    color: black !important;
-
+#filter_dropdown {
+    background-color: white !important;
+    color:#581225  !important;
+    border: 2px solid rgba(255, 255, 255, 0.4) !important; 
+    border-radius: 6px !important;                           
 }
-#filter_dropdown .dropdown-item:hover
-{
-    background-color: #f0f0f0 !important;
-    color: #581225 !important;
+
+#filter_dropdown:focus {
+    background-color: #581225  !important ;
+    color: white !important ;
+    border-color: white !important;                        
+    box-shadow: 0 0 0 0.2rem rgba(255,255,255,0.25) !important; 
 }
