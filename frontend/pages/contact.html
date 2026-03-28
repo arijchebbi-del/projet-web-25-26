@@ -10,20 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/frontend/assets/css/contact.css">
 </head>
-
-<script>
-function loadComponent(id, file) {
-  fetch(file)
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById(id).innerHTML = data;
-    })
-    .catch(err => console.error("Error loading:", file, err));
-}
-loadComponent("navbar", "../components/navbar.html");
-loadComponent("footer", "../components/footer.html");
-</script>
-
 <body>
 
 <div id="navbar"></div>
@@ -216,6 +202,26 @@ loadComponent("footer", "../components/footer.html");
         el.addEventListener('input', () => el.classList.remove('is-invalid'));
     });
 </script>
+<script>
+function loadComponent(id, file, callback) {
+  fetch(file)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById(id).innerHTML = data;
+      if (callback) callback(); // THIS LINE WAS MISSING
+    })
+    .catch(err => console.error("Error loading:", file, err));
+}
+
+loadComponent("navbar", "/frontend/components/navbar.html", function() {
+  initTheme();
+  setActiveNav();
+});
+
+loadComponent("footer", "/frontend/components/footer.html");
+
+</script>
 
 </body>
+
 </html>

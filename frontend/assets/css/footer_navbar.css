@@ -138,3 +138,21 @@ body {
 .footer small {
     color: var(--text-muted);
 }
+.navbar .nav-link {
+  color: var(--text-main) !important;
+  margin: 0 4px;
+  padding: 6px 14px !important;
+  border-radius: 20px;
+  transition: var(--transition);
+}
+
+.navbar .nav-link:hover {
+  color: var(--primary) !important;
+  background-color: rgba(113, 30, 30, 0.08);
+}
+
+.navbar .nav-link.active {
+  color: var(--primary) !important;
+  font-weight: 600;
+  background-color: rgba(113, 30, 30, 0.12);
+}

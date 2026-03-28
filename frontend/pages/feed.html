@@ -12,17 +12,22 @@
   <title>Alumini | Feed</title>
 </head>
 <script>
-function loadComponent(id, file) {
+function loadComponent(id, file, callback) {
   fetch(file)
     .then(res => res.text())
     .then(data => {
       document.getElementById(id).innerHTML = data;
+      if (callback) callback(); // THIS LINE WAS MISSING
     })
     .catch(err => console.error("Error loading:", file, err));
 }
 
-loadComponent("navbar", "../components/navbar.html");
-loadComponent("footer", "../components/footer.html");
+loadComponent("navbar", "/frontend/components/navbar.html", function() {
+  initTheme();
+  setActiveNav();
+});
+
+loadComponent("footer", "/frontend/components/footer.html");
 </script>
 <body>
 
@@ -41,7 +46,7 @@ loadComponent("footer", "../components/footer.html");
           Second year SWE student. AI/ML enthusiast.<br>
           Skills: programming languages, pandas, matplotlib
         </p>
-        <a href="/profile/arij" class="btn btn-primary w-100">View Profile</a>
+        <a href="/frontend/pages/profil.html" class="btn btn-primary w-100">View Profile</a>
       </div>
     </div>
 
@@ -236,8 +241,16 @@ loadComponent("footer", "../components/footer.html");
 
 <!--lreddit style mezel-->
 <div class="footer" id="footer"></div>
-  <!-- Bootstrap JS -->
-  <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+</body>
+<script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/frontend/assets/js/root.js"></script>
+<script>
+    loadComponent("navbar", "/frontend/components/navbar.html", function() {
+        initTheme();
+        setActiveNav();
+    });
+    loadComponent("footer", "/frontend/components/footer.html");
+</script>
   <script>
     function scrollMarquee(button, direction) {
       const container = button.parentElement;
@@ -253,8 +266,7 @@ loadComponent("footer", "../components/footer.html");
       });
     }
   </script>
-  <script src="/frontend/assets/js/feed.js"></script>
 
-</body>
-<script src="/frontend/assets/js/root.js"></script>
+
+
 </html>

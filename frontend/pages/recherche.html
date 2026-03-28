@@ -20,14 +20,18 @@ function loadComponent(id, file, callback) {
     .then(res => res.text())
     .then(data => {
       document.getElementById(id).innerHTML = data;
-      if (callback) callback();
+      if (callback) callback(); // THIS LINE WAS MISSING
     })
     .catch(err => console.error("Error loading:", file, err));
 }
 
+loadComponent("navbar", "/frontend/components/navbar.html", function() {
+  initTheme();
+  setActiveNav();
+});
 
-loadComponent("navbar", "/frontend/components/navbar.html", initTheme);
 loadComponent("footer", "/frontend/components/footer.html");
+
 
 function initTheme() {
     const btn = document.getElementById("themeBtn");
