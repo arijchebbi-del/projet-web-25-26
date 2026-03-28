@@ -11,21 +11,52 @@
     <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
 </head>
 <script>
-function loadComponent(id, file) {
+function loadComponent(id, file, callback) {
   fetch(file)
     .then(res => res.text())
     .then(data => {
       document.getElementById(id).innerHTML = data;
+      if (callback) callback(); // run after loading
     })
     .catch(err => console.error("Error loading:", file, err));
 }
-loadComponent("navbar", "../components/navbar.html");
-loadComponent("footer", "../components/footer.html");
+
+// Load navbar first, then initialize dark mode
+loadComponent("navbar", "/frontend/components/navbar.html", initTheme);
+loadComponent("footer", "/frontend/components/footer.html");
+
+// Dark mode code
+function initTheme() {
+    const btn = document.getElementById("themeBtn");
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+    if (btn) {
+        btn.onclick = toggleTheme;
+    }
+}
+
+function toggleTheme() {
+    const root = document.documentElement;
+    const btn = document.getElementById("themeBtn");
+
+    if (root.getAttribute("data-theme") === "dark") {
+        root.removeAttribute("data-theme");
+        localStorage.setItem("theme", "light");
+        if (btn) btn.innerHTML = '<i class="fa-regular fa-moon"></i>';
+    } else {
+        root.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+}
 </script>
-<body>
+<div>
 
 <div id="navbar"></div>
-
+<div class="page-content">
 <div class="container">
     <h2 class="filter">Filter</h2>
     <button type="button" id="clear" class="btn">Clear All</button>
@@ -61,7 +92,6 @@ loadComponent("footer", "../components/footer.html");
         <input type="range" class="form-range" min="100" max="5000" value="2500" id="range4">
         <output for="range4" id="rangeValue" aria-hidden="true"></output>
         <script>
-            // This is an example script, please modify as needed
             const rangeInput = document.getElementById('range4');
             const rangeOutput = document.getElementById('rangeValue');
             rangeOutput.textContent = rangeInput.value;
@@ -169,8 +199,9 @@ loadComponent("footer", "../components/footer.html");
     </div>
   </div>
 </div>
-
-
+</div>
+<div id="footer"></div>
 </body>
+<script src="/frontend/assets/js/bootstrap.bundle.min.js">  </script>
 <script src="/frontend/assets/js/root.js"></script>
 </html>

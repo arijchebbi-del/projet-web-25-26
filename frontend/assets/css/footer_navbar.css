@@ -33,7 +33,7 @@
     --border: #334155;
 
     --navbar-bg: rgba(29, 30, 34, 0.7);
-    --footer-bg: #020617;
+    --footer-bg: hsl(229, 84%, 5%);
 
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
@@ -83,7 +83,7 @@ body {
     border-radius: var(--radius);
 }
 .dropdown-item{
-    color:#6b7280;
+    color:#6b7280
 }
 .dropdown-item:hover {
     background: var(--primary);

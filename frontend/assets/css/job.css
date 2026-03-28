@@ -1,78 +1,118 @@
-/* LEFT SIDEBAR */
+/* ===== Variables ===== */
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --card-bg: #f5f5f5;
+  --btn-bg: #65171e;      /* Search button color */
+  --btn-text: #ffffff;
+  --border: #fff9f9;
+  --range-thumb: #65171e;
+  --hover-btn: #484d62;    /* Apply hover button */
+  
+}
+
+/* Dark mode using data-theme attribute */
+[data-theme="dark"] {
+  --bg: #080c2d;           /* Dark blue/black background */
+  --text: #ffffff;
+  --card-bg: #16192e;      /* Darker cards and sidebar */
+  --btn-bg: #602626;        /* Red search button */
+  --btn-text: #ffffff;
+  --border: #ffffff;
+  --range-thumb: #5d1c1c;   /* Red dot for range slider */
+  --hover-btn: #455470;     /* Grayish hover for apply buttons */
+}
+
+/* ===== Body ===== */
+body {
+  padding-top: 65px;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: all 0.3s ease;
+}
+
+/* ===== Page Layout ===== */
+.page-content {
+  display: flex;
+  flex: 1;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* ===== Sidebar ===== */
 .container {
-  position: fixed;
-  top: 65px;
-  left: 0;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.05);
   width: 280px;
-  height: calc(100vh - 80px); /* match the same value */
-
-  background-color: #f8f9fa;
-  border-right: 1px solid #ddd;
-
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border);
   padding: 20px;
   overflow-y: auto;
-
-  z-index: 1;
-}
-/* Optional: push content (if you add later) */
-body {
-  margin-left: 300px; /* leave space for sidebar */
+  flex-shrink: 0;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-
-.filter,.clear {
-  display: inline-block;
-  font-size: 18px;  
-  font-weight: 600;
-}
-
-.filter {
-  float: left;
-}
-
-.clear {
-  float: right;
-  color: #642112;
-  cursor: pointer;
-
-}
-
-.container::after {
-  content: "";
-  display: block;
-  clear: both;
-}
-
-.slide_bar {
-    text-align: left;
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-/* Range value */
-#rangeValue {
-  display: block;
-  margin-top: 5px;
-  font-weight: bold;
-  color:#7d86b0;
-}
-.h5{
-    size:20px;
-
-}
-
+/* ===== Right Container ===== */
 .right_container {
-  position: fixed;
-  top: 65px;
-  left: 285px;
-  width: calc(100% - 300px); 
-  height: calc(100vh - 80px);
-
-  background-color: #f8f9fa; 
-  padding: 0px;
+  flex: 1;
+  background-color: var(--card-bg);
+  padding: 20px;
   overflow-y: auto;
+  transition: background 0.3s ease, color 0.3s ease;
+}
 
-  z-index: 1;
-  box-shadow: none; }
+/* ===== Job Cards ===== */
+.card, .profile-card {
+  background-color: var(--card-bg);
+  color: var(--text);
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== Buttons ===== */
+.card .btn, .profile-card .btn {
+  background-color: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card .btn:hover, .profile-card .btn:hover {
+  background-color: var(--hover-btn);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* ===== Inputs & Selects ===== */
+.form-control, .form-select {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+/* ===== Range Input ===== */
+.form-range {
+  accent-color: var(--range-thumb);
+}
+
+/* ===== Footer ===== */
+footer.footer {
+  background-color: var(--card-bg);
+  color: var(--text);
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
 
