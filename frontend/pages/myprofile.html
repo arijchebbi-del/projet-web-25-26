@@ -3,226 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumini | My Profile</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/frontend/assets/css/myprofile.css">
     <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
-    <title>Modify Info</title>
+    <link rel="stylesheet" href="/frontend/assets/css/profil.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <!-- insert Navbar -->
     <div id="navbar"></div>
-    <div id="profil"></div>
-    <!--pop up-->
-    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-hidden="true">
-       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-          <div class="modal-content">
-              <!-- header -->
-              <div class="modal-header">
-                <h5 class="modal-title" >Edit Profile</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                
-              </div>
-              <!--body-->
-              <div class="modal-body">
-               
-                <div class="modal-avatar-row">
-                  <div class="modal-avatar">
-                    <img src="/frontend/assets/images/icon-7797704_1280.png" class="profile-pic" > 
-                    <div class="avatar-edit-btn" title="Change photo">
-                      <i class="bi bi-camera-fill"></i>
-                    </div>
-                  </div>
-                  <div class="modal-avatar-info">
-                    <div class="name">Name</div>
-                  </div>
-                </div>
-                <div class="row g-3">
-                  <div class="col-6">
-                    <label class="form-label">First Name</label>
-                    <input type="text" class="form-control" placeholder="First name"/>
-                  </div>
-                  <div class="col-6">
-                    <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control" placeholder="Last name"/>
-                  </div>
-                  <div class="col-6">
-                    <label class="form-label">ID INSAT</label>
-                    <input type="text" class="form-control" value="2500123" placeholder="Your id"/>
-                  </div>
-                  <div class="col-6">
-                    <label class="form-label">Promo</label>
-                    <input type="text" class="form-control" value="2028" placeholder="Promo"/>
-                  </div>
-                  <div class="col-12">
-                    <label class="form-label">Bio</label>
-                    <textarea class="form-control" placeholder="Bio..." rows="4">Hi! I'm a passionate developer who loves building modern and creative web applications.</textarea>
-                  </div>
-                </div>
-                <!-- Projects -->
-              <div class="form-group mt-3">
-                  <label><i class="bi bi-folder"></i> Projects</label>
-                  <div id="projects-list">
-                    <div class="input-group mb-2">
-                      <input type="text" class="form-control" placeholder="Project's Name">
-                      <input type="text" class="form-control" placeholder="Description">
-                    </div>
-                  </div>
-                  <button type="button" class="btn-add" onclick="addProject()">+ Add a project</button>
-                </div>
-                <!-- Jobs -->
-                <div class="form-group mt-3">
-                  <label><i class="bi bi-briefcase"></i> Jobs</label>
-                  <div id="jobs-list">
-                    <div class="input-group mb-2">
-                      <input type="text" class="form-control" placeholder="Title">
-                      <input type="text" class="form-control" placeholder="Entreprise">
-                    </div>
-                  </div>
-                  <button type="button" class="btn-add" onclick="addJob()">+ Add a job</button>
-                </div>
-                <!-- Skills -->
-                <div class="form-group mt-3">
-                  <label><i class="bi bi-bag-check"></i> Skills</label>
-                  <div id="skills-list">
-                    <div class="input-group mb-2">
-                      <input type="text" class="form-control" placeholder="Skills and certifications">
-                    </div>
-                  </div>
-                  <button type="button" class="btn-add" onclick="addSkill()">+ Add a skill</button>
-                </div>
-                <!-- Achievements -->
-                <div class="form-group mt-3">
-                  <label><i class="bi bi-award"></i> Achievements</label>
-                  <div id="achievements-list">
-                    <div class="input-group mb-2">
-                      <input type="text" class="form-control" placeholder="Achievement">
-                      <input type="text" class="form-control" placeholder="Description">
-                    </div>
-                  </div>
-                  <button type="button" class="btn-add" onclick="addAchievement()">+ Add an achievement</button>
-                </div>
-              </div>
-              <!-- Footer -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="cancelBtn">  Exit </button>
-                <button type="button"  class="btn btn-success" id="saveBtn" onclick="saveProfile()">Save</button>
-              </div>
 
-          </div>
-       </div>
+    <div class="container">
+        <div class="profile-main">
+            <div class="profile-container-inner">
+                <img src="/frontend/assets/images/icon-7797704_1280.png" class="profile-pic">
+                <h1 class="nom">Nom Prenom</h1>
+            </div>
+
+            <ul class="infoo">
+                <div class="info">
+                    <div class="info-body">
+                        <h5>About Me !!</h5>
+                        <p class="info-text">Hi! I'm a passionate developer who loves building modern and creative web applications.</p>
+                    </div>
+                </div>
+                <li class="id">id-insat :<a class="num-id">2500123</a></li>
+                <li class="id">promo :<a class="num-id">2028</a></li>
+                <ul>
+                    <li class="liste-lien"><img src="/frontend/assets/images/mohamed_hassan-resume-7637442_1280.png" alt="" class="icons-img"> <a href="#" class="liens">link_cv</a></li>
+                    <li class="liste-lien"><img src="/frontend/assets/images/sllmnht-github-6980894_1280.png" alt="" class="icons-img"> <a href="#" class="liens">github</a></li>
+                    <li class="liste-lien"><img src="/frontend/assets/images/illustrationfiles-gmail-4561841_1280.png" alt="" class="icons-img"> <a href="#" class="liens">gmail</a></li>
+                    <li class="liste-lien"><img src="/frontend/assets/images/bedexpstock-linked-in-2668696_1280.png" alt="" class="icons-img"> <a href="#" class="liens">linkedin</a></li>
+                </ul>
+            </ul>
+        </div>
+
+        <div class="partie3">
+            <h3 class="partie3-1">My Experience</h3>
+
+            <div class="scroll-container">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Skills and Certification</h5>
+                        <p class="card-text">
+                            <li><p>Java Programming</p></li>
+                            <li><p>SQL Basics</p></li>
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Achievements</h5>
+                        <p class="card-text">
+                            <li><h3>Best Student 2025</h3>
+                                <p>Recognized as the top student in Computer Science department.</p>
+                            </li>
+                            <li>
+                                <h3>Volunteer Star</h3>
+                                <p>Contributed over 200 hours of community service.</p>
+                            </li>
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Projects</h5>
+                        <p class="card-text">
+                            <li>
+                                <h3>Smart Home App</h3>
+                                <p>Created an app to automate home devices and security.</p>
+                            </li>
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Jobs</h5>
+                        <p class="card-text">
+                            <li></li>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="separator"></hr>
+
+            <div class="reviews">
+                <h4 class="partie3-1">Recommendations</h4>
+                <div class="reviews-container">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://i.pravatar.cc/100?img=1">
+                            <div class="review-name">Ahmed Ben Ali</div>
+                        </div>
+                        <div class="review-text">A highly motivated and talented developer.</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://i.pravatar.cc/100?img=2">
+                            <div class="review-name">Sarra Trabelsi</div>
+                        </div>
+                        <div class="review-text">Impressive skills in web development and UI design.</div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://i.pravatar.cc/100?img=3">
+                            <div class="review-name">Youssef Kacem</div>
+                        </div>
+                        <div class="review-text">Strong technical skills and a passion for learning.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="footer" id="footer"></div>
+    <div id="footer"></div>
 
     <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
-
+    <script src="/frontend/assets/js/root.js"></script>
     <script>
-      function loadComponent(id, file) {
-        fetch(file)
-          .then(res => res.text())
-          .then(data => {
-            document.getElementById(id).innerHTML = data;
-            if (id === "profil") {
-              const btn = document.getElementById("editBtn");
-              if (btn) {
-                btn.classList.remove("invisible");
-               
-          // openn modal 
-         btn.addEventListener("click", function() {
-         const modalEl = document.getElementById("editProfileModal");
-         modalEl.style.display = "block";
-         modalEl.classList.add("show");
-         document.body.classList.add("modal-open");
-         const backdrop = document.createElement("div");
-         backdrop.className = "modal-backdrop fade show";
-         backdrop.id = "myBackdrop";
-         document.body.appendChild(backdrop);
-         });          
-        // close modal
-         document.addEventListener("click", function(e) {
-         if (e.target.closest(".close")) {  
-          document.getElementById("editProfileModal").style.display = "none";
-          document.getElementById("editProfileModal").classList.remove("show");
-          document.body.classList.remove("modal-open");
-          const backdrop = document.getElementById("myBackdrop");
-          if (backdrop) backdrop.remove();
-          } });
-         }}
-    })
-          .catch(err => console.error("Error loading:", file, err));
-      }
-      loadComponent("navbar", "../components/navbar.html");
-      loadComponent("footer", "../components/footer.html");
-      loadComponent("profil", "../pages/profil.html");
-
-    document.addEventListener("click", function(e) {
-  if (e.target.closest(".close")) {
-    const modalEl = document.getElementById("editProfileModal");
-    modalEl.style.display = "none";
-    modalEl.classList.remove("show");
-    document.body.classList.remove("modal-open");
-    const backdrop = document.getElementById("myBackdrop");
-    if (backdrop) backdrop.remove();
-  }})
-//fucntions
-      function addProject() {
-        const div = document.createElement("div");
-        div.className = "input-group mb-2";
-        div.innerHTML = `
-          <input type="text" class="form-control" placeholder="Project's Name">
-          <input type="text" class="form-control" placeholder="Description">
-          <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">×</button>
-        `;
-        document.getElementById("projects-list").appendChild(div);
-      }
-
-      function addJob() {
-        const div = document.createElement("div");
-        div.className = "input-group mb-2";
-        div.innerHTML = `
-          <input type="text" class="form-control" placeholder="Title">
-          <input type="text" class="form-control" placeholder="Entreprise">
-          <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">×</button>
-        `;
-        document.getElementById("jobs-list").appendChild(div);
-      }
-
-      function addSkill() {
-        const div = document.createElement("div");
-        div.className = "input-group mb-2";
-        div.innerHTML = `
-          <input type="text" class="form-control" placeholder="Skills and certifications">
-          <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">×</button>
-        `;
-        document.getElementById("skills-list").appendChild(div);
-      }
-
-      function addAchievement() {
-        const div = document.createElement("div");
-        div.className = "input-group mb-2";
-        div.innerHTML = `
-          <input type="text" class="form-control" placeholder="Achievement">
-          <input type="text" class="form-control" placeholder="Description">
-          <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">×</button>
-        `;
-        document.getElementById("achievements-list").appendChild(div);
-      }
-
-      function saveProfile() {
-        const modalEl = document.getElementById("editProfileModal");
-        modalEl.style.display = "none";
-        modalEl.classList.hide();
-       const backdrop = document.getElementById("myBackdrop");      }
+        loadComponent("navbar", "/frontend/components/navbar.html", function() {
+            initTheme();
+            setActiveNav();
+        });
+        loadComponent("footer", "/frontend/components/footer.html");
     </script>
 </body>
-<script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
-<script src="/frontend/assets/js/root.js"></script>
-<script>
-    loadComponent("navbar", "/frontend/components/navbar.html", function() {
-        initTheme();
-        setActiveNav();
-    });
-    loadComponent("footer", "/frontend/components/footer.html");
-</script>
 </html>

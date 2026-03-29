@@ -4,27 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alumni - Connect, Profile, Get Hired</title>
+    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/frontend/assets/css/main.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <h1>🎓 Alumini</h1>
-            </div>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#support">Support Us</a></li>
-                    <li class="social-links">
-                        <a href="#" title="Facebook">f</a>
-                        <a href="#" title="LinkedIn">in</a>
-                        <a href="#" title="Twitter">𝕏</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div id="navbar"></div>
 
     <section class="hero">
         <div class="container hero-content">
@@ -153,36 +140,36 @@
             <h2>Meet the Minds Behind This</h2>
             <div class="team-grid">
                 <div class="team-member">
-                    <a href="/frontend/assets/images/team-talel.jpg" class="team-photo-link" target="_blank">
-                        <img src="/frontend/assets/images/team-talel.jpg" alt="LAarif talel" class="team-photo">
+                    <a href="/frontend/assets/images/icon-7797704_1280.png" class="team-photo-link" target="_blank">
+                        <img src="/frontend/assets/images/icon-7797704_1280.png" alt="LAarif talel" class="team-photo">
                     </a>
                     <h3>LAarif talel</h3>
                     <p>SWE enginner</p>
                 </div>
                 <div class="team-member">
-                    <a href="/frontend/assets/images/team-arij.jpg" class="team-photo-link" target="_blank">
-                        <img src="/frontend/assets/images/team-arij.jpg" alt="CHEbbi Arij" class="team-photo">
+                    <a href="/frontend/assets/images/icon-7797704_1280.png" class="team-photo-link" target="_blank">
+                        <img src="/frontend/assets/images/icon-7797704_1280.png" alt="CHEbbi Arij" class="team-photo">
                     </a>
                     <h3>CHEbbi Arij </h3>
                     <p> SWE engineer</p>
                 </div>
                 <div class="team-member">
-                    <a href="/frontend/assets/images/team-loua.jpg" class="team-photo-link" target="_blank">
-                        <img src="/frontend/assets/images/team-loua.jpg" alt="loua klai" class="team-photo">
+                    <a href="/frontend/assets/images/icon-7797704_1280.png" class="team-photo-link" target="_blank">
+                        <img src="/frontend/assets/images/icon-7797704_1280.png" alt="loua klai" class="team-photo">
                     </a>
                     <h3>loua klai </h3>
                     <p> SWE enginner</p>
                 </div>
                 <div class="team-member">
-                    <a href="/frontend/assets/images/team-alaa.jpg" class="team-photo-link" target="_blank">
-                        <img src="/frontend/assets  /images/team-alaa.jpg" alt="Alaa FAdhel" class="team-photo">
+                    <a href="/frontend/assets/images/icon-7797704_1280.png" class="team-photo-link" target="_blank">
+                        <img src="/frontend/assets/images/icon-7797704_1280.png" alt="Alaa FAdhel" class="team-photo">
                     </a>
                     <h3>Alaa FAdhel</h3>
                     <p> SWe engineer</p>
                 </div>
                  <div class="team-member">
-                    <a href="/frontend/assets/images/team-wala.jpg" class="team-photo-link" target="_blank">
-                        <img src="/frontend/assets/images/team-wala.jpg" alt="WAla SElmi" class="team-photo">
+                    <a href="/frontend/assets/images/icon-7797704_1280.png" class="team-photo-link" target="_blank">
+                        <img src="/frontend/assets/images/icon-7797704_1280.png" alt="WAla SElmi" class="team-photo">
                     </a>
                     <h3>WAla SElmi </h3>
                     <p>Swe Engineer</p>
@@ -198,12 +185,18 @@
             <button class="cta-button">Get In Touch</button>
         </div>
     </section>
-    <footer class="footer">
-        <div class="container">
-            <p>INSAT Made With ❤️</p>
-            <small>&copy; 2026 Alumni Platform. All rights reserved.</small>
-        </div>
-    </footer>
+
+    <div id="footer"></div>
+
+    <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/frontend/assets/js/root.js"></script>
+    <script>
+        loadComponent("navbar", "/frontend/components/navbar.html", function() {
+            initTheme();
+            setActiveNav();
+        });
+        loadComponent("footer", "/frontend/components/footer.html");
+    </script>
 
 </body>
 </html>

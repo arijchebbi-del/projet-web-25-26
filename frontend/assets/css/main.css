@@ -9,6 +9,7 @@ body {
     line-height: 1.6;
     color: rgba(80, 32, 17, 0.647);
     background-color: #f8f9fa;
+    padding-top: 70px;
 }
 
 .container {
