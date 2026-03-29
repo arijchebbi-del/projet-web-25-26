@@ -67,3 +67,21 @@ function addCardToPage(name, photo, promo,...skills) {
   }
 }
 
+
+
+/***
+ * @param {string} page : the number of the page to create
+ * @return string : a string of html representing a pagination item with the page number
+ * 
+ * This function generates an HTML string for a pagination item, which is typically used in a pagination component to allow users to navigate through multiple pages of content. The generated HTML includes a list item with the class "page-item" and an anchor tag with the class "page-link" that displays the page number. This string can be used to dynamically create pagination controls on a webpage.
+ * 
+ * Note: The href attribute in the anchor tag is set to "#" as a placeholder. In a real implementation, you would likely want to replace this with a link that points to the appropriate page or add an event listener to handle pagination clicks.
+ */
+function createPaginationNumber(page) {
+  return `<li class="page-item"><a class="page-link" href="#">${page}</a></li>`;
+}
+
+
+
+
+
