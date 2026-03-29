@@ -13,13 +13,17 @@
 <body>
     <div id="navbar"></div>
 
-    <section class="hero">
+    <section class="hero" id="promoHero">
         <div class="container hero-content">
             <h2>Welcome to Alumini</h2>
             <p class="subtitle"> je suis toujours insatien</p>
             <p class="description">Connect with fellow INSAT graduates, showcase your profile, and discover amazing job opportunities</p>
             <button class="cta-button">join us</button>
         </div>
+
+        <button type="button" class="promo-nav promo-prev btn btn-light" aria-label="Previous promo">‹</button>
+        <button type="button" class="promo-nav promo-next btn btn-light" aria-label="Next promo">›</button>
+        <div class="promo-dots" aria-label="Promo navigation"></div>
     </section>
 
     <section id="about" class="about">
@@ -190,6 +194,7 @@
 
     <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/frontend/assets/js/root.js"></script>
+    <script src="/frontend/assets/js/main.js"></script>
     <script>
         loadComponent("navbar", "/frontend/components/navbar.html", function() {
             initTheme();
