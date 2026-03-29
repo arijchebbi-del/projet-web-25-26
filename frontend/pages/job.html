@@ -3,9 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Alumini | Jobs</title>
+    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/job.css">
+    <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
 </head>
+
 <body>
-    
+<div id="navbar"></div>
+<div class="page-content">
+<div class="container">
+  
+  <!-- Filter Header -->
+  <div class="filter-header">
+    <h2 class="filter">Filter</h2>
+    <button type="button" id="clear" class="btn">Clear All</button>
+  </div>
+
+  <!-- Job Type -->
+  <div class="slide_bar">
+    <h5>Job Type</h5>
+    <div class="form-checks-wrapper">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="fulltime">
+        <label class="form-check-label" for="fulltime">Full-time</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="parttime">
+        <label class="form-check-label" for="parttime">Part-time</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="internship">
+        <label class="form-check-label" for="internship">Internship</label>
+      </div>
+    </div>
+  </div>
+    <!-- Remote -->
+<div class="slide_bar">
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="remoteCheck">
+    <label class="form-check-label" for="remoteCheck">Open to remote</label>
+  </div>
+</div>
+  <!-- Salary -->
+  <div class="salary-section">
+    <h5>Range Salary</h5>
+    <input type="range" class="form-range" min="100" max="5000" value="2500" id="range4">
+    <output id="rangeValue">2500 DT</output>
+  </div>
+
+  <!-- Experience -->
+  <div class="slide_bar">
+    <h5>Experience</h5>
+    <div class="form-checks-wrapper">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp1">
+        <label class="form-check-label" for="exp1">Less than a year</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp2">
+        <label class="form-check-label" for="exp2">1-3 years</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp3">
+        <label class="form-check-label" for="exp3">3-5 years</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp4">
+        <label class="form-check-label" for="exp4">More than 5 years</label>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="right_container">
+  <div class="search_up d-flex align-items-end gap-2 mb-4">
+
+    <div class="mb-3 flex-grow-1">
+      <input type="text" class="form-control" id="jobTitle" placeholder="Job Title">
+    </div>
+
+    <div class="mb-3">
+     
+      <select class="form-select" id="country">
+        <option selected>Country</option>
+        <option value="1">Tunisia</option>
+        <option value="2">Morocco</option>
+        <option value="3">France</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+     
+      <select class="form-select" id="city">
+        <option selected>City</option>
+        <option value="1">Tunis</option>
+        <option value="2">Sfax</option>
+        <option value="3">Sousse</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <button class="btn btn-primary" id="search" style="height: 38px; margin-top: 28px;">Search</button>
+    </div>
+  </div>
+  <div class="job_cards d-flex flex-wrap gap-3">
+    <div class="card p-3" style="width: 250px;">
+      <h5>UI/UX Designer</h5>
+      <p>Pixelz Studio • Yogyakarta</p>
+      <span>Fulltime • Hybrid • 2-4 Years</span>
+      <p>$1000/m</p>
+      <button onclick="window.location .href='post.html'" class="btn btn-outline-primary mt-2">Apply Now</button>
+    </div>
+    <div class="card p-3" style="width: 250px;">
+      <h5>UI/UX Designer</h5>
+      <p>Pixelz Studio • Yogyakarta</p>
+      <span>Fulltime • Hybrid • 2-4 Years</span>
+      <p>$1000/m</p>
+      <button class="btn btn-outline-primary mt-2">Apply Now</button>
+    </div>
+    <div class="card p-3" style="width: 250px;">
+      <h5>UI/UX Designer</h5>
+      <p>Pixelz Studio • Yogyakarta</p>
+      <span>Fulltime • Hybrid • 2-4 Years</span>
+      <p>$1000/m</p>
+      <button class="btn btn-outline-primary mt-2">Apply Now</button>
+    </div>
+    <div class="card p-3" style="width: 250px;">
+      <h5>UI/UX Designer</h5>
+      <p>Pixelz Studio • Yogyakarta</p>
+      <span>Fulltime • Hybrid • 2-4 Years</span>
+      <p>$1000/m</p>
+      <button class="btn btn-outline-primary mt-2">Apply Now</button>
+    </div>
+    <div class="card p-3" style="width: 250px;">
+      <h5>UI/UX Designer</h5>
+      <p>Pixelz Studio • Yogyakarta</p>
+      <span>Fulltime • Hybrid • 2-4 Years</span>
+      <p>$1000/m</p>
+      <button class="btn btn-outline-primary mt-2">Apply Now</button>
+    </div>
+  </div>
+</div>
+</div>
+<div id="footer"></div>
 </body>
+<script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/frontend/assets/js/root.js"></script>
+<script>
+    loadComponent("navbar", "/frontend/components/navbar.html", function() {
+        initTheme();
+        setActiveNav();
+    });
+    loadComponent("footer", "/frontend/components/footer.html");
+</script>
 </html>

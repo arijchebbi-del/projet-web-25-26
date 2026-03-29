@@ -9,19 +9,6 @@
      <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
-<script>
-function loadComponent(id, file) {
-  fetch(file)
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById(id).innerHTML = data;
-    })
-    .catch(err => console.error("Error loading:", file, err));
-}
-
-loadComponent("navbar", "../components/navbar.html");
-loadComponent("footer", "../components/footer.html");
-</script>
   <body>
     <!-- Navbar will be injected here -->
     <div id="navbar"></div>
@@ -136,7 +123,14 @@ loadComponent("footer", "../components/footer.html");
 </div>
 </div>
   <div class="footer" id="footer"></div>
-  <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
   </body>
-  <script src="/frontend/assets/js/root.js"></script>
+  <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/frontend/assets/js/root.js"></script>
+<script>
+    loadComponent("navbar", "/frontend/components/navbar.html", function() {
+        initTheme();
+        setActiveNav();
+    });
+    loadComponent("footer", "/frontend/components/footer.html");
+</script>
 </html>

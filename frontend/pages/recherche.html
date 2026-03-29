@@ -11,29 +11,65 @@
     <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<script>
-function loadComponent(id, file) {
+
+
+<body>
+    <script>
+function loadComponent(id, file, callback) {
   fetch(file)
     .then(res => res.text())
     .then(data => {
       document.getElementById(id).innerHTML = data;
+      if (callback) callback(); // THIS LINE WAS MISSING
     })
     .catch(err => console.error("Error loading:", file, err));
 }
 
-loadComponent("navbar", "../components/navbar.html");
-loadComponent("footer", "../components/footer.html");
+loadComponent("navbar", "/frontend/components/navbar.html", function() {
+  initTheme();
+  setActiveNav();
+});
+
+loadComponent("footer", "/frontend/components/footer.html");
+
+
+function initTheme() {
+    const btn = document.getElementById("themeBtn");
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+    if (btn) {
+        btn.onclick = toggleTheme;
+    }
+}
+
+function toggleTheme() {
+    const root = document.documentElement;
+    const btn = document.getElementById("themeBtn");
+
+    if (root.getAttribute("data-theme") === "dark") {
+        root.removeAttribute("data-theme");
+        localStorage.setItem("theme", "light");
+        if (btn) btn.innerHTML = '<i class="fa-regular fa-moon"></i>';
+    } else {
+        root.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+}
 </script>
-<body>
     <div id="navbar"></div>
     <div class="container mt-4">
         <form>
             <div class="row justify-content-center align-items-center g-2">
-                <div class="col-sm-12 col-md-8 col-lg-8">
+
+                <div class="col-12 col-md-6 col-lg-7">
                     <input type="text" class="form-control" placeholder="Enter keywords or research title…">
                 </div>
 
-                <div class="col-sm-6 col-md-3 col-lg-2">
+                <div class="col-12 col-md-6 col-lg-3">
                     <select class="form-select w-100" id="filter_dropdown">
                         <option selected disabled>Filter By</option>
                         <option value="promo">Promo</option>
@@ -43,9 +79,10 @@ loadComponent("footer", "../components/footer.html");
                     </select>
                 </div>
 
-                <div class="col-sm-6 col-md-3 col-lg-2">
+                <div class="col-6 col-md-3 col-lg-1">
                     <button type="submit" class="btn btn-light w-100" id="search_button">Search</button>
                 </div>
+
             </div>
         </form>
 
@@ -53,7 +90,9 @@ loadComponent("footer", "../components/footer.html");
             <div class="col-sm-12 col-md-8 col-lg-6">
                 <div class="bg-white p-4 rounded shadow" id="search_results">
                     <p class="text-muted">Your search results will appear here...</p>
+                    
                 </div>
+                
             </div>
         </div>
 
@@ -78,7 +117,10 @@ loadComponent("footer", "../components/footer.html");
         </div>
     </div>
 
+    <div id="footer"></div>
+
 </body>
 <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>
+
 </html>

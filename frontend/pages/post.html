@@ -3,9 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Alumini | Jobs</title>
+    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/job.css">
 </head>
 <body>
-    
+
+<div id="navbar"></div>
+<div class="page-content">
+<div class="container">
+  
+  <div class="filter-header">
+    <h2 class="filter">Filter</h2>
+    <button type="button" id="clear" class="btn">Clear All</button>
+  </div>
+
+  <div class="slide_bar">
+    <h5>Job Type</h5>
+    <div class="form-checks-wrapper">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="fulltime">
+        <label class="form-check-label" for="fulltime">Full-time</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="parttime">
+        <label class="form-check-label" for="parttime">Part-time</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="internship">
+        <label class="form-check-label" for="internship">Internship</label>
+      </div>
+    </div>
+  </div>
+<div class="slide_bar">
+  <div class="form-check form-switch">
+    <input class="form-check-input" type="checkbox" role="switch" id="remoteCheck">
+    <label class="form-check-label" for="remoteCheck">Open to remote</label>
+  </div>
+</div>
+  <div class="salary-section">
+    <h5>Range Salary</h5>
+    <input type="range" class="form-range" min="100" max="5000" value="2500" id="range4">
+    <output id="rangeValue">2500 DT</output>
+  </div>
+  <div class="slide_bar">
+    <h5>Experience</h5>
+    <div class="form-checks-wrapper">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp1">
+        <label class="form-check-label" for="exp1">Less than a year</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp2">
+        <label class="form-check-label" for="exp2">1-3 years</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp3">
+        <label class="form-check-label" for="exp3">3-5 years</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="exp4">
+        <label class="form-check-label" for="exp4">More than 5 years</label>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="right_container">
+  <div class="search_up d-flex align-items-end gap-2 mb-4">
+
+    <div class="mb-3 flex-grow-1">
+      <input type="text" class="form-control" id="jobTitle" placeholder="Job Title">
+    </div>
+
+    <div class="mb-3">
+     
+      <select class="form-select" id="country">
+        <option selected>Country</option>
+        <option value="1">Tunisia</option>
+        <option value="2">Morocco</option>
+        <option value="3">France</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+     
+      <select class="form-select" id="city">
+        <option selected>City</option>
+        <option value="1">Tunis</option>
+        <option value="2">Sfax</option>
+        <option value="3">Sousse</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <button class="btn btn-primary" style="height: 38px; margin-top: 28px;">Search</button>
+    </div>
+  </div>
+
+  <div class="card job-post-card">
+  <div class="card-body">
+    <!-- Job Header -->
+    <h2 class="job-title">UI/UX Designer</h2>
+    <h5 class="company">Pixelz Studio • Yogyakarta</h5>
+    <p class="job-meta">
+      <span class="job-type">Full-time</span> • 
+      <span class="job-mode">Hybrid</span> • 
+      <span class="experience">2-4 Years</span> • 
+      <span class="salary">$1000/m</span>
+    </p>
+
+    <hr>
+    <h4>Description</h4>
+    <p>
+      We are looking for a talented UI/UX Designer to create amazing user experiences. 
+      You will be responsible for understanding user needs, designing intuitive interfaces, 
+      and collaborating closely with developers and product managers.
+    </p>
+    <h4>Responsibilities</h4>
+    <ul>
+      <li>Design user interfaces for web and mobile applications.</li>
+      <li>Create wireframes, prototypes, and mockups.</li>
+      <li>Collaborate with developers to implement designs.</li>
+      <li>Conduct user research and usability testing.</li>
+      <li>Ensure consistent branding across all platforms.</li>
+    </ul>
+    <h4>Requirements</h4>
+    <ul>
+      <li>Bachelor’s degree in Design, HCI, or related field.</li>
+      <li>2-4 years of professional UI/UX experience.</li>
+      <li>Proficiency in Figma, Adobe XD, or Sketch.</li>
+      <li>Strong portfolio demonstrating design skills.</li>
+      <li>Excellent communication and teamwork abilities.</li>
+    </ul>
+
+    <hr>
+    <div class="job-actions">
+      <a href="#" class="btn btn-outline-primary me-2">See Company</a>
+      <a href="#" class="btn btn-primary">Application link</a>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div id="footer"></div>
+
 </body>
+<script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/frontend/assets/js/root.js"></script>
+<script>
+    loadComponent("navbar", "/frontend/components/navbar.html", function() {
+        initTheme();
+        setActiveNav();
+    });
+    loadComponent("footer", "/frontend/components/footer.html");
+</script>
+  <script>
+    function scrollMarquee(button, direction) {
+      const container = button.parentElement;
+      const marqueeWrapper = container.querySelector('.marquee-wrapper');
+      const scrollAmount = 320; 
+      
+      let currentScroll = marqueeWrapper.scrollLeft || 0;
+      let newScroll = currentScroll + (direction * scrollAmount);
+      
+      marqueeWrapper.scrollTo({
+        left: newScroll,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
 </html>

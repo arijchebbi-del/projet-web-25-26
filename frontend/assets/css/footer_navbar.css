@@ -1,6 +1,4 @@
-/* ================= ROOT ================= */
-
-/* 🌞 LIGHT MODE */
+/* light mode chabeb*/
 :root {
     --primary: #711e1e;
     --primary-light: #6d6160;
@@ -21,8 +19,7 @@
     --radius: 12px;
     --transition: all 0.3s ease;
 }
-
-/* 🌙 DARK MODE */
+/*dark mode chabeb */
 [data-theme="dark"] {
     --primary: #710a0a;
     --primary-light: #9f7878;
@@ -36,7 +33,7 @@
     --border: #334155;
 
     --navbar-bg: rgba(29, 30, 34, 0.7);
-    --footer-bg: #020617;
+    --footer-bg: hsl(229, 84%, 5%);
 
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
@@ -48,12 +45,17 @@ body {
     transition: var(--transition);
 }
 
-/* ================= NAVBAR ================= */
+/* navbar*/
 .navbar.bg-body-tertiary {
     background: var(--navbar-bg) !important;
     backdrop-filter: blur(12px);
     box-shadow: var(--shadow);
     border-bottom: 1px solid var(--border);
+    position: fixed;
+    top: 0;             
+    left: 0;
+    width: 100%;         
+    z-index: 1000;  
 }
 
 /* brand */
@@ -80,10 +82,12 @@ body {
     border: 1px solid var(--border);
     border-radius: var(--radius);
 }
-
+.dropdown-item{
+    color:#6b7280
+}
 .dropdown-item:hover {
     background: var(--primary);
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .form-control {
@@ -133,4 +137,22 @@ body {
 
 .footer small {
     color: var(--text-muted);
+}
+.navbar .nav-link {
+  color: var(--text-main) !important;
+  margin: 0 4px;
+  padding: 6px 14px !important;
+  border-radius: 20px;
+  transition: var(--transition);
+}
+
+.navbar .nav-link:hover {
+  color: var(--primary) !important;
+  background-color: rgba(113, 30, 30, 0.08);
+}
+
+.navbar .nav-link.active {
+  color: var(--primary) !important;
+  font-weight: 600;
+  background-color: rgba(113, 30, 30, 0.12);
 }

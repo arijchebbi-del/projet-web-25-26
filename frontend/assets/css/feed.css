@@ -5,6 +5,7 @@
 }
 
 body {
+    padding-top: 80px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -20,10 +21,10 @@ body {
 }
 /*partie taa lmarque wl cards*/
 .h1 {
-    color: #ffffff !important;
+    color: #5a597a !important;
     font-family: 'Georgia', serif !important;
     margin-top: 40px !important;
-    margin-bottom: 30px !important;
+    margin-bottom: 0px !important;
     text-align: center !important;
     font-size: 48px !important;
     font-weight: bold !important;
@@ -34,14 +35,16 @@ body {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding: 2rem 1rem;
+    padding: 5rem 1rem;
 }
 
 .marquee-wrapper {
     flex: 1;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y:visible;
     background: transparent;
+    padding:20px;
 }
 
 .marquee-track {
@@ -52,7 +55,7 @@ body {
 
 .marquee-btn {
     background-color: transparent!important;
-    color: white !important;
+    color: rgb(92, 110, 143) !important;
     border: none !important;
     border-radius: 8px !important;
     padding: 10px 16px !important;
@@ -66,7 +69,7 @@ body {
 .marquee-btn:hover {
     background-color:transparent!important;
     transform: scale(1.1) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 4px 12px rgba(124, 122, 122, 0.3) !important;
 }
 
 .marquee-btn:active {
@@ -74,7 +77,7 @@ body {
 }
 
 .marquee-track > * {
-    color: #ffffff !important;
+    color: #989191 !important;
     font-family: 'Georgia', serif !important;
     font-size: 32px !important;
     font-weight: bold !important;
@@ -144,7 +147,7 @@ body {
 /*hedouma ll li b taswira mainly l profile card*/
 .profile-card {
   width: 300px!important;
-  height: 300px!important; 
+  height: 350px!important; 
   display: flex !important;
   flex-direction: column !important;
   border-radius: 12px !important;
@@ -156,8 +159,10 @@ body {
 
 .profile-card .card-img-top {
   width: 100% !important;
-  height: 120px !important;
+  height: 150px !important;
   object-fit: cover !important;
+  object-position: center top;
+  border-bottom: 3px solid #eee;
 }
 
 .profile-card .card-body {
