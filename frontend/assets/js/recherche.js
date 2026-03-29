@@ -93,6 +93,23 @@ function addPaginationToPage(page) {
   paginationContainer.innerHTML += createPaginationNumber(page);
 }
 
+/**
+ * 
+ * @returns nothing
+ * This function removes the last pagination item from the pagination container in the DOM. It first selects the container with the ID "pagination_numbers" and checks if it contains only one pagination item (the default state). If it does, it does nothing. Otherwise, it removes the last child element of the container, effectively removing the last pagination item from the page. This is useful for managing pagination controls dynamically based on user interactions or changes in the content being paginated.
+ */
+
+function deleteLastPagination() {
+  const paginationContainer = document.querySelector("#pagination_numbers");
+  if(paginationContainer.innerHTML == '<li class="page-item"><a class="page-link" href="#">1</a></li>') {
+    return;
+  } else {
+    paginationContainer.removeChild(paginationContainer.lastChild);
+  }
+}
+
+
+
 
 
 
