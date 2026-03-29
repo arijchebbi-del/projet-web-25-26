@@ -52,6 +52,16 @@ body{
     display: block;
 
 }
+#editBtn {
+    background-color: #7a1a2e ;
+    border-color: #7a1a2e ;
+    color: #ffffff ;
+}
+
+#editBtn:hover {
+    background-color:#857270 ;
+    border-color: #857270 ;
+}
 .nom-button{
     background-image:none;
     display: flex;
@@ -96,7 +106,7 @@ body{
 }
 .partie3-1{
     font-family: Georgia, 'Times New Roman', Times, serif;
-    padding-top: 40px;
+    padding-top: 20px;
     padding-bottom: 20px;
     text-align: center;
     font-size: 50px;
@@ -214,7 +224,7 @@ body{
     margin-top: 5px;
 }
 .reviews{
-    margin-top: 50px;
+    margin-top: 20px;
     max-width: 100%;
     justify-content: space-between;
     gap:20px;
