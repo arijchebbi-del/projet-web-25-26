@@ -29,3 +29,13 @@ function createCard(name, photo, promo,...skills) {
   `;
 }
 
+function addCardToPage(name, photo, promo,...skills) {
+  const cardHtml = createCard(name, photo, promo,...skills);
+  const container = document.querySelector("#search_results");
+  if(container.innerHTML.includes("Your search results will appear here...")) {
+    container.innerHTML = cardHtml;
+  } else {
+    container.innerHTML += cardHtml;
+  }
+}
+
