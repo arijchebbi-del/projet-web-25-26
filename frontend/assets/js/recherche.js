@@ -4,7 +4,7 @@ function createCard(name, photo, promo, skills) {
     : `<div class="avatar-fallback">${name[0]}</div>`;
 
   return `
-    <a href="" class="result-card card border rounded-3 p-3 mb-2">
+    <a href="" class="result-card card border rounded-3 p-3 mb-2 w-100 d-block">
       <div class="d-flex align-items-center gap-3">
         ${imgHtml}
         <div class="flex-grow-1">
@@ -12,10 +12,9 @@ function createCard(name, photo, promo, skills) {
           <p class="text-muted mb-1">${promo}</p>
           <span class="badge skill-badge">${skills}</span>
         </div>
+        <span class="arrow-icon ms-auto">›</span>
       </div>
     </a>
   `;
 }
-
-
 
