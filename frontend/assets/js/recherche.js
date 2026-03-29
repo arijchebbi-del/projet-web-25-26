@@ -1,4 +1,14 @@
-function createCard(name, photo, promo, skills) {
+function configureSkills(...skills) 
+{
+  let accumulator="";
+  skills.forEach(skill => {
+    accumulator+=`<span class="badge skill-badge">${skill}</span>`;
+  });
+  return accumulator;
+}
+
+
+function createCard(name, photo, promo,...skills) {
   const imgHtml = photo
     ? `<img class="avatar" src="${photo}" alt="${name}">`
     : `<div class="avatar-fallback">${name[0]}</div>`;
@@ -9,9 +19,10 @@ function createCard(name, photo, promo, skills) {
         ${imgHtml}
         <div class="flex-grow-1">
           <p class="fw-medium mb-0">${name}</p>
-          <p class="text-muted mb-1">${promo}</p>
-          <span class="badge skill-badge">${skills}</span>
-        </div>
+          <p class="text-muted mb-1">${promo}</p>`
+          +configureSkills(...skills)+
+        `  
+      </div>
         <span class="arrow-icon ms-auto">›</span>
       </div>
     </a>
