@@ -54,13 +54,25 @@ function addJobCard(title, description, skills = [], link = "#", containerId = "
   container.appendChild(card);
 }
 
- addJobCard("Software Engineer", "Join our team!", ["tststs", "CSS", "JS"], "post.html");
-   function addInternshipCard(title, description, skills = [], link = "#") {
-    const container = document.getElementById("internships");
-    const skillHtml = skills.map(s => `<span class="badge">${s}</span>`).join(" ");
-    const card = document.createElement("div");
-    card.classList.add("card");
-    card.innerHTML = `<h5>${title}</h5><p>${description}<br>Skills: ${skillHtml}</p><a href="${link}" class="btn">See more</a>`;
-    container.appendChild(card);
-  }
-   addInternshipCard("uniiiix", "Join our team!", ["tststs", "CSS", "JS"], "post.html");
+function addCard(title, description, skills = [], link = "#", type = "job") {
+  let containerId;
+  if(type === "job") containerId = "jobs-marquee";
+  else if(type === "internship") containerId = "internships-marquee";
+  else containerId = "profiles-marquee"; // fallback if needed
+
+  const container = document.getElementById(containerId);
+  const skillHtml = skills.map(s => `<span class="badge skill-badge">${s}</span>`).join(" ");
+
+  const card = document.createElement("div");
+  card.classList.add("card");
+  card.innerHTML = `
+    <h5>${title}</h5>
+    <p>${description}<br>Skills: ${skillHtml}</p>
+    <a href="${link}" class="btn btn-primary">See more</a>
+  `;
+  container.appendChild(card);
+}
+
+// TESTS
+addCard("Software Engineer", "Join our team!", ["HTML","CSS","JS"], "post.html", "job");
+addCard("AI Intern", "Internship opportunity", ["Python","ML"], "post.html", "internship");
