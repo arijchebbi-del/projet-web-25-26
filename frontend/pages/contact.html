@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/frontend/assets/js/auth.js"></script>
+    <script>
+        requireAuth();
+    </script>
     <title>Alumini | Contact</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -151,7 +155,7 @@
                 <div class="contact-success-icon">🎉</div>
                 <h3>Message Received!</h3>
                 <p>Thanks for reaching out. We'll get back to you within 24 hours. In the meantime, explore the alumni network!</p>
-                <a href="Feed.html" class="btn contact-submit-btn mt-2">← Back to Feed</a>
+                <a href="/frontend/pages/feed.html" class="btn contact-submit-btn mt-2">← Back to Feed</a>
             </div>
 
         </div>
@@ -203,23 +207,11 @@
     });
 </script>
 <script>
-function loadComponent(id, file, callback) {
-  fetch(file)
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById(id).innerHTML = data;
-      if (callback) callback(); // THIS LINE WAS MISSING
-    })
-    .catch(err => console.error("Error loading:", file, err));
-}
-
-loadComponent("navbar", "/frontend/components/navbar.html", function() {
-  initTheme();
-  setActiveNav();
-});
-
-loadComponent("footer", "/frontend/components/footer.html");
-
+        loadComponent("navbar", "/frontend/components/navbar.html", function() {
+                initTheme();
+                setActiveNav();
+        });
+        loadComponent("footer", "/frontend/components/footer.html");
 </script>
 
 </body>

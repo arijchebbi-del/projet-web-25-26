@@ -4,9 +4,29 @@ function loadComponent(id, file, callback) {
         .then(res => res.text())
         .then(data => {
             document.getElementById(id).innerHTML = data;
+            if (id === "navbar") {
+                bindNavbarActions();
+            }
             if (callback) callback();
         })
         .catch(err => console.error("Error loading:", file, err));
+}
+
+function bindNavbarActions() {
+    const logoutLink = document.querySelector('[data-logout="true"]');
+    if (!logoutLink || logoutLink.dataset.bound === "true") {
+        return;
+    }
+
+    logoutLink.addEventListener("click", function (event) {
+        event.preventDefault();
+        if (typeof clearSessionId === "function") {
+            clearSessionId();
+        }
+        window.location.href = "/frontend/pages/main.html";
+    });
+
+    logoutLink.dataset.bound = "true";
 }
 
 // ===== Theme =====

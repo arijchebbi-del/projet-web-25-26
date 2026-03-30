@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="/frontend/assets/js/auth.js"></script>
+  <script>
+    requireAuth();
+  </script>
   <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -11,24 +15,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <title>Alumini | Feed</title>
 </head>
-<script>
-function loadComponent(id, file, callback) {
-  fetch(file)
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById(id).innerHTML = data;
-      if (callback) callback(); // THIS LINE WAS MISSING
-    })
-    .catch(err => console.error("Error loading:", file, err));
-}
-
-loadComponent("navbar", "/frontend/components/navbar.html", function() {
-  initTheme();
-  setActiveNav();
-});
-
-loadComponent("footer", "/frontend/components/footer.html");
-</script>
 <body>
 
 <div id="navbar"></div>
@@ -51,49 +37,49 @@ loadComponent("footer", "/frontend/components/footer.html");
     </div>
 
     <div class="profile-card card">
-      <img src="images/alaa.jpg" class="card-img-top" alt="Alaa Fadhel">
+      <img src="https://i.pravatar.cc/300?img=11" class="card-img-top" alt="Alaa Fadhel">
       <div class="card-body">
         <h5 class="card-title">Alaa Fadhel</h5>
         <p class="card-text">
           Second year SWE student. AI/ML enthusiast.<br>
           Skills: programming languages, pandas, matplotlib
         </p>
-        <a href="/profile/alaa" class="btn btn-primary w-100">View Profile</a>
+        <a href="/frontend/pages/profil.html" class="btn btn-primary w-100">View Profile</a>
       </div>
     </div>
 
     <div class="profile-card card">
-      <img src="images/talel.jpg" class="card-img-top" alt="Talel Laarif">
+      <img src="https://i.pravatar.cc/300?img=12" class="card-img-top" alt="Talel Laarif">
       <div class="card-body">
         <h5 class="card-title">Talel Laarif</h5>
         <p class="card-text">
           Second year SWE student. AI/ML enthusiast.<br>
           Skills: programming languages, pandas, matplotlib
         </p>
-        <a href="/profile/talel" class="btn btn-primary w-100">View Profile</a>
+        <a href="/frontend/pages/profil.html" class="btn btn-primary w-100">View Profile</a>
       </div>
     </div>
     <div class="profile-card card ">
-      <img src="images/loua.jpg" class="card-img-top" alt="Loua Klai">
+      <img src="https://i.pravatar.cc/300?img=13" class="card-img-top" alt="Loua Klai">
       <div class="card-body">
         <h5 class="card-title">Loua Klai</h5>
         <p class="card-text">
           Second year SWE student. AI/ML enthusiast.<br>
           Skills: programming languages, pandas, matplotlib
         </p>
-        <a href="/profile/loua" class="btn btn-primary w-100">View Profile</a>
+        <a href="/frontend/pages/profil.html" class="btn btn-primary w-100">View Profile</a>
       </div>
     </div>
 
     <div class="profile-card card">
-      <img src="images/wala.jpg" class="card-img-top" alt="Wala Selmi">
+      <img src="https://i.pravatar.cc/300?img=14" class="card-img-top" alt="Wala Selmi">
       <div class="card-body">
         <h5 class="card-title">Wala Selmi</h5>
         <p class="card-text">
           Second year SWE student. AI/ML enthusiast.<br>
           Skills: programming languages, pandas, matplotlib
         </p>
-        <a href="/profile/wala" class="btn btn-primary w-100">View Profile</a>
+        <a href="/frontend/pages/profil.html" class="btn btn-primary w-100">View Profile</a>
       </div>
     </div>
 
