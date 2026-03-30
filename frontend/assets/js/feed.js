@@ -8,7 +8,7 @@
 /*func to add insatien profile to profile marquee*/
 function addProfileCard(name, photo, description, skills = []) {
     /*ylwaej all container snn yekhedh loul par def*/
-  const container = document.querySelector(".marquee-track.profiles") || document.querySelector(".marquee-track"); 
+  const container = document.querySelector("#profiles") || document.querySelector(".marquee-track"); 
 /*ychouf ken fama url img wale snn yhot lharf loul taa nom insatien*/
   const imgHtml = photo
     ? `<img src="${photo}" class="card-img-top" alt="${name}">`
@@ -33,16 +33,13 @@ function addProfileCard(name, photo, description, skills = []) {
 }
 addProfileCard("arouja","lmamrouja.jpg","ya nina ya khoulouud",["psy comme slimen","Python","JavaScript"]);
 
-/**
-add job
-@param {string} title - Job title
-@param {string} description 
-@param {string[]} skills 
-@param {string} link - Link to the job post
-@param {string} containerSelector - Selector for the marquee track to add to
- */
-function addJobCard(title, description, skills = [], link = "#", containerSelector = ".marquee-track.jobs") {
-  const container = document.querySelector(containerSelector) || document.querySelector(".marquee-track");
+function addJobCard(title, description, skills = [], link = "#", containerId = "jobs") {
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.error("Container not found:", containerId);
+    return;
+  }
+
   const skillHtml = skills.map(s => `<span class="badge skill-badge">${s}</span>`).join(" ");
 
   const card = document.createElement("div");
@@ -57,22 +54,13 @@ function addJobCard(title, description, skills = [], link = "#", containerSelect
   container.appendChild(card);
 }
 
-/**
- * Scroll function for marquees
- * @param {HTMLElement} button 
- * @param {number} direction 
- */
-function scrollMarquee(button, direction) {
-  const container = button.parentElement;
-  const wrapper = container.querySelector(".marquee-wrapper");
-  const scrollAmount = 320;
-
-  wrapper.scrollTo({
-    left: wrapper.scrollLeft + (direction * scrollAmount),
-    behavior: "smooth"
-  });
-}
-
-
-addJobCard("Software Engineer", "Join our team", ["HTML","CSS","JS"], "post.html", ".marquee-track.jobs");
-
+ addJobCard("Software Engineer", "Join our team!", ["tststs", "CSS", "JS"], "post.html");
+   function addInternshipCard(title, description, skills = [], link = "#") {
+    const container = document.getElementById("internships");
+    const skillHtml = skills.map(s => `<span class="badge">${s}</span>`).join(" ");
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.innerHTML = `<h5>${title}</h5><p>${description}<br>Skills: ${skillHtml}</p><a href="${link}" class="btn">See more</a>`;
+    container.appendChild(card);
+  }
+   addInternshipCard("uniiiix", "Join our team!", ["tststs", "CSS", "JS"], "post.html");
