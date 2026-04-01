@@ -1,11 +1,11 @@
-/* ── Base ── */
+
 body {
     padding-top: 80px;
     min-height: 100vh;
     background: var(--bg-soft, #f8fafc);
 }
 
-/* ── Hero ── */
+
 .cp-hero {
     background: linear-gradient(135deg, #65171e, #2c0b0e);
     padding: 52px 24px 44px;
@@ -42,14 +42,14 @@ body {
     margin: 0;
 }
 
-/* ── Layout ── */
+
 .cp-wrapper {
     max-width: 720px;
     margin: 40px auto 80px;
     padding: 0 24px;
 }
 
-/* ── Form card ── */
+
 .cp-form-card {
     background: #fff;
     border: 1px solid var(--border, #e5e7eb);
@@ -58,7 +58,7 @@ body {
     box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
 
-/* ── Sections ── */
+
 .cp-section {
     margin-bottom: 36px;
     padding-bottom: 32px;
@@ -96,7 +96,7 @@ body {
     flex-shrink: 0;
 }
 
-/* ── Type selector ── */
+
 .cp-type-selector {
     display: flex;
     gap: 10px;
@@ -130,7 +130,7 @@ body {
     color: var(--text-main, #1f2937);
 }
 
-/* ── Fields ── */
+
 .cp-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -190,7 +190,7 @@ body {
 
 .mt-2 { margin-top: 12px; }
 
-/* ── Chips ── */
+
 .cp-chip-group {
     display: flex;
     flex-wrap: wrap;
@@ -221,7 +221,6 @@ body {
     color: #fff;
 }
 
-/* ── Skills ── */
 .cp-skill-input-row {
     display: flex;
     gap: 8px;
@@ -289,7 +288,7 @@ body {
 
 .cp-skill-tag button:hover { opacity: 1; }
 
-/* ── Actions ── */
+
 .cp-actions {
     display: flex;
     align-items: center;
@@ -342,7 +341,7 @@ body {
 
 .cp-submit-btn:disabled { opacity: 0.65; cursor: not-allowed; }
 
-/* ── Success ── */
+
 .cp-success {
     text-align: center;
     padding: 56px 20px;
@@ -382,7 +381,7 @@ body {
     flex-wrap: wrap;
 }
 
-/* ── Dark mode ── */
+
 [data-theme="dark"] body { background: var(--bg, #0f172a); }
 
 [data-theme="dark"] .cp-form-card {
@@ -421,7 +420,7 @@ body {
 
 [data-theme="dark"] .cp-skill-tag button { color: #ffb3b8; }
 
-/* ── Responsive ── */
+
 @media (max-width: 576px) {
     .cp-wrapper { padding: 0 16px; }
     .cp-form-card { padding: 24px 18px; }

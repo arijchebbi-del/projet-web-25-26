@@ -1,4 +1,4 @@
-// ── Country "Other" toggle ──
+
 const countrySelect = document.getElementById('postCountry');
 const countryOther  = document.getElementById('postCountryOther');
 
@@ -9,7 +9,7 @@ countrySelect.addEventListener('change', () => {
     if (isOther) countryOther.focus();
 });
 
-// ── Type selector ──
+
 const typeBtns = document.querySelectorAll('.cp-type-btn');
 
 typeBtns.forEach(btn => {
@@ -19,7 +19,7 @@ typeBtns.forEach(btn => {
     });
 });
 
-// ── Chip selectors (single select) ──
+
 document.querySelectorAll('.cp-chip-group').forEach(group => {
     group.querySelectorAll('.cp-chip').forEach(chip => {
         chip.addEventListener('click', () => {
@@ -29,7 +29,7 @@ document.querySelectorAll('.cp-chip-group').forEach(group => {
     });
 });
 
-// ── Skills tag input ──
+
 const skillInput  = document.getElementById('skillInput');
 const skillTags   = document.getElementById('skillTags');
 const addSkillBtn = document.getElementById('addSkillBtn');
@@ -64,7 +64,7 @@ skillInput.addEventListener('keydown', e => {
     }
 });
 
-// ── Char counter ──
+
 const desc      = document.getElementById('postDescription');
 const charCount = document.getElementById('charCount');
 
@@ -75,7 +75,7 @@ desc.addEventListener('input', () => {
     }
 });
 
-// ── Form submit ──
+
 const form        = document.getElementById('createPostForm');
 const submitBtn   = document.getElementById('submitPostBtn');
 const postSuccess = document.getElementById('postSuccess');
@@ -84,12 +84,12 @@ form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!validatePost()) return;
 
-    // Show loader
+    
     submitBtn.querySelector('.cp-submit-text').classList.add('d-none');
     submitBtn.querySelector('.cp-submit-loader').classList.remove('d-none');
     submitBtn.disabled = true;
 
-    // Build post object
+    
     const post = {
         id:          Date.now(),
         type:        document.querySelector('input[name="postType"]:checked').value,
@@ -110,7 +110,7 @@ form.addEventListener('submit', function (e) {
         postedAt:    new Date().toISOString()
     };
 
-    // Save to localStorage
+    
     const existing = JSON.parse(localStorage.getItem('aluminiPosts') || '[]');
     existing.unshift(post);
     localStorage.setItem('aluminiPosts', JSON.stringify(existing));
@@ -121,7 +121,7 @@ form.addEventListener('submit', function (e) {
     }, 1200);
 });
 
-// ── Validation ──
+
 function validatePost() {
     let valid = true;
     ['postTitle', 'postCompany', 'postDescription','postLink'].forEach(id => {
@@ -141,7 +141,7 @@ function validatePost() {
     });
 });
 
-// ── Reset form (for "Post Another" button) ──
+
 function resetForm() {
     form.reset();
     skills.length = 0;
@@ -158,11 +158,9 @@ function resetForm() {
     countryOther.style.display = 'none';
     countryOther.required = false;
     countryOther.value = '';
-
-    // Reset type buttons
+    
     typeBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
 
-    // Reset chip groups
     document.querySelectorAll('.cp-chip-group').forEach(group => {
         group.querySelectorAll('.cp-chip').forEach((c, i) => c.classList.toggle('active', i === 0));
     });
