@@ -18,11 +18,13 @@ function bindNavbarActions() {
         return;
     }
 
-    logoutLink.addEventListener("click", function (event) {
+    logoutLink.addEventListener("click", async function (event) {
         event.preventDefault();
-        if (typeof clearSessionId === "function") {
-            clearSessionId();
+
+        if (typeof logoutSession === "function") {
+            await logoutSession();
         }
+
         window.location.href = "/frontend/pages/main.html";
     });
 

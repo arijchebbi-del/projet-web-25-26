@@ -9,6 +9,7 @@
   </script>
     <title>Alumini | Jobs</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/frontend/assets/css/job.css">
@@ -109,51 +110,33 @@
       </select>
     </div>
     <div class="mb-3">
-      <button class="btn btn-primary" id="search" style="height: 38px; margin-top: 28px;">Search</button>
+      <button type="button" class="btn btn-primary" id="search" style="height: 38px; margin-top: 28px;">Search</button>
     </div>
   </div>
-  <div class="job_cards d-flex flex-wrap gap-3">
-    <div class="card p-3" style="width: 250px;">
-      <h5>UI/UX Designer</h5>
-      <p>Pixelz Studio • Yogyakarta</p>
-      <span>Fulltime • Hybrid • 2-4 Years</span>
-      <p>$1000/m</p>
-      <button onclick="window.location .href='post.html'" class="btn btn-outline-primary mt-2">Apply Now</button>
-    </div>
-    <div class="card p-3" style="width: 250px;">
-      <h5>UI/UX Designer</h5>
-      <p>Pixelz Studio • Yogyakarta</p>
-      <span>Fulltime • Hybrid • 2-4 Years</span>
-      <p>$1000/m</p>
-      <button class="btn btn-outline-primary mt-2">Apply Now</button>
-    </div>
-    <div class="card p-3" style="width: 250px;">
-      <h5>UI/UX Designer</h5>
-      <p>Pixelz Studio • Yogyakarta</p>
-      <span>Fulltime • Hybrid • 2-4 Years</span>
-      <p>$1000/m</p>
-      <button class="btn btn-outline-primary mt-2">Apply Now</button>
-    </div>
-    <div class="card p-3" style="width: 250px;">
-      <h5>UI/UX Designer</h5>
-      <p>Pixelz Studio • Yogyakarta</p>
-      <span>Fulltime • Hybrid • 2-4 Years</span>
-      <p>$1000/m</p>
-      <button class="btn btn-outline-primary mt-2">Apply Now</button>
-    </div>
-    <div class="card p-3" style="width: 250px;">
-      <h5>UI/UX Designer</h5>
-      <p>Pixelz Studio • Yogyakarta</p>
-      <span>Fulltime • Hybrid • 2-4 Years</span>
-      <p>$1000/m</p>
-      <button class="btn btn-outline-primary mt-2">Apply Now</button>
-    </div>
-  </div>
+
+  <table id="jobsTable" class="table table-striped table-bordered align-middle w-100">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Company</th>
+        <th>Type</th>
+        <th>Mode</th>
+        <th>Location</th>
+        <th>Salary</th>
+        <th>Experience</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 </div>
 </div>
 <div id="footer"></div>
 </body>
 <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.8/js/dataTables.bootstrap5.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>
 <script src="/frontend/assets/js/job.js"></script>
 <script>
@@ -162,6 +145,6 @@
         setActiveNav();
     });
     loadComponent("footer", "/frontend/components/footer.html");
-  initSalaryRange();
+  initJobPage();
 </script>
 </html>
