@@ -22,7 +22,7 @@
 <div class="marquee-container">
   <button class="marquee-btn btn-left" onclick="scrollMarquee(this, -1)">&#60;</button>
   <div class="marquee-wrapper">
-    <div class="marquee-track">
+    <div class="marquee-track" id="profiles">
 
     <div class="profile-card card">
       <img src="https://avatars.githubusercontent.com/u/247834524?v=4" class="card-img-top" alt="Arij Chebbi">
@@ -106,7 +106,7 @@
 <div class="marquee-container">
   <button class="marquee-btn btn-left" onclick="scrollMarquee(this, -1)">&#60;</button>
   <div class="marquee-wrapper"><!--marque hia elakta li tkhalehom yetharkou -->
-    <div class="marquee-track">
+    <div class="marquee-track" id="jobs">
 <!--les cartes li yokhrjou fl jobs-->
 
     <div class="card">
@@ -167,7 +167,7 @@
 <div class="marquee-container">
   <button class="marquee-btn btn-left" onclick="scrollMarquee(this, -1)">&#60;</button>
   <div class="marquee-wrapper"><!--marque hia elakta li tkhalehom yetharkou -->
-    <div class="marquee-track">
+    <div class="marquee-track" id="internships">
 
 
     <div class="card">
@@ -230,6 +230,7 @@
 </body>
 <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>
+<script src="/frontend/assets/js/feed.js"></script>
 <script>
     loadComponent("navbar", "/frontend/components/navbar.html", function() {
         initTheme();
