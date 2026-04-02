@@ -74,6 +74,11 @@ try {
         exit;
     }
 
+    if ($method === 'POST' && $path === '/api/jobs') {
+        JobsController::create();
+        exit;
+    }
+
     if ($method === 'GET' && $path === '/api/jobs/datatable') {
         JobsController::datatable();
         exit;
@@ -101,6 +106,11 @@ try {
 
     if ($method === 'GET' && preg_match('#^/api/profile/(\d+)$#', $path, $matches) === 1) {
         ProfileController::show((int) $matches[1]);
+        exit;
+    }
+
+    if ($method === 'POST' && preg_match('#^/api/profile/(\d+)/recommend$#', $path, $matches) === 1) {
+        ProfileController::recommend((int) $matches[1]);
         exit;
     }
 

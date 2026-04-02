@@ -92,44 +92,43 @@
 </div>
 <hr class="separator"> </hr>
    <div class="reviews">
-  <h4 class="partie3-1">Recommendations</h4>
+  <div class="d-flex justify-content-between align-items-center">
+    <h4 class="partie3-1 m-0">Recommendations</h4>
+    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#recommendModal">
+      <i class="bi bi-chat-left-quote"></i> Recommend
+    </button>
+  </div>
 
-  <div class="reviews-container">
-    <div class="review-card">
-      <div class="review-header">
-        <img src="https://i.pravatar.cc/100?img=1">
-          <div class="review-name">Ahmed Ben Ali</div>
-      </div>
-      <div class="review-text">
-         A highly motivated and talented developer. Always delivers quality work on time and shows great creativity in solving problems.
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-header">
-        <img src="https://i.pravatar.cc/100?img=2">
-          <div class="review-name">Sarra Trabelsi</div>
-      </div>
-      <div class="review-text">
-        He has impressive skills in web development and UI design. His projects are modern, clean, and user-friendly.
-      </div>
-    </div>
-    <div class="review-card">
-      <div class="review-header">
-        <img src="https://i.pravatar.cc/100?img=3">
-        <div class="review-name">Youssef Kacem
-        </div>
-      </div>
-      <div class="review-text">
-        An excellent student with strong technical skills and a passion for learning. Very dedicated and always ready to take on new challenges.
-      </div>
-    </div>
-    </div>
+<div class="reviews-container" id="recommendationsContainer">
+    <!-- Recommendations will be loaded dynamically by JS -->
+  </div>
 </div>
 </div>
+
+<!-- Recommendation Modal -->
+<div class="modal fade" id="recommendModal" tabindex="-1" aria-labelledby="recommendModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="recommendModalLabel">Write Recommendation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <textarea id="recommendationText" class="form-control" rows="4" placeholder="Share your experience working with this person..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="submitRecommendation()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <div class="footer" id="footer"></div>
   </body>
   <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>
+<script src="/frontend/assets/js/profil.js"></script>
 <script>
     loadComponent("navbar", "/frontend/components/navbar.html", function() {
         initTheme();

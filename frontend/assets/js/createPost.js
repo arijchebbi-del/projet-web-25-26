@@ -110,32 +110,59 @@ form.addEventListener('submit', function (e) {
         postedAt:    new Date().toISOString()
     };
 
-    
-    const existing = JSON.parse(localStorage.getItem('aluminiPosts') || '[]');
-    existing.unshift(post);
-    localStorage.setItem('aluminiPosts', JSON.stringify(existing));
-
-    setTimeout(() => {
-        form.classList.add('d-none');
-        postSuccess.classList.remove('d-none');
-    }, 1200);
+    authApiFetch('/jobs', {
+        method: 'POST',
+        body: JSON.stringify({
+            title: post.title,
+            company: post.company,
+            description: post.description,
+            location: post.city ? `${post.country}, ${post.city}`.trim() : post.country,
+            remote: post.workMode === 'Remote',
+            type: (post.jobType || '').toLowerCase() === 'internship' ? 'internship' : ((post.jobType || '').toLowerCase().includes('part') ? 'part-time' : 'full-time'),
+            experienceYears: Number(post.experience) || 0,
+            salaryMin: parseFloat(post.salary) || null,
+        })
+    }).then(res => res.json()).then(data => {
+        if (!data.ok) {
+            alert('Error creating job: ' + (data.message || 'Unknown error'));
+        } else {
+            form.classList.add('d-none');
+            postSuccess.classList.remove('d-none');
+        }
+    }).catch(err => {
+        console.error('Job creation failed', err);
+        alert('Network error. Check console.');
+    }).finally(() => {
+        submitBtn.querySelector('.cp-submit-text').classList.remove('d-none');
+        submitBtn.querySelector('.cp-submit-loader').classList.add('d-none');
+        submitBtn.disabled = false;
+    });
 });
-
 
 function validatePost() {
     let valid = true;
-    ['postTitle', 'postCompany', 'postDescription','postLink'].forEach(id => {
+    ['postTitle', 'postCompany', 'postDescription', 'postLink'].forEach(id => {
         const el = document.getElementById(id);
-        el.classList.remove('cp-invalid');
-        if (!el.value.trim()) {
-            el.classList.add('cp-invalid');
-            valid = false;
+        if (el) {
+            el.classList.remove('cp-invalid');
+            if (el.required && !el.value.trim()) {
+                el.classList.add('cp-invalid');
+                valid = false;
+            }
         }
     });
+    // Also require custom country if 'other' is selected
+    if (countrySelect.value === 'other') {
+        countryOther.classList.remove('cp-invalid');
+        if (!countryOther.value.trim()) {
+            countryOther.classList.add('cp-invalid');
+            valid = false;
+        }
+    }
     return valid;
 }
 
-['postTitle', 'postCompany', 'postDescription'].forEach(id => {
+['postTitle', 'postCompany', 'postDescription', 'postLink'].forEach(id => {
     document.getElementById(id).addEventListener('input', function () {
         this.classList.remove('cp-invalid');
     });

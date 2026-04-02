@@ -52,6 +52,44 @@ final class ProfileController
         ]);
     }
 
+    public static function recommend(int $toUserId): void
+    {
+        $fromUserId = AuthRequired::userId();
+        if ($fromUserId === $toUserId) {
+            Response::json(['ok' => false, 'error' => 'SELF_RECOMMENDATION', 'message' => 'You cannot recommend yourself.'], 400);
+            return;
+        }
+
+        $body = Request::json();
+        $text = trim((string) ($body['text'] ?? ''));
+
+        if ($text === '') {
+            Response::json(['ok' => false, 'error' => 'VALIDATION_ERROR', 'message' => 'Recommendation text is required.'], 422);
+            return;
+        }
+
+        $pdo = Database::connection();
+        
+        $check = $pdo->prepare('SELECT id FROM users WHERE id = :id');
+        $check->execute(['id' => $toUserId]);
+        if (!$check->fetch()) {
+            Response::json(['ok' => false, 'error' => 'USER_NOT_FOUND', 'message' => 'User not found.'], 404);
+            return;
+        }
+
+        $stmt = $pdo->prepare('INSERT INTO recommandations (from_user, to_user, texte) VALUES (:from_user, :to_user, :texte)');
+        $stmt->execute([
+            'from_user' => $fromUserId,
+            'to_user' => $toUserId,
+            'texte' => $text,
+        ]);
+
+        Response::json([
+            'ok' => true,
+            'message' => 'Recommendation added successfully.'
+        ], 201);
+    }
+
     public static function updateMe(): void
     {
         $userId = AuthRequired::userId();
@@ -162,6 +200,27 @@ final class ProfileController
         $skillsStmt->execute(['user_id' => $userId]);
         $skills = array_map(static fn (array $entry): string => (string) $entry['name'], $skillsStmt->fetchAll());
 
+        $recStmt = $pdo->prepare(
+            'SELECT r.id, r.texte, r.created_at, u.id AS author_id, i.prenom AS author_prenom, i.nom AS author_nom, u.avatar_url AS author_avatar
+             FROM recommandations r
+             INNER JOIN users u ON u.id = r.from_user
+             INNER JOIN insatien i ON i.id = u.insatien_id
+             WHERE r.to_user = :to_user
+             ORDER BY r.created_at DESC'
+        );
+        $recStmt->execute(['to_user' => $userId]);
+        $recommendations = array_map(static fn (array $entry) => [
+            'id' => (int) $entry['id'],
+            'text' => $entry['texte'],
+            'createdAt' => $entry['created_at'],
+            'author' => [
+                'id' => (int) $entry['author_id'],
+                'firstName' => $entry['author_prenom'],
+                'lastName' => $entry['author_nom'],
+                'avatarUrl' => $entry['author_avatar']
+            ]
+        ], $recStmt->fetchAll());
+
         return [
             'id' => (int) $row['id'],
             'email' => $row['email'],
@@ -174,6 +233,7 @@ final class ProfileController
             'profileLink' => $row['profile_link'],
             'avatarUrl' => $row['avatar_url'],
             'skills' => $skills,
+            'recommendations' => $recommendations,
             'insatienId' => (int) $row['insatien_id'],
         ];
     }

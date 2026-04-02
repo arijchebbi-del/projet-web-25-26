@@ -7,10 +7,62 @@ namespace App\Controllers;
 use App\Config\Database;
 use App\Http\Request;
 use App\Http\Response;
+use App\Http\SessionAuth;
 use PDO;
 
 final class JobsController
 {
+    public static function create(): void
+    {
+        $userId = SessionAuth::userId();
+        if ($userId === null) {
+            Response::json(['ok' => false, 'error' => 'AUTH_REQUIRED', 'message' => 'No active session.'], 401);
+            return;
+        }
+
+        $body = Request::json();
+        $title = trim((string) ($body['title'] ?? ''));
+        $company = trim((string) ($body['company'] ?? ''));
+        $type = trim((string) ($body['type'] ?? 'full-time'));
+        $remote = (bool) ($body['remote'] ?? false);
+        $location = trim((string) ($body['location'] ?? ''));
+        $salaryMin = isset($body['salaryMin']) ? (float) $body['salaryMin'] : null;
+        $salaryMax = isset($body['salaryMax']) ? (float) $body['salaryMax'] : null;
+        $currency = trim((string) ($body['currency'] ?? 'TND'));
+        $experience = isset($body['experienceYears']) ? (int) $body['experienceYears'] : null;
+        $description = trim((string) ($body['description'] ?? ''));
+
+        if ($title === '') {
+            Response::json(['ok' => false, 'error' => 'VALIDATION_ERROR', 'message' => 'Title is required.'], 422);
+            return;
+        }
+
+        $pdo = Database::connection();
+        $stmt = $pdo->prepare(
+            'INSERT INTO jobs (titre, entreprise, type, remote, localisation, salary_min, salary_max, currency, req_experience, description, created_by)
+             VALUES (:title, :company, :type, :remote, :location, :salary_min, :salary_max, :currency, :req_experience, :description, :created_by)'
+        );
+        $stmt->execute([
+            'title' => $title,
+            'company' => $company,
+            'type' => $type,
+            'remote' => $remote ? 1 : 0,
+            'location' => $location,
+            'salary_min' => $salaryMin,
+            'salary_max' => $salaryMax,
+            'currency' => $currency ?: 'TND',
+            'req_experience' => $experience,
+            'description' => $description,
+            'created_by' => $userId,
+        ]);
+
+        Response::json([
+            'ok' => true,
+            'message' => 'Job created successfully.',
+            'id' => (int) $pdo->lastInsertId(),
+        ], 201);
+    }
+
     public static function datatable(): void
     {
         $pdo = Database::connection();
@@ -61,7 +113,7 @@ final class JobsController
 
         $maxSalary = Request::query('maxSalary', null);
         if (is_numeric($maxSalary)) {
-            $where[] = 'j.salary_min <= :max_salary';
+            $where[] = '(j.salary_min <= :max_salary OR j.salary_min IS NULL)';
             $params['max_salary'] = (float) $maxSalary;
         }
 
