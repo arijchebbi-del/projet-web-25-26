@@ -21,16 +21,16 @@ final class JobsController
         }
 
         $body = Request::json();
-        $title = trim((string) ($body['title'] ?? ''));
-        $company = trim((string) ($body['company'] ?? ''));
+        $title = substr(trim((string) ($body['title'] ?? '')), 0, 255);
+        $company = substr(trim((string) ($body['company'] ?? '')), 0, 255);
         $type = trim((string) ($body['type'] ?? 'full-time'));
         $remote = (bool) ($body['remote'] ?? false);
-        $location = trim((string) ($body['location'] ?? ''));
+        $location = substr(trim((string) ($body['location'] ?? '')), 0, 255);
         $salaryMin = isset($body['salaryMin']) ? (float) $body['salaryMin'] : null;
         $salaryMax = isset($body['salaryMax']) ? (float) $body['salaryMax'] : null;
         $currency = trim((string) ($body['currency'] ?? 'TND'));
         $experience = isset($body['experienceYears']) ? (int) $body['experienceYears'] : null;
-        $description = trim((string) ($body['description'] ?? ''));
+        $description = substr(trim((string) ($body['description'] ?? '')), 0, 60000);
 
         if ($title === '') {
             Response::json(['ok' => false, 'error' => 'VALIDATION_ERROR', 'message' => 'Title is required.'], 422);
@@ -279,3 +279,5 @@ final class JobsController
         ]);
     }
 }
+
+

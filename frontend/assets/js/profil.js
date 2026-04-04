@@ -47,6 +47,28 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             }
 
+            const postsContainer = document.getElementById('postsContainer');
+            if (postsContainer) {
+                postsContainer.innerHTML = '';
+                if (user.posts && user.posts.length > 0) {
+                    user.posts.forEach(post => {
+                        const postHtml = `
+                            <div class="card mb-2" style="border-radius:10px;">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2 text-muted" style="font-size:0.8rem;">
+                                      ${new Date(post.createdAt).toLocaleDateString()}
+                                    </h6>
+                                    <p class="card-text">${post.content}</p>
+                                </div>
+                            </div>
+                        `;
+                        postsContainer.insertAdjacentHTML('beforeend', postHtml);
+                    });
+                } else {
+                    postsContainer.innerHTML = '<p class="text-muted">No posts yet.</p>';
+                }
+            }
+
         } else {
             alert("Failed to load profile.");
         }
@@ -86,6 +108,38 @@ async function submitRecommendation() {
         }
     } catch (error) {
         console.error("Failed to submit recommendation", error);
+        alert("Network error.");
+    }
+}
+
+async function submitUserProfilePost() {
+    const text = document.getElementById('postContentInput').value.trim();
+
+    if (!text) {
+        alert("Please write something first.");
+        return;
+    }
+
+    try {
+        const response = await authApiFetch(`/posts`, {
+            method: 'POST',
+            body: JSON.stringify({ content: text })
+        });
+        const data = await response.json();
+
+        if (data.ok) {
+            document.getElementById('postContentInput').value = '';
+            // Close modal
+            const myModal = bootstrap.Modal.getInstance(document.getElementById('postModal'));
+            if (myModal) myModal.hide();
+
+            // Reload page to show new post
+            window.location.reload();
+        } else {
+            alert("Failed to create post: " + data.message);
+        }
+    } catch (error) {
+        console.error("Failed to submit post", error);
         alert("Network error.");
     }
 }

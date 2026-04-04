@@ -221,6 +221,14 @@ final class ProfileController
             ]
         ], $recStmt->fetchAll());
 
+        $postStmt = $pdo->prepare('SELECT id, content, created_at FROM posts WHERE user_id = :user_id ORDER BY created_at DESC');
+        $postStmt->execute(['user_id' => $userId]);
+        $posts = array_map(static fn (array $entry) => [
+            'id' => (int) $entry['id'],
+            'content' => $entry['content'],
+            'createdAt' => $entry['created_at'],
+        ], $postStmt->fetchAll());
+
         return [
             'id' => (int) $row['id'],
             'email' => $row['email'],
@@ -234,6 +242,7 @@ final class ProfileController
             'avatarUrl' => $row['avatar_url'],
             'skills' => $skills,
             'recommendations' => $recommendations,
+            'posts' => $posts,
             'insatienId' => (int) $row['insatien_id'],
         ];
     }

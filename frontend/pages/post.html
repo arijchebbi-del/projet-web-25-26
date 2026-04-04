@@ -108,53 +108,82 @@
     </div>
   </div>
 
-  <div class="card job-post-card">
-  <div class="card-body">
-    <!-- Job Header -->
-    <h2 class="job-title">UI/UX Designer</h2>
-    <h5 class="company">Pixelz Studio • Yogyakarta</h5>
-    <p class="job-meta">
-      <span class="job-type">Full-time</span> • 
-      <span class="job-mode">Hybrid</span> • 
-      <span class="experience">2-4 Years</span> • 
-      <span class="salary">$1000/m</span>
-    </p>
-
-    <hr>
-    <h4>Description</h4>
-    <p>
-      We are looking for a talented UI/UX Designer to create amazing user experiences. 
-      You will be responsible for understanding user needs, designing intuitive interfaces, 
-      and collaborating closely with developers and product managers.
-    </p>
-    <h4>Responsibilities</h4>
-    <ul>
-      <li>Design user interfaces for web and mobile applications.</li>
-      <li>Create wireframes, prototypes, and mockups.</li>
-      <li>Collaborate with developers to implement designs.</li>
-      <li>Conduct user research and usability testing.</li>
-      <li>Ensure consistent branding across all platforms.</li>
-    </ul>
-    <h4>Requirements</h4>
-    <ul>
-      <li>Bachelor’s degree in Design, HCI, or related field.</li>
-      <li>2-4 years of professional UI/UX experience.</li>
-      <li>Proficiency in Figma, Adobe XD, or Sketch.</li>
-      <li>Strong portfolio demonstrating design skills.</li>
-      <li>Excellent communication and teamwork abilities.</li>
-    </ul>
-
-    <hr>
-    <div class="job-actions">
-      <a href="#" class="btn btn-outline-primary me-2">See Company</a>
-      <a href="#" class="btn btn-primary">Application link</a>
-    </div>
-  </div>
-</div>
+  <div class="card job-post-card" id="jobDetailsContainer"><div class="card-body"><p>Loading job details...</p></div></div>
 </div>
 </div>
 <div id="footer"></div>
 
+
+
+<script>
+async function loadJobDetails() {
+    const params = new URLSearchParams(window.location.search);
+    const jobId = params.get('id');
+    const container = document.getElementById('jobDetailsContainer');
+
+    if (!jobId) {
+        container.innerHTML = '<div class="card-body"><p class="text-danger">No job ID provided.</p></div>';
+        return;
+    }
+
+    try {
+        const response = await authApiFetch('/jobs/' + jobId);
+        const data = await response.json();
+
+        if (data.ok && data.data) {
+            const job = data.data;
+            const salaryText = (job.salaryMin ? job.salaryMin : '') + (job.salaryMax ? ' - ' + job.salaryMax : '') + (job.salaryMin || job.salaryMax ? ' ' + job.currency : 'Unpaid / Negotiable');
+            const expText = job.experienceYears || job.experienceYears === 0 ? job.experienceYears + ' Years' : 'Not specified';
+            const locationText = job.location || (job.city && job.country ? job.city + ', ' + job.country : (job.country ? job.country : 'Location not specified'));
+
+            let displayHtml = '<div class="card-body">';
+            displayHtml += '<h2 class="job-title">' + escapeHtml(job.title) + '</h2>';
+            displayHtml += '<h5 class="company">' + escapeHtml(job.company || 'Unknown Company') + ' &bull; ' + escapeHtml(locationText) + '</h5>';
+            displayHtml += '<p class="job-meta">';
+            displayHtml += '  <span class="job-type">' + escapeHtml(job.type || 'Full-time') + '</span> &bull; ';
+            displayHtml += '  <span class="job-mode">' + (job.remote ? 'Remote' : 'On-site') + '</span> &bull; ';
+            displayHtml += '  <span class="experience">' + escapeHtml(expText) + '</span> &bull; ';
+            displayHtml += '  <span class="salary">' + escapeHtml(salaryText) + '</span>';
+            displayHtml += '</p><hr>';
+            displayHtml += '<h4>Description</h4>';
+            displayHtml += '<p style="white-space: pre-wrap;">' + escapeHtml(job.description || 'No description provided.') + '</p>';
+            if (job.responsibilities) {
+                displayHtml += '<h4>Responsibilities</h4>';
+                displayHtml += '<p style="white-space: pre-wrap;">' + escapeHtml(job.responsibilities) + '</p>';
+            }
+            if (job.requirements) {
+                displayHtml += '<h4>Requirements</h4>';
+                displayHtml += '<p style="white-space: pre-wrap;">' + escapeHtml(job.requirements) + '</p>';
+            }
+            displayHtml += '<hr><div class="job-actions">';
+            displayHtml += '  <button class="btn btn-primary" onclick="alert(\'Application link not strictly available in DB yet! You would redirect to job.link\')">Apply Now</button>';
+            displayHtml += '</div></div>';
+            container.innerHTML = displayHtml;
+        } else {
+            container.innerHTML = '<div class="card-body"><p class="text-danger">Job not found.</p></div>';
+        }
+    } catch (error) {
+        console.error('Error fetching job details', error);
+        container.innerHTML = '<div class="card-body"><p class="text-danger">Failed to load job details.</p></div>';
+    }
+}
+
+function escapeHtml(text) {
+    if (!text) return '';
+    return String(text).replace(/[&<>'"`]/g, 
+        tag => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;',
+            '`': '&#x60;'
+        }[tag] || tag)
+    );
+}
+
+document.addEventListener('DOMContentLoaded', loadJobDetails);
+</script>
 </body>
 <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>
@@ -184,3 +213,7 @@
   </script>
 
 </html>
+
+
+
+

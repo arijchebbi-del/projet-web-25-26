@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Config\App;
 use App\Controllers\AuthController;
 use App\Controllers\JobsController;
+use App\Controllers\PostsController;
 use App\Controllers\ProfileController;
 use App\Controllers\UsersController;
 use App\Http\Response;
@@ -29,6 +30,7 @@ require_once __DIR__ . '/../src/middleware/AuthRequired.php';
 require_once __DIR__ . '/../src/controllers/AuthController.php';
 require_once __DIR__ . '/../src/controllers/ProfileController.php';
 require_once __DIR__ . '/../src/controllers/JobsController.php';
+require_once __DIR__ . '/../src/controllers/PostsController.php';
 require_once __DIR__ . '/../src/controllers/UsersController.php';
 
 App::loadEnv(dirname(__DIR__));
@@ -96,6 +98,16 @@ try {
 
     if ($method === 'GET' && $path === '/api/profile/me') {
         ProfileController::me();
+        exit;
+    }
+
+    if ($method === 'GET' && $path === '/api/posts') {
+        PostsController::index();
+        exit;
+    }
+    
+    if ($method === 'POST' && $path === '/api/posts') {
+        PostsController::create();
         exit;
     }
 

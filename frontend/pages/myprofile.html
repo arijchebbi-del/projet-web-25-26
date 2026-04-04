@@ -172,6 +172,114 @@
             if (cancelBtn) {
               cancelBtn.addEventListener("click", closeEditModal);
             }
+
+            // Fetch our own profile to populate visually
+            authApiFetch('/profile/me')
+              .then(res => res.json())
+              .then(resData => {
+                if (resData.ok && resData.data) {
+                  const user = resData.data;
+
+                  // Hide recommend button
+                  const recBtn = document.querySelector('[data-bs-target="#recommendModal"]');
+                  if(recBtn) {"none"===recBtn.style.display; recBtn.style.display="none";}
+                    const addPostBtn = document.getElementById('addPostBtn');
+                    if(addPostBtn) addPostBtn.style.display = 'block';
+                  const nom = document.querySelector('.nom');
+                  if(nom) nom.textContent = `${user.firstName} ${user.lastName}`;
+                  
+                  const info = document.querySelector('.info-body .info-text');
+                  if(info) info.textContent = user.bio || "No bio provided.";
+                  
+                  const nomEls = document.querySelectorAll('.num-id');
+                  if(nomEls.length > 0) nomEls[0].textContent = user.insatienId || "N/A";
+                  if (nomEls.length > 1) nomEls[1].textContent = user.promoYear || "N/A";
+
+                  if (user.avatarUrl) {
+                      const profilePic = document.querySelector('.profile-pic');
+                      if(profilePic) profilePic.src = user.avatarUrl;
+                      const modalPic = document.querySelector('.modal-avatar .profile-pic');
+                      if(modalPic) modalPic.src = user.avatarUrl;
+                  }
+
+                  const skillsPart = document.querySelector('.skills-part2');
+                  if (skillsPart) {
+                      skillsPart.innerHTML = '';
+                      if (user.skills && user.skills.length > 0) {
+                          user.skills.forEach(skill => {
+                              skillsPart.insertAdjacentHTML('beforeend', `<span class="badge skill-badge" style="background-color: var(--secondary-color); color: white; padding: 5px 10px; border-radius: 5px; margin-right:5px;">${skill}</span>`);
+                          });
+                      } else {
+                          skillsPart.innerHTML = '<p class="text-muted">No skills added yet.</p>';
+                      }
+                  }
+                    const postsContainer = document.getElementById('postsContainer');
+                    if (postsContainer) {
+                        postsContainer.innerHTML = '';
+                        if (user.posts && user.posts.length > 0) {
+                            user.posts.forEach(post => {
+                                const postHtml = `
+                                    <div class="card mb-2" style="border-radius:10px;">
+                                        <div class="card-body">
+                                            <h6 class="card-subtitle mb-2 text-muted" style="font-size:0.8rem;">
+                                              ${new Date(post.createdAt).toLocaleDateString()}
+                                            </h6>
+                                            <p class="card-text">${post.content}</p>
+                                        </div>
+                                    </div>
+                                `;
+                                postsContainer.insertAdjacentHTML('beforeend', postHtml);
+                            });
+                        } else {
+                            postsContainer.innerHTML = '<p class="text-muted" style="padding: 10px; font-style: italic;">No posts yet.</p>';
+                        }
+                    }
+                  const recContainer = document.getElementById('recommendationsContainer');
+                  if (recContainer) {
+                      recContainer.innerHTML = '';
+                      if (user.recommendations && user.recommendations.length > 0) {
+                          user.recommendations.forEach(rec => {
+                              const recHtml = `
+                                  <div class="review-card">
+                                    <div class="review-header">
+                                      <img src="${rec.author.avatarUrl || 'https://i.pravatar.cc/100?img=' + rec.author.id}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                        <div class="review-name" style="font-weight: bold; margin-left: 10px;">${rec.author.firstName} ${rec.author.lastName}</div>
+                                    </div>
+                                    <div class="review-text" style="margin-top: 10px; color: #555;">${rec.text}</div>
+                                  </div>
+                              `;
+                              recContainer.insertAdjacentHTML('beforeend', recHtml);
+                          });
+                      } else {
+                          recContainer.innerHTML = '<p class="text-muted" style="padding: 10px; font-style: italic;">No recommendations yet.</p>';
+                      }
+                  }
+
+                  // Pre-fill Edit Modal Fields
+                  const fName = document.getElementById('firstName');
+                  if(fName) fName.value = user.firstName || '';
+                  const lName = document.getElementById('lastName');
+                  if(lName) lName.value = user.lastName || '';
+                  const eBio = document.getElementById('editBio');
+                  if(eBio) eBio.value = user.bio || '';
+                  
+                  const skillsList = document.getElementById('skills-list');
+                  if (skillsList) {
+                      skillsList.innerHTML = '';
+                      if(user.skills) {
+                          user.skills.forEach(skill => {
+                              skillsList.insertAdjacentHTML('beforeend', `
+                                  <div class="input-group mb-2">
+                                      <input type="text" class="form-control" value="${skill}">
+                                      <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">×</button>
+                                  </div>
+                              `);
+                          });
+                      }
+                  }
+                }
+              })
+              .catch(console.error);
           })
           .catch(err => console.error("Error loading:", file, err));
       }
@@ -264,6 +372,57 @@
         }
       }
     </script>
+
+  <!-- Post Modal -->
+  <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="postModalLabel">Create a Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea id="postContentInput" class="form-control" rows="4" placeholder="What do you want to share?"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="submitUserProfilePost()">Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<script>
+async function submitUserProfilePost() {
+    const text = document.getElementById('postContentInput').value.trim();
+    if (!text) {
+        alert('Please write something first.');
+        return;
+    }
+    try {
+        const response = await authApiFetch('/posts', {
+            method: 'POST',
+            body: JSON.stringify({ content: text })
+        });
+        const data = await response.json();
+        if (data.ok) {
+            document.getElementById('postContentInput').value = '';
+            const myModal = bootstrap.Modal.getInstance(document.getElementById('postModal'));
+            if (myModal) myModal.hide();
+            window.location.reload();
+        } else {
+            alert('Failed to create post: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Failed to submit post', error);
+        alert('Network error.');
+    }
+}
+</script>
 </body>
 <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>
@@ -275,3 +434,8 @@
     loadComponent("footer", "/frontend/components/footer.html");
 </script>
 </html>
+
+
+
+
+

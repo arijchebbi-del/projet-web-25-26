@@ -61,11 +61,11 @@
                     <div class="cp-row">
                         <div class="cp-field">
                             <label class="cp-label" for="postTitle">Title <span class="cp-req">*</span></label>
-                            <input type="text" class="cp-input" id="postTitle" placeholder="e.g. Full-Stack Developer" required>
+                            <input type="text" class="cp-input" id="postTitle" placeholder="e.g. Full-Stack Developer" required maxlength="255">
                         </div>
                         <div class="cp-field">
                             <label class="cp-label" for="postCompany">Company <span class="cp-req">*</span></label>
-                            <input type="text" class="cp-input" id="postCompany" placeholder="e.g. Vermeg" required>
+                            <input type="text" class="cp-input" id="postCompany" placeholder="e.g. Vermeg" required maxlength="255">
                         </div>
                     </div>
 
@@ -81,11 +81,11 @@
                                 <option>UAE</option>
                                 <option value="other">Other</option>
                             </select>
-                            <input type="text" class="cp-input" id="postCountryOther" placeholder="Type your country…" style="display:none; margin-top: 8px;">
+                            <input type="text" class="cp-input" id="postCountryOther" placeholder="Type your country…" maxlength="120" style="display:none; margin-top: 8px;">
                         </div>
                         <div class="cp-field">
                             <label class="cp-label" for="postCity">City</label>
-                            <input type="text" class="cp-input" id="postCity" placeholder="e.g. Tunis">
+                            <input type="text" class="cp-input" id="postCity" placeholder="e.g. Tunis" maxlength="120">
                         </div>
                     </div>
                 </div>
@@ -156,8 +156,7 @@
                         <span class="cp-step">5</span>
                         Description <span class="cp-req">*</span>
                     </div>
-                    <textarea class="cp-input cp-textarea" id="postDescription" rows="6"
-                        placeholder="Describe the role, responsibilities, and what makes it exciting…" required></textarea>
+                    <textarea class="cp-input cp-textarea" id="postDescription" rows="6" placeholder="Describe the role, responsibilities, and what makes it exciting…" required maxlength="60000"></textarea>
                     <div class="cp-char-count"><span id="charCount">0</span> / 1000</div>
                 </div>
 
@@ -170,7 +169,7 @@
                     <div class="cp-row">
                         <div class="cp-field">
                             <label class="cp-label" for="postLink">Application Link</label>
-                            <input type="url" class="cp-input" id="postLink" placeholder="https://…" required>
+                            <input type="url" class="cp-input" id="postLink" placeholder="https://…" required maxlength="1000">
                         </div>
                         <div class="cp-field">
                             <label class="cp-label" for="postDeadline">Deadline</label>
@@ -179,11 +178,11 @@
                     </div>
                     <div class="cp-field mt-2">
                         <label class="cp-label" for="postContact">Contact Email</label>
-                        <input type="email" class="cp-input" id="postContact" placeholder="hr@company.com">
+                        <input type="email" class="cp-input" id="postContact" placeholder="hr@company.com" maxlength="150">
                     </div>
                     <div class="cp-field mt-2">
                         <label class="cp-label" for="postCompanyWebsite">Company Website</label>
-                        <input type="url" class="cp-input" id="postCompanyWebsite" placeholder="https://company.com">
+                        <input type="url" class="cp-input" id="postCompanyWebsite" placeholder="https://company.com" maxlength="1000">
                     </div>
                 </div>
 
