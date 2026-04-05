@@ -3,7 +3,7 @@ $host = "127.0.0.1";
 $port = "3306";
 $dbname = "webdb";
 $username = "root";
-$password = "140406";
+$password = "";
 
 try {
     $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4", $username, $password);

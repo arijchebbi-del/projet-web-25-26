@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+﻿document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('id');
 
@@ -143,3 +143,4 @@ async function submitUserProfilePost() {
         alert("Network error.");
     }
 }
+

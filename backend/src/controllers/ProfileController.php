@@ -69,7 +69,7 @@ final class ProfileController
         }
 
         $pdo = Database::connection();
-        
+
         $check = $pdo->prepare('SELECT id FROM users WHERE id = :id');
         $check->execute(['id' => $toUserId]);
         if (!$check->fetch()) {
@@ -88,6 +88,50 @@ final class ProfileController
             'ok' => true,
             'message' => 'Recommendation added successfully.'
         ], 201);
+    }
+
+    public static function uploadAvatar(): void
+    {
+        $userId = AuthRequired::userId();
+
+        if (!isset($_FILES['avatar']) || $_FILES['avatar']['error'] !== UPLOAD_ERR_OK) {
+            Response::json(['ok' => false, 'error' => 'UPLOAD_ERROR', 'message' => 'No file uploaded or upload error.'], 400);
+            return;
+        }
+
+        $file = $_FILES['avatar'];
+        $ext = strtolower(pathinfo((string) $file['name'], PATHINFO_EXTENSION));
+        $allowedExts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+        if (!in_array($ext, $allowedExts, true)) {
+            Response::json(['ok' => false, 'error' => 'INVALID_FILE_TYPE', 'message' => 'Only image files are allowed.'], 400);
+            return;
+        }
+
+        $uploadDir = __DIR__ . '/../../../frontend/assets/images/avatars/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $filename = uniqid('avatar_', true) . '.' . $ext;
+        $destPath = $uploadDir . $filename;
+
+        if (!move_uploaded_file((string) $file['tmp_name'], $destPath)) {
+            Response::json(['ok' => false, 'error' => 'UPLOAD_ERROR', 'message' => 'Failed to save photo.'], 500);
+            return;
+        }
+
+        $avatarUrl = '/frontend/assets/images/avatars/' . $filename;
+
+        $pdo = Database::connection();
+        $stmt = $pdo->prepare('UPDATE users SET avatar_url = :avatar_url WHERE id = :user_id');
+        $stmt->execute(['avatar_url' => $avatarUrl, 'user_id' => $userId]);
+
+        Response::json([
+            'ok' => true,
+            'message' => 'Avatar updated successfully.',
+            'data' => ['avatarUrl' => $avatarUrl],
+        ]);
     }
 
     public static function updateMe(): void
@@ -209,7 +253,7 @@ final class ProfileController
              ORDER BY r.created_at DESC'
         );
         $recStmt->execute(['to_user' => $userId]);
-        $recommendations = array_map(static fn (array $entry) => [
+        $recommendations = array_map(static fn (array $entry): array => [
             'id' => (int) $entry['id'],
             'text' => $entry['texte'],
             'createdAt' => $entry['created_at'],
@@ -223,7 +267,7 @@ final class ProfileController
 
         $postStmt = $pdo->prepare('SELECT id, content, created_at FROM posts WHERE user_id = :user_id ORDER BY created_at DESC');
         $postStmt->execute(['user_id' => $userId]);
-        $posts = array_map(static fn (array $entry) => [
+        $posts = array_map(static fn (array $entry): array => [
             'id' => (int) $entry['id'],
             'content' => $entry['content'],
             'createdAt' => $entry['created_at'],
