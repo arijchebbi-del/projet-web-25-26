@@ -8,6 +8,7 @@ $password = "";
 try {
     $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connexion réussie !"; 
 } catch (PDOException $e) {
     die("Erreur DB: " . $e->getMessage());
 }
