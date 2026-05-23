@@ -44,11 +44,15 @@ API base URL becomes:
 - `PUT /api/profile/me`
 - `GET /api/profile/{id}`
 
-## 5) Frontend credentials and sessions
+## 5) Architecture reference
+
+See [docs/architecture.md](../docs/architecture.md) for the end-to-end wiring between the PHP API, MySQL schema, and frontend pages.
+
+## 6) Frontend credentials and sessions
 
 Frontend requests must use `credentials: "include"` because auth uses PHP sessions and httpOnly cookies.
 
-## 6) Seeded accounts
+## 7) Seeded accounts
 
 The seed file creates users with password `password`:
 
