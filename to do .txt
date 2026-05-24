@@ -1,0 +1,36 @@
+1/ fill links to drive 
+2/ refactor code of js in html into exterior functions for clarity and do full documentation 
+3/simplify auth.js 
+4/ fix reseach for jobs bar as its navbar and we sould fix it to have form 
+5/ see if theres redundancy in javascrip code and refactorisation 
+6/start working in symphony migration in parallel branch , transfer rrerouting to, controllers and teh html css layer to tailwind or keep them intact ?
+7/try to implemnt the already existong contoloers make choice of connecting both and keeping the js logic of auth and api intact 
+8/ provide photos data for database 
+8/database migrayon to supabase 
+9/testing the existing plateform 
+10/keep app.ph for env variabkees security
+11/Split the centralized router into resource-based route files the main rerouting with inclusin of auth in all cors before so this part must be included in all docs  require auth in html roo.js  auth0.js 
+12/ make agraph for architecture using marmaid or a tool taht akrem uses +unsersatnd the http folder logic
+13/make sure databasd code is still in accordance to database schema or alumni db sql i personmly forgot .
+--exp of migartio to each file 
+Create a shared bootstrap file
+Put env load, session start, CORS headers, common error handling in one include file.
+This avoids duplicating startup logic in every endpoint.
+Create endpoint files
+Example endpoint files:
+public/api/auth/login.php
+public/api/auth/register.php
+public/api/auth/logout.php
+public/api/profile/me.php
+ for Each file we must 
+includes bootstrap
+checks method
+calls one controller method
+Remove dependency on centralized route matching
+Keep index.php only for legacy or remove API routes from it once migration complete.
+Update frontend URLs
+Change API calls from /api/auth/login to /api/auth/login.php
+Check status codes and JSON shape are unchanged.
+Check session cookie behavior still works.
+we do this for evry  file 
+we should discissee if this is really neceesary bc its unprofessiona and not clean 
