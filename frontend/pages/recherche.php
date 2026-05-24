@@ -131,7 +131,47 @@ function toggleTheme() {
     </div>
 
     <div id="footer"></div>
+<script>
 
+const searchQuery = <?= json_encode($_GET['query'] ?? '') ?>;
+
+let result = [];
+
+if (searchQuery) {
+
+    result = <?= json_encode(
+        (function() use ($conn) {
+
+            $stmt = $conn->prepare("
+                SELECT * 
+                FROM insatien i
+                WHERE i.nom LIKE :query
+                OR i.prenom LIKE :query
+            ");
+
+            $stmt->execute([
+                'query' => '%' . ($_GET['query'] ?? '') . '%'
+            ]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        })()
+    ) ?>;
+    const NUMBER_RESULTS_PER_PAGE = 5;
+    const TOTALNUMBER = result.length;
+    const TOTALPAGES = Math.ceil(TOTALNUMBER / NUMBER_RESULTS_PER_PAGE);
+    int i = 0;
+    clearPagination();
+    for(let i = 1; i <= TOTALPAGES; i++) {
+        addPagination(i);
+    }
+    
+
+
+
+}
+
+</script>
 </body>
 <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>

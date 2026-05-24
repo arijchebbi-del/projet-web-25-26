@@ -107,6 +107,10 @@ function deleteLastPagination() {
     paginationContainer.removeChild(paginationContainer.lastChild);
   }
 }
+function clearPagination() {
+  const paginationContainer = document.querySelector("#pagination_numbers");
+  paginationContainer.innerHTML = '<li class="page-item"><a class="page-link" href="#">1</a></li>';
+}
 
 
  

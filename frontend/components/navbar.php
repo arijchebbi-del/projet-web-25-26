@@ -41,10 +41,20 @@
 
       <!-- SEARCH -->
       <form class="d-flex flex-grow-1">
-        <input class="form-control me-2" type="search" placeholder="Search">
-          <button type="button" onclick="window.location.href='/frontend/pages/recherche.html'" class="btn btn-outline-success">
+        <input class="form-control me-2" type="search" placeholder="Search" name="query" aria-label="Search">>
+          <button type="button" class="btn btn-outline-success">
            Search
            </button>
+        <script>
+          let buttonSearch = window.querySelector(".btn-outline-success");
+          buttonSearch.addEventListener("click", function() {
+            <?php
+              header("Location: /frontend/pages/recherche.php?query=" . urlencode($_GET['query'] ?? ''));
+              ?>
+              });
+        </script>
+          
+
       </form>
 
       <!-- RIGHT -->
