@@ -1,6 +1,3 @@
-/**
- * Global feed page dynamic data fetching script
- */
 function addProfileCard(name, photo, description, skills = []) {
   const container = document.querySelector("#profiles");
   if (!container) return;
