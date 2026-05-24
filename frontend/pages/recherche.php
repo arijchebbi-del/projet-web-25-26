@@ -1,0 +1,139 @@
+<?php
+require_once '../../backend/config/database.php';
+session_start();
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Alumini | Research</title>
+
+    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/recherche.css">
+    <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+
+<body>
+    <script>
+function loadComponent(id, file, callback) {
+  fetch(file)
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById(id).innerHTML = data;
+      if (callback) callback(); // THIS LINE WAS MISSING
+    })
+    .catch(err => console.error("Error loading:", file, err));
+}
+
+loadComponent("navbar", "/frontend/components/navbar.php", function() {
+  initTheme();
+  setActiveNav();
+});
+
+loadComponent("footer", "/frontend/components/footer.php");
+
+
+function initTheme() {
+    const btn = document.getElementById("themeBtn");
+    const saved = localStorage.getItem("theme");
+    if (saved === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+    if (btn) {
+        btn.onclick = toggleTheme;
+    }
+}
+
+function toggleTheme() {
+    const root = document.documentElement;
+    const btn = document.getElementById("themeBtn");
+
+    if (root.getAttribute("data-theme") === "dark") {
+        root.removeAttribute("data-theme");
+        localStorage.setItem("theme", "light");
+        if (btn) btn.innerHTML = '<i class="fa-regular fa-moon"></i>';
+    } else {
+        root.setAttribute("data-theme", "dark");
+        localStorage.setItem("theme", "dark");
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+    }
+}
+</script>
+    <div id="navbar"></div>
+    <div class="container mt-4">
+        <form>
+            <div class="row justify-content-center align-items-center g-2">
+
+                <div class="col-12 col-md-6 col-lg-7">
+                    <input type="text" class="form-control" placeholder="Enter keywords or research title…">
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-3">
+                    <select class="form-select w-100" id="filter_dropdown">
+                        <option selected disabled>Filter By</option>
+                        <option value="promo">Promo</option>
+                        <option value="skills">Skills</option>
+                        <option value="filiere">Filiere</option>
+                        <option value="parcours">Parcours</option>
+                    </select>
+                </div>
+
+                <div class="col-6 col-md-3 col-lg-1">
+                    <button type="submit" class="btn btn-light w-100" id="search_button">Search</button>
+                </div>
+
+            </div>
+        </form>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-sm-12 col-md-8 col-lg-6">
+                <div class="bg-white p-4 rounded shadow" id="search_results">
+                    <p class="text-muted">Your search results will appear here...</p>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-auto">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <div id="pagination_numbers" class="d-flex">
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            
+                        </div>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+</body>
+<script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/frontend/assets/js/root.js"></script>
+<script src="../assets/js/recherche.js"></script>
+</html>
