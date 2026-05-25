@@ -21,7 +21,7 @@ $userId = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/frontend/assets/js/auth.js"></script>
+    <!--<script src="/frontend/assets/js/auth.js"></script>-->
     
     <title>Alumini | Post an Opportunity</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
@@ -79,18 +79,18 @@ $userId = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
                     <div class="cp-row">
                         <div class="cp-field">
                             <label class="cp-label" for="postTitle">Title <span class="cp-req">*</span></label>
-                            <input type="text" class="cp-input" id="postTitle" placeholder="e.g. Full-Stack Developer" required maxlength="255">
+                            <input type="text" class="cp-input" id="postTitle" name="postTitle" placeholder="e.g. Full-Stack Developer" required maxlength="255">
                         </div>
                         <div class="cp-field">
                             <label class="cp-label" for="postCompany">Company <span class="cp-req">*</span></label>
-                            <input type="text" class="cp-input" id="postCompany" placeholder="e.g. Vermeg" required maxlength="255">
+                            <input type="text" class="cp-input" id="postCompany" name="postCompany" placeholder="e.g. Vermeg" required maxlength="255">
                         </div>
                     </div>
 
                     <div class="cp-row">
                         <div class="cp-field">
                             <label class="cp-label" for="postCountry">Country</label>
-                            <select class="cp-input" id="postCountry">
+                            <select class="cp-input" id="postCountry" name="postCountry">
                                 <option value="" disabled selected>Select country</option>
                                 <option>Tunisia</option>
                                 <option>France</option>

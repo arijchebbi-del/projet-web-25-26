@@ -25,6 +25,7 @@ if (!$job) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
 
     <title>
         <?= htmlspecialchars($job->titre) ?> | Alumni
@@ -41,6 +42,18 @@ if (!$job) {
     <script>
         requireAuth();
     </script>
+=======
+  <!--<script src="/frontend/assets/js/auth.js"></script>-->
+  <script>
+    requireAuth();
+  </script>
+    <title>Alumini | Jobs</title>
+    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/frontend/assets/css/job.css">
+>>>>>>> 46a5e882cadc7e82fd7cfb6ae082dae0d0ea0ad6
 </head>
 
 <body id="body">
