@@ -1,9 +1,20 @@
 <?php
-require_once '../../backend/config/database.php';
+require_once '../../backend/config/ConnexionDB.php';
+/*
 if(isset($_SESSION["email"])){
     header("Location: /frontend/pages/login.php");
     exit();
-}
+    }
+*/
+
+/*
+$conn = Database::getInstance();
+$email = $_SESSION['email'];
+$stmt = $conn->prepare("SELECT id FROM users WHERE email = :email")->execute(['email' => $email]);
+$userId = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
+*/
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -149,12 +160,12 @@ if(isset($_SESSION["email"])){
                         Required Skills
                     </div>
                     <div class="cp-skill-input-row">
-                        <input type="text" class="cp-input" id="skillInput" placeholder="Type a skill and press Enter…">
+                        <input type="text" class="cp-input" id="skillInput1" placeholder="Type a skill and press Enter…">
+        
                         <button type="button" class="cp-skill-add-btn" id="addSkillBtn">
                             <i class="bi bi-plus-lg"></i>
                         </button>
                     </div>
-                    <div class="cp-skill-tags" id="skillTags"></div>
                 </div>
 
                 <!--  Description -->
