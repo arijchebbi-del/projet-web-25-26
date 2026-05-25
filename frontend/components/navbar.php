@@ -1,85 +1,98 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/frontend/pages/main.html">Alumini</a>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/frontend/pages/main.html">Alumini</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      
-      <!-- LEFT -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link " href="/frontend/pages/feed.html">Feed</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="/frontend/pages/job.html">Jobs</a>
-        </li>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <li class="nav-item">
-          <a class="nav-link" href="/frontend/pages/contact.html">Contact</a>
-        </li>
+            <!-- LEFT -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link " href="/frontend/pages/feed.html">Feed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/frontend/pages/job.html">Jobs</a>
+                </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            Ressources
-          </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/frontend/pages/contact.html">Contact</a>
+                </li>
 
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="https://drive.google.com/drive/u/0/folders/1gmyDar1F7A_5itlMtrdKcO4xON_G6gX3">MPI</a></li>
-            <li><a class="dropdown-item" href="https://drive.google.com/drive/u/0/folders/1iFiXHyYHEI5hSPseynVy3mOP3sLbn9Mq">GL</a></li>
-            <li><a class="dropdown-item" href="https://drive.google.com/drive/u/0/folders/1_FBnV_eIPdl8joTYitQMPFqXGrzQ31h3">RT</a></li>
-            <li><a class="dropdown-item" href="https://drive.google.com/drive/u/0/folders/1CACO-y17rCYt0pWhXwJDsyAFs5Icl-MT">IIA</a></li>
-            <li><a class="dropdown-item" href="https://drive.google.com/drive/folders/102hdpB_RiEL_L95fKdvGPeGccIm0Gq5Z">IMI</a></li>
-            <li><a class="dropdown-item" href="https://l.facebook.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F10wtYHtoMzz0yBhFpauZMqu-fMJgXgQSP%3Fusp%3Ddrive_link%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExY3BmQ0YybXZlUTlFRTdZSHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR79b5c3Fx50SGBaBO--hfS3s8LPKLIpd7Y-z_KxdIeuVam8YfXJvBq_FBtohA_aem_6PdR6A4eq3x0krtVrZvf9w&h=AUCnghvMHKy8N-_rr9SW5dDGj2-raSg_L_aIGHKy7V07tHOBoxcb2ExqQt-Z7QejXeLRAfrAKZJfqN2C6TINppUQzr9cc_rvwlsEEZ0sKd1GJqizMZzXKAIAHTVE8zDCxKzIGA">CBA</a></li>
-            <li><a class="dropdown-item" href="https://drive.google.com/drive/mobile/folders/1-0ZH0b2UNqLKvH4cEj6ty6BcVWazXtZy?fbclid=IwY2xjawQ7oz5leHRuA2FlbQIxMQBzcnRjBmFwcF9pZAwzNTA2ODU1MzE3MjgAAR73ed883tXWEyNgZ1KwfBrQ7uQQJiWNKx_kVRXrW2pK3OuidcR8ZD26k8g0Ug_aem_Szm2ZXas2dm6a8WlRdajQQ">BIO</a></li>
-            <li><a class="dropdown-item" href="https://l.facebook.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1beMIE5k-Q24ufV0aNrSrvFonk9Lrt7Qg%3Ffbclid%3DIwZXh0bgNhZW0CMTEAAR6Uonl815HpRJw3OBJiw-Wzc8ghm1n4MGRGdGs9OFWgLOqQah5M0yaJwB6Azw_aem_Z4YIflVoJfwfzygjyux3wg&h=AT1FsNOzmuui6SkqzsrBsj6vwPzIBJ9Ddo85Ltc7JGAc2ED6O7I9M8jL_6mnzS3ntkvVN-1OeLPNmo01k0DEHFDxDpPUS_ln6pRZ1K9a55tUJ14SfRUYqeuh3p0QNN8&s=1">CH</a></li>
-          </ul>
-        </li>
-      </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        Ressources
+                    </a>
 
-      <!-- SEARCH -->
-      <form class="d-flex flex-grow-1">
-        <input class="form-control me-2" type="search" placeholder="Search" name="query" aria-label="Search">>
-          <button type="button" class="btn btn-outline-success">
-           Search
-           </button>
-        <script>
-          let buttonSearch = window.querySelector(".btn-outline-success");
-          buttonSearch.addEventListener("click", function() {
-            <?php
-              header("Location: /frontend/pages/recherche.php?query=" . urlencode($_GET['query'] ?? ''));
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item"
+                                href="https://drive.google.com/drive/u/0/folders/1gmyDar1F7A_5itlMtrdKcO4xON_G6gX3">MPI</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="https://drive.google.com/drive/u/0/folders/1iFiXHyYHEI5hSPseynVy3mOP3sLbn9Mq">GL</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="https://drive.google.com/drive/u/0/folders/1_FBnV_eIPdl8joTYitQMPFqXGrzQ31h3">RT</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="https://drive.google.com/drive/u/0/folders/1CACO-y17rCYt0pWhXwJDsyAFs5Icl-MT">IIA</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="https://drive.google.com/drive/folders/102hdpB_RiEL_L95fKdvGPeGccIm0Gq5Z">IMI</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="https://l.facebook.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F10wtYHtoMzz0yBhFpauZMqu-fMJgXgQSP%3Fusp%3Ddrive_link%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExY3BmQ0YybXZlUTlFRTdZSHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR79b5c3Fx50SGBaBO--hfS3s8LPKLIpd7Y-z_KxdIeuVam8YfXJvBq_FBtohA_aem_6PdR6A4eq3x0krtVrZvf9w&h=AUCnghvMHKy8N-_rr9SW5dDGj2-raSg_L_aIGHKy7V07tHOBoxcb2ExqQt-Z7QejXeLRAfrAKZJfqN2C6TINppUQzr9cc_rvwlsEEZ0sKd1GJqizMZzXKAIAHTVE8zDCxKzIGA">CBA</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="https://drive.google.com/drive/mobile/folders/1-0ZH0b2UNqLKvH4cEj6ty6BcVWazXtZy?fbclid=IwY2xjawQ7oz5leHRuA2FlbQIxMQBzcnRjBmFwcF9pZAwzNTA2ODU1MzE3MjgAAR73ed883tXWEyNgZ1KwfBrQ7uQQJiWNKx_kVRXrW2pK3OuidcR8ZD26k8g0Ug_aem_Szm2ZXas2dm6a8WlRdajQQ">BIO</a>
+                        </li>
+                        <li><a class="dropdown-item"
+                                href="https://l.facebook.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Fdrive%2Ffolders%2F1beMIE5k-Q24ufV0aNrSrvFonk9Lrt7Qg%3Ffbclid%3DIwZXh0bgNhZW0CMTEAAR6Uonl815HpRJw3OBJiw-Wzc8ghm1n4MGRGdGs9OFWgLOqQah5M0yaJwB6Azw_aem_Z4YIflVoJfwfzygjyux3wg&h=AT1FsNOzmuui6SkqzsrBsj6vwPzIBJ9Ddo85Ltc7JGAc2ED6O7I9M8jL_6mnzS3ntkvVN-1OeLPNmo01k0DEHFDxDpPUS_ln6pRZ1K9a55tUJ14SfRUYqeuh3p0QNN8&s=1">CH</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <form class="d-flex flex-grow-1 mx-2" action="/frontend/pages/recherche.php" method="GET">
+                <input class="form-control me-2" type="search" name="query" placeholder="Search"
+                    value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>" />
+                <button type="submit" class="btn btn-outline-success">Search</button>
+            </form>
+            <script>
+                let buttonSearch = window.querySelector(".btn-outline-success");
+                buttonSearch.addEventListener("click", function() {
+                <?php
+              if(isset($_GET['query'])) {
+              header("Location: /frontend/pages/recherche.php?query=" . urlencode($_GET['query']));}
               ?>
-              });
-        </script>
-          
+                });
+                </script>
 
-      </form>
+            <!-- RIGHT -->
+            <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <button id="themeBtn" class="btn btn-sm theme-btn">
+                        <i class="fa-regular fa-moon"></i>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/frontend/pages/help.html">Help</a>
+                </li>
 
-      <!-- RIGHT -->
-      <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
-        <li class="nav-item">
-          <button id="themeBtn" class="btn btn-sm theme-btn">
-            <i class="fa-regular fa-moon"></i>
-           </button>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/frontend/pages/help.html">Help</a>  
-        </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/frontend/pages/login.html" data-logout="true">Log out</a>
+                </li>
 
-        <li class="nav-item">
-          <a class="nav-link" href="/frontend/pages/login.html" data-logout="true">Log out</a>  
-        </li>
+                <li class="nav-item d-flex align-items-center">
+                    <a class="nav-link d-flex align-items-center" href="/frontend/pages/myprofile.html">
+                        Profil
+                        <i class="bi bi-person-circle ms-2"></i>
+                    </a>
+                </li>
+            </ul>
 
-        <li class="nav-item d-flex align-items-center">
-          <a class="nav-link d-flex align-items-center" href="/frontend/pages/myprofile.html">
-            Profil
-            <i class="bi bi-person-circle ms-2"></i>
-          </a>
-        </li>
-      </ul>
-
+        </div>
     </div>
-  </div>
 </nav>

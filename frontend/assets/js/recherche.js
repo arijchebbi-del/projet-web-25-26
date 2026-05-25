@@ -1,119 +1,43 @@
-/**
- * 
- * @param  {...any} skills 
- * @returns string accumulator : a string of html spans with the skill names
- * 
- * This function takes a variable number of skill arguments and generates a string of HTML spans for each skill. Each span is styled with the "badge" and "skill-badge" classes, and contains the name of the skill. The resulting string can be used to display the skills in a visually appealing way on a webpage. 
- */
-
-function configureSkills(...skills) 
-{
-  let accumulator="";
-  skills.forEach(skill => {
-    accumulator+=`<span class="badge skill-badge">${skill}</span>`;
-  });
-  return accumulator;
+function configureSkills(...skills) {
+    if (!skills.length) return '';
+    let acc = "";
+    skills.forEach(skill => {
+        acc += `<span class="badge skill-badge">${skill}</span>`;
+    });
+    return acc;
 }
 
+// Added `id` param so the card links to the real profile
+function createCard(name, photo, promo, id, ...skills) {
+    const imgHtml = photo
+        ? `<img class="avatar" src="${photo}" alt="${name}">`
+        : `<div class="avatar-fallback">${name.charAt(0).toUpperCase()}</div>`;
 
-
-/**
- * 
- * @param {string} name  : name of the student
- * @param {photo} photo  : url of the student's photo, if null a fallback with the first letter of the name will be used
- * @param {string} promo  : promotion of the student
- * @param  {...string} skills :  skills of the student
- * @returns string : a string of html representing a card with the student's information and skills
- * 
- * This function creates an HTML card for a student, displaying their name, photo (or a fallback if no photo is provided), promotion, and skills. The card is structured as a link and includes styling classes for layout and appearance. The skills are displayed using the configureSkills function to generate the appropriate HTML spans.
- */
-function createCard(name, photo, promo,...skills) {
-  const imgHtml = photo
-    ? `<img class="avatar" src="${photo}" alt="${name}">`
-    : `<div class="avatar-fallback">${name[0]}</div>`;
-
-  return `
-    <a href="" class="result-card card border rounded-3 p-3 mb-2 w-100 d-block">
-      <div class="d-flex align-items-center gap-3">
-        ${imgHtml}
-        <div class="flex-grow-1">
-          <p class="fw-medium mb-0">${name}</p>
-          <p class="text-muted mb-1">${promo}</p>`
-          +configureSkills(...skills)+
-        `  
-      </div>
-        <span class="arrow-icon ms-auto">›</span>
-      </div>
-    </a>
-  `;
-}
-/**
- * Adds a student card to the page
- * @param {string} name  : name of the student
- * @param {photo} photo  : url of the student's photo, if null a fallback with the first letter of the name will be used
- * @param {string} promo  : promotion of the student
- * @param  {...string} skills :  skills of the student
- * @returns void
- * This function generates an HTML card for a student using the createCard function and appends it to the search results container on the page. If the container currently displays the default message ("Your search results will appear here..."), it replaces that message with the new card. Otherwise, it adds the new card to the existing content in the container.
- */
-
-function addCardToPage(name, photo, promo,...skills) {
-  const cardHtml = createCard(name, photo, promo,...skills);
-  const container = document.querySelector("#search_results");
-  if(container.innerHTML.includes("Your search results will appear here...")) {
-    container.innerHTML = cardHtml;
-  } else {
-    container.innerHTML += cardHtml;
-  }
+    return `
+        <a href="/frontend/pages/profile.php?id=${id}"
+           class="result-card card border rounded-3 p-3 mb-2 w-100 d-block text-decoration-none">
+            <div class="d-flex align-items-center gap-3">
+                ${imgHtml}
+                <div class="flex-grow-1">
+                    <p class="fw-medium mb-0">${name}</p>
+                    <p class="text-muted mb-1">Promo ${promo ?? '—'}</p>
+                    <div class="d-flex flex-wrap gap-1">
+                        ${configureSkills(...skills)}
+                    </div>
+                </div>
+                <span class="arrow-icon ms-auto">›</span>
+            </div>
+        </a>
+    `;
 }
 
-
-
-/***
- * @param {string} page : the number of the page to create
- * @return string : a string of html representing a pagination item with the page number
- * 
- * This function generates an HTML string for a pagination item, which is typically used in a pagination component to allow users to navigate through multiple pages of content. The generated HTML includes a list item with the class "page-item" and an anchor tag with the class "page-link" that displays the page number. This string can be used to dynamically create pagination controls on a webpage.
- * 
- * Note: The href attribute in the anchor tag is set to "#" as a placeholder. In a real implementation, you would likely want to replace this with a link that points to the appropriate page or add an event listener to handle pagination clicks.
- */
-function createPaginationNumber(page) {
-  return `<li class="page-item"><a class="page-link" href="#">${page}</a></li>`;
+// id is now a required param passed from recherche.php
+function addCardToPage(name, photo, promo, id, ...skills) {
+    const container = document.getElementById("search_results");
+    const card      = createCard(name, photo, promo, id, ...skills);
+    if (container.querySelector("p.text-muted")) {
+        container.innerHTML = card;   // replace placeholder
+    } else {
+        container.innerHTML += card;
+    }
 }
-/**
- * 
- * @param {int} page
- * @return void
- * 
- * This function adds a pagination item to the page by appending the HTML generated by the createPaginationNumber function to the pagination container in the DOM. It selects the container with the ID "pagination_numbers" and updates its innerHTML to include the new pagination item. This allows for dynamic addition of pagination controls as needed. 
- *  
- */
-function addPaginationToPage(page) {
-  const paginationContainer = document.querySelector("#pagination_numbers");
-  paginationContainer.innerHTML += createPaginationNumber(page);
-}
-
-/**
- * 
- * @returns nothing
- * This function removes the last pagination item from the pagination container in the DOM. It first selects the container with the ID "pagination_numbers" and checks if it contains only one pagination item (the default state). If it does, it does nothing. Otherwise, it removes the last child element of the container, effectively removing the last pagination item from the page. This is useful for managing pagination controls dynamically based on user interactions or changes in the content being paginated.
- */
-
-function deleteLastPagination() {
-  const paginationContainer = document.querySelector("#pagination_numbers");
-  if(paginationContainer.innerHTML == '<li class="page-item"><a class="page-link" href="#">1</a></li>') {
-    return;
-  } else {
-    paginationContainer.removeChild(paginationContainer.lastChild);
-  }
-}
-function clearPagination() {
-  const paginationContainer = document.querySelector("#pagination_numbers");
-  paginationContainer.innerHTML = '<li class="page-item"><a class="page-link" href="#">1</a></li>';
-}
-
-
- 
-
-
-
