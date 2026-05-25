@@ -1,14 +1,15 @@
 
 
 <?php
+session_start();
 
 require_once '../../backend/config/ConnexionDB.php';
-/*
-session_start();
+
+
 if (!isset($_SESSION['email'])) {
     header("Location: /frontend/pages/login.php");
     exit();
-*/
+}
 
 $query  = trim($_GET['query']  ?? '');
 $filter = trim($_GET['filter'] ?? 'all');

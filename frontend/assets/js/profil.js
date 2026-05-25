@@ -1,10 +1,14 @@
-﻿document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    if (typeof authApiFetch !== "function") {
+        return;
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('id');
 
     if (!userId) {
         alert("No user specified.");
-        window.location.href = "/frontend/pages/recherche.html";
+        window.location.href = "/frontend/pages/recherche.php";
         return;
     }
 

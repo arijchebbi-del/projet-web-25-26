@@ -1,12 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<script src="/frontend/assets/js/auth.js"></script>-->
-    <script>
-        requireAuth();
-    </script>
     <title>Alumini | Help</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -66,17 +70,17 @@
                     <article class="help-item">
                         <h5>Account access</h5>
                         <p>Issues with login, account setup, or profile visibility.</p>
-                        <a href="/frontend/pages/contact.html">Contact support</a>
+                        <a href="/frontend/pages/contact.php">Contact support</a>
                     </article>
                     <article class="help-item">
                         <h5>Jobs and internships</h5>
                         <p>Need help posting or finding opportunities.</p>
-                        <a href="/frontend/pages/job.html">Open jobs</a>
+                        <a href="/frontend/pages/job.php">Open jobs</a>
                     </article>
                     <article class="help-item">
                         <h5>Networking</h5>
                         <p>Discover alumni and connect with people in your field.</p>
-                        <a href="/frontend/pages/feed.html">Explore feed</a>
+                        <a href="/frontend/pages/feed.php">Explore feed</a>
                     </article>
                 </div>
             </div>

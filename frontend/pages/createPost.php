@@ -1,11 +1,12 @@
 <?php
-require_once '../../backend/config/ConnexionDB.php';
-/*
-if(isset($_SESSION["email"])){
+session_start();
+
+if (!isset($_SESSION['email'])) {
     header("Location: /frontend/pages/login.php");
     exit();
-    }
-*/
+}
+
+require_once '../../backend/config/ConnexionDB.php';
 
 /*
 $conn = Database::getInstance();
@@ -206,7 +207,7 @@ $userId = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
 
                 <!-- Actions -->
                 <div class="cp-actions">
-                    <a href="/frontend/pages/feed.html" class="cp-cancel-btn">Cancel</a>
+                    <a href="/frontend/pages/feed.php" class="cp-cancel-btn">Cancel</a>
                     <button type="submit" class="cp-submit-btn" id="submitPostBtn">
                         <span class="cp-submit-text">
                             <i class="bi bi-send-fill me-2"></i>Publish
@@ -226,7 +227,7 @@ $userId = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
                 <h3> Published</h3>
                 <p>Your post is now in the feed. INSATiens can discover and apply to it right away.</p>
                 <div class="cp-success-actions">
-                    <a href="/frontend/pages/feed.html" class="cp-submit-btn">← Back to Feed</a>
+                    <a href="/frontend/pages/feed.php" class="cp-submit-btn">← Back to Feed</a>
                     <button class="cp-cancel-btn" onclick="resetForm()">Post Another</button>
                 </div>
             </div>

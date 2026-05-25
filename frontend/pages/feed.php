@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
+
 require_once '../../backend/config/ConnexionDB.php';
 require_once '../../backend/repository/jobRepository.php';
 require_once '../../backend/repository/userRepository.php';
@@ -20,10 +25,6 @@ $internships = $jobRepo->findInternships();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!--<script src="/frontend/assets/js/auth.js"></script>-->
-  <script>
-    requireAuth();
-  </script>
   <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 
   <link rel="stylesheet" href="../assets/css/feed.css">

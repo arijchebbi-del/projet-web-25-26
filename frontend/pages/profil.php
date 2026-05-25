@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -141,7 +149,7 @@
                 <button id="addPostBtn"
                         class="btn btn-sm"
                         style="background:#65171e; color:#fff; border-radius:8px; display:none;"
-                        onclick="window.location.href='/frontend/pages/createPost.html'">
+                        onclick="window.location.href='/frontend/pages/createPost.php'">
                     + Publier
                 </button>
             </div>

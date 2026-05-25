@@ -1,3 +1,14 @@
+<?php
+session_start();
+$_SESSION = [];
+
+if (ini_get('session.use_cookies')) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], (bool) $params['secure'], (bool) $params['httponly']);
+}
+
+session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +20,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
     <link rel="stylesheet" href="/frontend/assets/css/main.css">
-    <!--<script src="/frontend/assets/js/auth.js"></script>-->
-    <script>
-        redirectIfAuthed();
-    </script>
 </head>
 <body>
     <div id="navbar"></div>
@@ -180,7 +187,7 @@
             <div class="container reveal">
                 <h2>Support this community</h2>
                 <p>Share your feedback, suggest improvements, and help us keep the platform useful for every INSATien.</p>
-                <a href="/frontend/pages/contact.html" class="cta-button">Get in touch</a>
+                <a href="/frontend/pages/contact.php" class="cta-button">Get in touch</a>
             </div>
         </section>
     </main>

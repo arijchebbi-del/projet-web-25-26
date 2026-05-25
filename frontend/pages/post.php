@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
+
 require_once '../../backend/config/ConnexionDB.php';
 require_once '../../backend/repository/jobRepository.php';
 
@@ -19,10 +24,6 @@ if (!$job) {
 }
 ?>
 <!--codek ya talel hedha 
-  <script src="/frontend/assets/js/auth.js"></script>
-  <script>
-    requireAuth();
-  </script>
     <title>Alumini | Jobs</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -49,10 +50,6 @@ if (!$job) {
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <script src="../assets/js/auth.js"></script>
-    <script>
-        requireAuth();
-    </script>
 </head>
 
 <body id="body">
