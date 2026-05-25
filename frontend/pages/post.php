@@ -1,219 +1,239 @@
+<?php
+session_start();
+
+require_once '../../backend/config/ConnexionDB.php';
+require_once '../../backend/repository/jobRepository.php';
+
+$jobRepo = new jobRepository();
+
+$id = $_GET['id'] ?? null;
+
+if (!$id) {
+    die("No job ID provided");
+}
+
+$job = $jobRepo->findById($id);
+
+if (!$job) {
+    die("Job not found");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="/frontend/assets/js/auth.js"></script>
-  <script>
-    requireAuth();
-  </script>
-    <title>Alumini | Jobs</title>
-    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/frontend/assets/css/job.css">
+
+    <title>
+        <?= htmlspecialchars($job->titre) ?> | Alumni
+    </title>
+
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/post.css">
+    <link rel="stylesheet" href="../assets/css/footer_navbar.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        requireAuth();
+    </script>
 </head>
-<body>
+
+<body id="body">
 
 <div id="navbar"></div>
-<div class="page-content">
-<div class="container">
-  
-  <div class="filter-header">
-    <h2 class="filter">Filter</h2>
-    <button type="button" id="clear" class="btn">Clear All</button>
-  </div>
+<div class="page-content container-fluid px-4 py-4">
 
-  <div class="slide_bar">
-    <h5>Job Type</h5>
-    <div class="form-checks-wrapper">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="fulltime">
-        <label class="form-check-label" for="fulltime">Full-time</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="parttime">
-        <label class="form-check-label" for="parttime">Part-time</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="internship">
-        <label class="form-check-label" for="internship">Internship</label>
-      </div>
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <!-- job card -->
+            <div class="card shadow-sm job-detail-card">
+
+                <div class="card-body p-4">
+
+                    <!-- header -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+                        <div>
+                            <h1 class="job-title mb-2">
+                                <?= htmlspecialchars($job->titre) ?>
+                            </h1>
+
+                            <h5 class="text-muted">
+                                <?= htmlspecialchars($job->entreprise) ?>
+                            </h5>
+                        </div>
+
+                        <div>
+                            <span class="badge bg-primary fs-6 p-2">
+                                <?= htmlspecialchars($job->job_type) ?>
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <hr>
+                    <div class="row g-3 mb-4">
+
+                        <div class="col-md-4">
+                            <div class="job-meta-box">
+                                <small class="text-muted">Job Mode</small>
+                                <div>
+                                    <?= htmlspecialchars($job->job_mode) ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="job-meta-box">
+                                <small class="text-muted">Required Experience</small>
+                                <div>
+                                    <?= htmlspecialchars($job->req_experience) ?> years
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="job-meta-box">
+                                <small class="text-muted">Salary</small>
+                                <div>
+                                    <?= htmlspecialchars($job->salary_min) ?>
+                                    -
+                                    <?= htmlspecialchars($job->salary_max) ?>
+                                    DT
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="job-meta-box">
+                                <small class="text-muted">Country</small>
+                                <div>
+                                    <?= htmlspecialchars($job->country_id) ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="job-meta-box">
+                                <small class="text-muted">City</small>
+                                <div>
+                                    <?= htmlspecialchars($job->city_id) ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="job-meta-box">
+                                <small class="text-muted">Publication Date</small>
+                                <div>
+                                    <?= htmlspecialchars($job->date_publication) ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="job-meta-box">
+                                <small class="text-muted">Deadline</small>
+                                <div>
+                                    <?= htmlspecialchars($job->deadline) ?>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="mb-4">
+
+                        <h4>Description</h4>
+
+                        <p class="job-text">
+                            <?= nl2br(htmlspecialchars($job->description)) ?>
+                        </p>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <h4>Requirements</h4>
+
+                        <p class="job-text">
+                            <?= nl2br(htmlspecialchars($job->requirements)) ?>
+                        </p>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <h4>Responsibilities</h4>
+
+                        <p class="job-text">
+                            <?= nl2br(htmlspecialchars($job->responsibilities)) ?>
+                        </p>
+
+                    </div>
+                    <div class="mb-4">
+
+                        <h4>Links & Contact</h4>
+
+                        <div class="d-flex flex-column gap-2">
+
+                            <?php if (!empty($job->company_link)): ?>
+                                <a href="<?= htmlspecialchars($job->company_link) ?>"
+                                   target="_blank"
+                                   class="btn btn-outline-primary">
+                                    Company Website
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (!empty($job->application_link)): ?>
+                                <a href="<?= htmlspecialchars($job->application_link) ?>"
+                                   target="_blank"
+                                   class="btn btn-primary">
+                                    Apply Now
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (!empty($job->contact_email)): ?>
+                                <a href="mailto:<?= htmlspecialchars($job->contact_email) ?>"
+                                   class="btn btn-outline-dark">
+                                    <?= htmlspecialchars($job->contact_email) ?>
+                                </a>
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
-  </div>
-<div class="slide_bar">
-  <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" role="switch" id="remoteCheck">
-    <label class="form-check-label" for="remoteCheck">Open to remote</label>
-  </div>
+
 </div>
-  <div class="salary-section">
-    <h5>Range Salary</h5>
-    <input type="range" class="form-range" min="100" max="5000" value="2500" id="range4">
-    <output id="rangeValue">2500 DT</output>
-  </div>
-  <div class="slide_bar">
-    <h5>Experience</h5>
-    <div class="form-checks-wrapper">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="exp1">
-        <label class="form-check-label" for="exp1">Less than a year</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="exp2">
-        <label class="form-check-label" for="exp2">1-3 years</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="exp3">
-        <label class="form-check-label" for="exp3">3-5 years</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="exp4">
-        <label class="form-check-label" for="exp4">More than 5 years</label>
-      </div>
-    </div>
-  </div>
 
-</div>
-<div class="right_container">
-  <div class="search_up d-flex align-items-end gap-2 mb-4">
-
-    <div class="mb-3 flex-grow-1">
-      <input type="text" class="form-control" id="jobTitle" placeholder="Job Title">
-    </div>
-
-    <div class="mb-3">
-     
-      <select class="form-select" id="country">
-        <option selected>Country</option>
-        <option value="1">Tunisia</option>
-        <option value="2">Morocco</option>
-        <option value="3">France</option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-     
-      <select class="form-select" id="city">
-        <option selected>City</option>
-        <option value="1">Tunis</option>
-        <option value="2">Sfax</option>
-        <option value="3">Sousse</option>
-      </select>
-    </div>
-
-    <div class="mb-3">
-      <button class="btn btn-primary" style="height: 38px; margin-top: 28px;">Search</button>
-    </div>
-  </div>
-
-  <div class="card job-post-card" id="jobDetailsContainer"><div class="card-body"><p>Loading job details...</p></div></div>
-</div>
-</div>
 <div id="footer"></div>
 
 
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/root.js"></script>
 
 <script>
-async function loadJobDetails() {
-    const params = new URLSearchParams(window.location.search);
-    const jobId = params.get('id');
-    const container = document.getElementById('jobDetailsContainer');
+loadComponent("navbar", "../components/navbar.php", function () {
+    initTheme();
+    setActiveNav();
+});
 
-    if (!jobId) {
-        container.innerHTML = '<div class="card-body"><p class="text-danger">No job ID provided.</p></div>';
-        return;
-    }
-
-    try {
-        const response = await authApiFetch('/jobs/' + jobId);
-        const data = await response.json();
-
-        if (data.ok && data.data) {
-            const job = data.data;
-            const salaryText = (job.salaryMin ? job.salaryMin : '') + (job.salaryMax ? ' - ' + job.salaryMax : '') + (job.salaryMin || job.salaryMax ? ' ' + job.currency : 'Unpaid / Negotiable');
-            const expText = job.experienceYears || job.experienceYears === 0 ? job.experienceYears + ' Years' : 'Not specified';
-            const locationText = job.location || (job.city && job.country ? job.city + ', ' + job.country : (job.country ? job.country : 'Location not specified'));
-
-            let displayHtml = '<div class="card-body">';
-            displayHtml += '<h2 class="job-title">' + escapeHtml(job.title) + '</h2>';
-            displayHtml += '<h5 class="company">' + escapeHtml(job.company || 'Unknown Company') + ' &bull; ' + escapeHtml(locationText) + '</h5>';
-            displayHtml += '<p class="job-meta">';
-            displayHtml += '  <span class="job-type">' + escapeHtml(job.type || 'Full-time') + '</span> &bull; ';
-            displayHtml += '  <span class="job-mode">' + (job.remote ? 'Remote' : 'On-site') + '</span> &bull; ';
-            displayHtml += '  <span class="experience">' + escapeHtml(expText) + '</span> &bull; ';
-            displayHtml += '  <span class="salary">' + escapeHtml(salaryText) + '</span>';
-            displayHtml += '</p><hr>';
-            displayHtml += '<h4>Description</h4>';
-            displayHtml += '<p style="white-space: pre-wrap;">' + escapeHtml(job.description || 'No description provided.') + '</p>';
-            if (job.responsibilities) {
-                displayHtml += '<h4>Responsibilities</h4>';
-                displayHtml += '<p style="white-space: pre-wrap;">' + escapeHtml(job.responsibilities) + '</p>';
-            }
-            if (job.requirements) {
-                displayHtml += '<h4>Requirements</h4>';
-                displayHtml += '<p style="white-space: pre-wrap;">' + escapeHtml(job.requirements) + '</p>';
-            }
-            displayHtml += '<hr><div class="job-actions">';
-            displayHtml += '  <button class="btn btn-primary" onclick="alert(\'Application link not strictly available in DB yet! You would redirect to job.link\')">Apply Now</button>';
-            displayHtml += '</div></div>';
-            container.innerHTML = displayHtml;
-        } else {
-            container.innerHTML = '<div class="card-body"><p class="text-danger">Job not found.</p></div>';
-        }
-    } catch (error) {
-        console.error('Error fetching job details', error);
-        container.innerHTML = '<div class="card-body"><p class="text-danger">Failed to load job details.</p></div>';
-    }
-}
-
-function escapeHtml(text) {
-    if (!text) return '';
-    return String(text).replace(/[&<>'"`]/g, 
-        tag => ({
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            "'": '&#39;',
-            '"': '&quot;',
-            '`': '&#x60;'
-        }[tag] || tag)
-    );
-}
-
-document.addEventListener('DOMContentLoaded', loadJobDetails);
+loadComponent("footer", "../components/footer.php");
 </script>
+
 </body>
-<script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
-<script src="/frontend/assets/js/root.js"></script>
-<script src="/frontend/assets/js/job.js"></script>
-<script>
-    loadComponent("navbar", "/frontend/components/navbar.php", function() {
-        initTheme();
-        setActiveNav();
-    });
-    loadComponent("footer", "/frontend/components/footer.php");
-  initSalaryRange();
-</script>
-  <script>
-    function scrollMarquee(button, direction) {
-      const container = button.parentElement;
-      const marqueeWrapper = container.querySelector('.marquee-wrapper');
-      const scrollAmount = 320; 
-      
-      let currentScroll = marqueeWrapper.scrollLeft || 0;
-      let newScroll = currentScroll + (direction * scrollAmount);
-      
-      marqueeWrapper.scrollTo({
-        left: newScroll,
-        behavior: 'smooth'
-      });
-    }
-  </script>
-
 </html>
-
-
-
-

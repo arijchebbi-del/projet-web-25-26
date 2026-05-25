@@ -16,6 +16,11 @@
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+    public function findById($id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM jobs WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
 
     public function findInternships() {
         $stmt = $this->pdo->prepare("
