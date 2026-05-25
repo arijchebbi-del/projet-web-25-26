@@ -9,9 +9,9 @@ class ConnexionDB
         if (self::$instance === null) {
 
             $host = "localhost";
-            $dbname = "webdb";
+            $dbname = "webdb1";
             $username = "root";
-            $password = "";
+            $password = "140406";
 
             self::$instance = new PDO(
                 "mysql:host=$host;dbname=$dbname;charset=utf8",

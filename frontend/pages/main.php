@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
     <link rel="stylesheet" href="/frontend/assets/css/main.css">
-    <script src="/frontend/assets/js/auth.js"></script>
+    <!--<script src="/frontend/assets/js/auth.js"></script>-->
     <script>
         redirectIfAuthed();
     </script>
@@ -28,8 +28,8 @@
                             Find mentors, spotlight your profile, and access opportunities tailored for INSAT students and graduates.
                         </p>
                         <div class="hero-cta-row">
-                            <a href="/frontend/pages/login.html?mode=signup" class="cta-button">Join now</a>
-                            <a href="/frontend/pages/login.html?mode=signin" class="cta-link">Already with us? Sign in</a>
+                            <a href="/frontend/pages/login.php?mode=signup" class="cta-button">Join now</a>
+                            <a href="/frontend/pages/login.php?mode=signin" class="cta-link">Already with us? Sign in</a>
                         </div>
                     </div>
                     <div class="hero-media">

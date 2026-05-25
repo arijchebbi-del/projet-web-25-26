@@ -21,7 +21,7 @@ $userId = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/frontend/assets/js/auth.js"></script>
+    <!--<script src="/frontend/assets/js/auth.js"></script>-->
     
     <title>Alumini | Post an Opportunity</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">

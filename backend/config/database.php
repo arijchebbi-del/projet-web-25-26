@@ -1,9 +1,9 @@
 <?php
 $host = "127.0.0.1";
 $port = "3306";
-$dbname = "webdb";
+$dbname = "webdb1";
 $username = "root";
-$password = "";
+$password = "140406";
 
 try {
     $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4", $username, $password);

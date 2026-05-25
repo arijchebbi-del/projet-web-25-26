@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/frontend/assets/js/auth.js"></script>
+    <!--<script src="/frontend/assets/js/auth.js"></script>-->
     <script>requireAuth();</script>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
