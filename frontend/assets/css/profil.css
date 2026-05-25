@@ -565,6 +565,13 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
+.profile-tagline {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #65171e;
+    margin: 0;
+}
+
 .nom {
     margin: 10px;
     font-style: italic;

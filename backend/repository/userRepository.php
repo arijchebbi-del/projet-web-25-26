@@ -245,4 +245,15 @@ class userRepository {
         $this->pdo->prepare("UPDATE users SET avatar_url = ? WHERE id = ?")
                  ->execute([$avatarUrl, $userId]);
     }
+    
+    public function findPosts(int $userId): array {
+    $stmt = $this->pdo->prepare("
+        SELECT id, content, created_at
+        FROM posts
+        WHERE user_id = ?
+        ORDER BY created_at DESC
+    ");
+    $stmt->execute([$userId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+}
 }

@@ -1,6 +1,54 @@
 /* ══════════════════════════════════════════
+   INIT — pré-remplir le modal à l'ouverture
+══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('editProfileModal');
+    if (!modal) return;
+
+    modal.addEventListener('show.bs.modal', () => {
+        loadSkillChips();
+        loadExperienceRows();
+        loadProjectRows();
+        loadAchievementRows();
+    });
+
+    // Sync nom/tagline en temps réel dans l'en-tête du modal
+    document.getElementById('firstName')?.addEventListener('input', syncModalHeader);
+    document.getElementById('lastName')?.addEventListener('input',  syncModalHeader);
+    document.getElementById('editTagline')?.addEventListener('input', syncModalHeader);
+
+    // Bouton Cancel — reset les listes dynamiques
+    document.getElementById('cancelBtn')?.addEventListener('click', () => {
+        bootstrap.Modal.getInstance(modal)?.hide();
+    });
+});
+
+function syncModalHeader() {
+    const first = document.getElementById('firstName')?.value  || '';
+    const last  = document.getElementById('lastName')?.value   || '';
+    const tag   = document.getElementById('editTagline')?.value || '';
+    const nameEl = document.getElementById('modalDisplayName');
+    const tagEl  = document.getElementById('modalDisplayTagline');
+    if (nameEl) nameEl.textContent = (first + ' ' + last).trim() || 'Votre nom';
+    if (tagEl)  tagEl.textContent  = tag.trim() || 'Add a tagline';
+}
+
+/* ══════════════════════════════════════════
    SKILLS CHIPS
 ══════════════════════════════════════════ */
+function loadSkillChips() {
+    const container = document.getElementById('skills-chips');
+    if (!container) return;
+    container.innerHTML = '';
+
+    let skills = [];
+    try {
+        skills = JSON.parse(container.dataset.skills || '[]');
+    } catch (e) { skills = []; }
+
+    skills.forEach(name => addSkillChipValue(name));
+}
+
 function addSkillChipValue(name) {
     if (!name || !name.trim()) return;
     const chips = document.getElementById('skills-chips');
@@ -14,7 +62,7 @@ function addSkillChipValue(name) {
     const chip = document.createElement('span');
     chip.className = 'skill-chip';
     chip.dataset.skill = name.trim();
-    chip.innerHTML = `${name.trim()} 
+    chip.innerHTML = `${name.trim()}
         <button type="button" onclick="this.parentElement.remove()" aria-label="Remove skill">
             <i class="bi bi-x"></i>
         </button>`;
@@ -32,11 +80,31 @@ function addSkillChip() {
 }
 
 /* ══════════════════════════════════════════
-   EXPERIENCE ROWS (nouvelles lignes vides)
+   EXPERIENCE ROWS
 ══════════════════════════════════════════ */
-function addExperience() {
+function loadExperienceRows() {
     const list = document.getElementById('experience-list');
     if (!list) return;
+    list.innerHTML = '';
+
+    let items = [];
+    try {
+        items = JSON.parse(list.dataset.experiences || '[]');
+    } catch (e) { items = []; }
+
+    items.forEach(exp => {
+        const div = createExperienceRow();
+        div.querySelector('.exp-company').value = exp.entreprise      || '';
+        div.querySelector('.exp-type').value    = exp.experience_type || 'job';
+        div.querySelector('.exp-start').value   = exp.date_debut      || '';
+        div.querySelector('.exp-end').value     = exp.date_fin        || '';
+        div.querySelector('.exp-desc').value    = exp.description     || '';
+        div.querySelector('.exp-link').value    = exp.lien            || '';
+        list.appendChild(div);
+    });
+}
+
+function createExperienceRow() {
     const div = document.createElement('div');
     div.className = 'item-row';
     div.innerHTML = `
@@ -55,51 +123,100 @@ function addExperience() {
                 <input type="date" class="form-control exp-end">
             </div>
             <input type="text" class="form-control exp-desc" placeholder="Description">
-            <input type="text" class="form-control exp-link" placeholder="Link (optional)">
+            <input type="text" class="form-control exp-link" placeholder="Lien (optionnel)">
         </div>
         <button type="button" class="btn-remove" onclick="this.parentElement.remove()">
             <i class="bi bi-trash3"></i>
         </button>`;
-    list.appendChild(div);
+    return div;
+}
+
+function addExperience() {
+    const list = document.getElementById('experience-list');
+    if (list) list.appendChild(createExperienceRow());
 }
 
 /* ══════════════════════════════════════════
    PROJECT ROWS
 ══════════════════════════════════════════ */
-function addProject() {
+function loadProjectRows() {
     const list = document.getElementById('projects-list');
     if (!list) return;
+    list.innerHTML = '';
+
+    let items = [];
+    try {
+        items = JSON.parse(list.dataset.projects || '[]');
+    } catch (e) { items = []; }
+
+    items.forEach(proj => {
+        const div = createProjectRow();
+        div.querySelector('.proj-title').value = proj.title       || '';
+        div.querySelector('.proj-desc').value  = proj.description || '';
+        div.querySelector('.proj-start').value = proj.date_debut  || '';
+        div.querySelector('.proj-end').value   = proj.date_fin    || '';
+        div.querySelector('.proj-link').value  = proj.lien        || '';
+        list.appendChild(div);
+    });
+}
+
+function createProjectRow() {
     const div = document.createElement('div');
     div.className = 'item-row';
     div.innerHTML = `
         <div class="item-row-fields">
-            <input type="text" class="form-control proj-title" placeholder="Project title">
+            <input type="text" class="form-control proj-title" placeholder="Titre du projet">
             <input type="text" class="form-control proj-desc"  placeholder="Description">
             <div class="row-inline">
                 <input type="date" class="form-control proj-start">
                 <input type="date" class="form-control proj-end">
             </div>
-            <input type="text" class="form-control proj-link" placeholder="Project link (optional)">
+            <input type="text" class="form-control proj-link" placeholder="Lien (optionnel)">
         </div>
         <button type="button" class="btn-remove" onclick="this.parentElement.remove()">
             <i class="bi bi-trash3"></i>
         </button>`;
-    list.appendChild(div);
+    return div;
+}
+
+function addProject() {
+    const list = document.getElementById('projects-list');
+    if (list) list.appendChild(createProjectRow());
 }
 
 /* ══════════════════════════════════════════
    ACHIEVEMENT ROWS
 ══════════════════════════════════════════ */
-function addAchievement() {
+function loadAchievementRows() {
     const list = document.getElementById('achievements-list');
     if (!list) return;
+    list.innerHTML = '';
+
+    let items = [];
+    try {
+        items = JSON.parse(list.dataset.achievements || '[]');
+    } catch (e) { items = []; }
+
+    items.forEach(ach => {
+        const div = createAchievementRow();
+        div.querySelector('.ach-title').value  = ach.title            || '';
+        div.querySelector('.ach-issuer').value = ach.issuer           || '';
+        div.querySelector('.ach-date').value   = ach.date_obtained    || '';
+        div.querySelector('.ach-type').value   = ach.achievement_type || 'other';
+        div.querySelector('.ach-desc').value   = ach.description      || '';
+        div.querySelector('.ach-link').value   = ach.lien             || '';
+        list.appendChild(div);
+    });
+}
+
+function createAchievementRow() {
     const div = document.createElement('div');
     div.className = 'item-row';
     div.innerHTML = `
         <div class="item-row-fields">
-            <input type="text" class="form-control ach-title" placeholder="Title (e.g. Hackathon Winner)">
+            <input type="text" class="form-control ach-title" placeholder="Titre (ex: Hackathon Winner)">
             <div class="row-inline">
-                <input type="text" class="form-control ach-issuer" placeholder="Issuer / Organization">
+                <input type="text" class="form-control ach-issuer" placeholder="Organisme">
                 <input type="date" class="form-control ach-date">
             </div>
             <select class="type-select ach-type">
@@ -110,12 +227,17 @@ function addAchievement() {
                 <option value="other">Other</option>
             </select>
             <input type="text" class="form-control ach-desc" placeholder="Description">
-            <input type="text" class="form-control ach-link" placeholder="Link (optional)">
+            <input type="text" class="form-control ach-link" placeholder="Lien (optionnel)">
         </div>
         <button type="button" class="btn-remove" onclick="this.parentElement.remove()">
             <i class="bi bi-trash3"></i>
         </button>`;
-    list.appendChild(div);
+    return div;
+}
+
+function addAchievement() {
+    const list = document.getElementById('achievements-list');
+    if (list) list.appendChild(createAchievementRow());
 }
 
 /* ══════════════════════════════════════════
@@ -133,16 +255,14 @@ async function uploadAvatarImage(event) {
             method: 'POST',
             credentials: 'include',
             body: formData
-            // pas de Content-Type header : le navigateur le gère automatiquement pour FormData
         });
         const data = await res.json();
 
         if (data.ok && data.avatarUrl) {
-            // Mettre à jour l'aperçu dans le modal et sur la page
             const modalImg = document.getElementById('modalAvatarImg');
             if (modalImg) modalImg.src = data.avatarUrl;
-
-            const pageImg = document.getElementById('profilePicDisplay');
+            // Met aussi à jour l'avatar affiché sur la page (id défini dans profil.php)
+            const pageImg = document.querySelector('.profile-pic');
             if (pageImg) pageImg.src = data.avatarUrl;
         } else {
             alert('Upload échoué : ' + (data.message || 'Erreur inconnue'));
@@ -154,95 +274,70 @@ async function uploadAvatarImage(event) {
 }
 
 /* ══════════════════════════════════════════
-   SAVE PROFILE
+   SAVE PROFILE — POST form natif vers myprofile.php
 ══════════════════════════════════════════ */
-async function saveProfile() {
+function saveProfile() {
     const btn = document.getElementById('saveBtn');
     btn.disabled = true;
     btn.textContent = 'Saving...';
 
-    // ── Collecte des skills ───────────────────────────────────────────────────
-    const skills = [];
-    document.querySelectorAll('#skills-chips .skill-chip').forEach(chip => {
-        if (chip.dataset.skill) skills.push(chip.dataset.skill);
-    });
+    // Créer un <form> dynamique et le soumettre en POST standard
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/frontend/pages/myprofile.php';
 
-    // ── Collecte des experiences ──────────────────────────────────────────────
-    const experiences = [];
-    document.querySelectorAll('#experience-list .item-row').forEach(row => {
-        experiences.push({
-            entreprise:      row.querySelector('.exp-company')?.value.trim() || '',
-            experience_type: row.querySelector('.exp-type')?.value           || 'job',
-            date_debut:      row.querySelector('.exp-start')?.value          || null,
-            date_fin:        row.querySelector('.exp-end')?.value            || null,
-            description:     row.querySelector('.exp-desc')?.value.trim()   || '',
-            lien:            row.querySelector('.exp-link')?.value.trim()    || ''
-        });
-    });
-
-    // ── Collecte des projects ─────────────────────────────────────────────────
-    const projects = [];
-    document.querySelectorAll('#projects-list .item-row').forEach(row => {
-        projects.push({
-            title:       row.querySelector('.proj-title')?.value.trim() || '',
-            description: row.querySelector('.proj-desc')?.value.trim()  || '',
-            date_debut:  row.querySelector('.proj-start')?.value        || null,
-            date_fin:    row.querySelector('.proj-end')?.value          || null,
-            lien:        row.querySelector('.proj-link')?.value.trim()  || ''
-        });
-    });
-
-    // ── Collecte des achievements ─────────────────────────────────────────────
-    const achievements = [];
-    document.querySelectorAll('#achievements-list .item-row').forEach(row => {
-        achievements.push({
-            title:            row.querySelector('.ach-title')?.value.trim()  || '',
-            issuer:           row.querySelector('.ach-issuer')?.value.trim() || '',
-            date_obtained:    row.querySelector('.ach-date')?.value          || null,
-            achievement_type: row.querySelector('.ach-type')?.value          || 'other',
-            description:      row.querySelector('.ach-desc')?.value.trim()   || '',
-            lien:             row.querySelector('.ach-link')?.value.trim()   || ''
-        });
-    });
-
-    // ── Payload final ─────────────────────────────────────────────────────────
-    const payload = {
-        firstName:    document.getElementById('firstName')?.value.trim()       || '',
-        lastName:     document.getElementById('lastName')?.value.trim()        || '',
-        bio:          document.getElementById('editBio')?.value.trim()         || '',
-        promoYear:    document.getElementById('promoYear')?.value.trim()       || '',
-        tagline:      document.getElementById('editTagline')?.value.trim()     || '',
-        githubLink:   document.getElementById('githubLink')?.value.trim()      || '',
-        linkedinLink: document.getElementById('linkedinLink')?.value.trim()    || '',
-        profileLink:  document.getElementById('editProfileLink')?.value.trim() || '',
-        skills,
-        experiences,
-        projects,
-        achievements
-    };
-
-    try {
-        const res = await fetch('/api/save_profile.php', {
-            method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-
-        if (data.ok) {
-            // Fermer le modal et recharger pour afficher les nouvelles données
-            const modalEl = document.getElementById('editProfileModal');
-            bootstrap.Modal.getInstance(modalEl)?.hide();
-            window.location.reload();
-        } else {
-            alert('Erreur : ' + (data.message || 'Erreur inconnue'));
-        }
-    } catch (e) {
-        console.error(e);
-        alert('Erreur réseau.');
-    } finally {
-        btn.disabled = false;
-        btn.textContent = 'Save Changes';
+    function addField(name, value) {
+        const input = document.createElement('input');
+        input.type  = 'hidden';
+        input.name  = name;
+        input.value = value ?? '';
+        form.appendChild(input);
     }
+
+    // Champs simples
+    addField('prenom',       document.getElementById('firstName')?.value.trim());
+    addField('nom',          document.getElementById('lastName')?.value.trim());
+    addField('bio',          document.getElementById('editBio')?.value.trim());
+    addField('promo_year',   document.getElementById('promoYear')?.value.trim());
+    addField('tagline',      document.getElementById('editTagline')?.value.trim());
+    addField('github_link',  document.getElementById('githubLink')?.value.trim());
+    addField('linkedin_link',document.getElementById('linkedinLink')?.value.trim());
+    addField('profile_link', document.getElementById('editProfileLink')?.value.trim());
+
+    // Skills — tableau : skills[]
+    document.querySelectorAll('#skills-chips .skill-chip').forEach(chip => {
+        if (chip.dataset.skill) addField('skills[]', chip.dataset.skill);
+    });
+
+    // Experiences — tableaux indexés : experiences[0][entreprise], etc.
+    document.querySelectorAll('#experience-list .item-row').forEach((row, i) => {
+        addField(`experiences[${i}][entreprise]`,      row.querySelector('.exp-company')?.value.trim());
+        addField(`experiences[${i}][experience_type]`, row.querySelector('.exp-type')?.value);
+        addField(`experiences[${i}][date_debut]`,      row.querySelector('.exp-start')?.value);
+        addField(`experiences[${i}][date_fin]`,        row.querySelector('.exp-end')?.value);
+        addField(`experiences[${i}][description]`,     row.querySelector('.exp-desc')?.value.trim());
+        addField(`experiences[${i}][lien]`,            row.querySelector('.exp-link')?.value.trim());
+    });
+
+    // Projects
+    document.querySelectorAll('#projects-list .item-row').forEach((row, i) => {
+        addField(`projects[${i}][title]`,       row.querySelector('.proj-title')?.value.trim());
+        addField(`projects[${i}][description]`, row.querySelector('.proj-desc')?.value.trim());
+        addField(`projects[${i}][date_debut]`,  row.querySelector('.proj-start')?.value);
+        addField(`projects[${i}][date_fin]`,    row.querySelector('.proj-end')?.value);
+        addField(`projects[${i}][lien]`,        row.querySelector('.proj-link')?.value.trim());
+    });
+
+    // Achievements
+    document.querySelectorAll('#achievements-list .item-row').forEach((row, i) => {
+        addField(`achievements[${i}][title]`,            row.querySelector('.ach-title')?.value.trim());
+        addField(`achievements[${i}][issuer]`,           row.querySelector('.ach-issuer')?.value.trim());
+        addField(`achievements[${i}][date_obtained]`,    row.querySelector('.ach-date')?.value);
+        addField(`achievements[${i}][achievement_type]`, row.querySelector('.ach-type')?.value);
+        addField(`achievements[${i}][description]`,      row.querySelector('.ach-desc')?.value.trim());
+        addField(`achievements[${i}][lien]`,             row.querySelector('.ach-link')?.value.trim());
+    });
+
+    document.body.appendChild(form);
+    form.submit();
 }
