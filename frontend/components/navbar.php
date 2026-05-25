@@ -11,14 +11,14 @@
             <!-- LEFT -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link " href="/frontend/pages/feed.html">Feed</a>
+                    <a class="nav-link " href="/frontend/pages/feed.php">Feed</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/frontend/pages/job.html">Jobs</a>
+                    <a class="nav-link " href="/frontend/pages/job.php">Jobs</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/frontend/pages/contact.html">Contact</a>
+                    <a class="nav-link" href="/frontend/pages/contact.php">Contact</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -78,15 +78,15 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/frontend/pages/help.html">Help</a>
+                    <a class="nav-link" href="/frontend/pages/help.php">Help</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/frontend/pages/login.html" data-logout="true">Log out</a>
+                    <a class="nav-link" href="/frontend/pages/login.php" data-logout="true">Log out</a>
                 </li>
 
                 <li class="nav-item d-flex align-items-center">
-                    <a class="nav-link d-flex align-items-center" href="/frontend/pages/myprofile.html">
+                    <a class="nav-link d-flex align-items-center" href="/frontend/pages/myprofile.php">
                         Profil
                         <i class="bi bi-person-circle ms-2"></i>
                     </a>

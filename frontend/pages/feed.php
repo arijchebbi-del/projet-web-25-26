@@ -150,12 +150,12 @@ $internships = $jobRepo->findInternships();
 <script src="../assets/js/feed.js"></script>
 
 <script>
-loadComponent("navbar", "../components/navbar.html", function () {
+loadComponent("navbar", "../components/navbar.php", function () {
   initTheme();
   setActiveNav();
 });
 
-loadComponent("footer", "../components/footer.html");
+loadComponent("footer", "../components/footer.php");
 </script>
 
 <script>
