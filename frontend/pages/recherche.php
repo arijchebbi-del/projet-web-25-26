@@ -2,7 +2,7 @@
 
 <?php
 
-require_once '../../backend/config/database.php';
+require_once '../../backend/config/ConnexionDB.php';
 /*
 session_start();
 if (!isset($_SESSION['email'])) {
@@ -58,7 +58,7 @@ if ($query !== '') {
 
         $sql .= " GROUP BY i.id, i.nom, i.prenom, i.promo_year,
                             p.name, f.name, u.avatar_url";
-
+        $conn = ConnexionDB::getInstance();
         $stmt = $conn->prepare($sql);
         $stmt->execute([':query' => '%' . $query . '%']);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);

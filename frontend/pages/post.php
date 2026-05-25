@@ -189,11 +189,11 @@ document.addEventListener('DOMContentLoaded', loadJobDetails);
 <script src="/frontend/assets/js/root.js"></script>
 <script src="/frontend/assets/js/job.js"></script>
 <script>
-    loadComponent("navbar", "/frontend/components/navbar.html", function() {
+    loadComponent("navbar", "/frontend/components/navbar.php", function() {
         initTheme();
         setActiveNav();
     });
-    loadComponent("footer", "/frontend/components/footer.html");
+    loadComponent("footer", "/frontend/components/footer.php");
   initSalaryRange();
 </script>
   <script>
