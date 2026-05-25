@@ -9,7 +9,7 @@ class ConnexionDB
         if (self::$instance === null) {
 
             $host = "localhost";
-            $dbname = "webdb";
+            $dbname = "webdb1";
             $username = "root";
             $password = "";
 
