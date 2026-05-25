@@ -11,7 +11,7 @@ class ConnexionDB
             $host = "localhost";
             $dbname = "webdb1";
             $username = "root";
-            $password = "140406";
+            $password = "";
 
             self::$instance = new PDO(
                 "mysql:host=$host;dbname=$dbname;charset=utf8",
