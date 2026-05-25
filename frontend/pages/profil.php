@@ -1,60 +1,38 @@
 <?php
-<<<<<<< HEAD
-/**
- * profil.php — Affichage du profil d'un utilisateur.
- *
- * CORRECTIONS :
- *  - session_start() protégé par session_status() pour éviter le double appel
- *    quand ce fichier est inclus depuis myprofile.php
- *  - Les redirections header() sont ignorées en mode embed (isEmbed)
- *    pour éviter les boucles de redirection et les "headers already sent"
- */
+session_start();
 
-if (session_status() === PHP_SESSION_NONE) {   // CORRECTION : pas de double session_start
-    session_start();
-}
-
-// En mode embed, on suppose que l'auth a déjà été vérifiée par myprofile.php
-if (!isset($_SESSION['is_logged_in']) || !isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit;
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
 }
 
 require_once '../../backend/config/ConnexionDB.php';
-require_once '../../backend/services/ProfileService.php';
+require_once '../../backend/service/profileService.php';
 
-$service  = new ProfileService();
-$userId   = (int) $_SESSION['user_id'];
-$targetId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
+// Récupérer l'user_id depuis l'email en session
+$conn   = ConnexionDB::getInstance();
+$stmt   = $conn->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
+$stmt->execute([':email' => $_SESSION['email']]);
+$me     = $stmt->fetch(PDO::FETCH_ASSOC);
+$userId = (int)($me['id'] ?? 0);
 
-// Mode embed : inclus depuis myprofile.php — on ne redirige PAS
-$isEmbed = isset($_GET['embed']) && $_GET['embed'] === '1';
-
+// ID du profil à afficher (peut être soi-même ou quelqu'un d'autre)
+$targetId = isset($_GET['id']) ? (int)$_GET['id'] : $userId;
 if (!$targetId) {
-    // CORRECTION : en embed on ne peut pas rediriger (headers déjà envoyés)
-    if (!$isEmbed) {
-        header('Location: recherche.php');
-        exit;
-    }
-    echo '<p class="text-danger">Profil introuvable.</p>';
-    return;   // stoppe l'include sans tuer la page parente
+    header("Location: /frontend/pages/recherche.php");
+    exit();
 }
 
-// Si c'est son propre profil et qu'on n'est PAS en mode embed → rediriger
-if ($targetId === $userId && !$isEmbed) {
-    header('Location: myprofile.php');
-    exit;
-}
+$service = new profileService();
 
-// Traitement du formulaire de recommandation
+// Traitement recommandation
+$error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texte'])) {
     try {
         $service->addRecommendation($userId, $targetId, $_POST['texte']);
-        if (!$isEmbed) {
-            header('Location: profil.php?id=' . $targetId);
-            exit;
-        }
-    } catch (\Exception $e) {
+        header("Location: profil.php?id=" . $targetId);
+        exit();
+    } catch (Exception $e) {
         $error = $e->getMessage();
     }
 }
@@ -69,50 +47,32 @@ $recommendations = $data['recommendations'];
 $posts           = $data['posts'];
 
 if (!$user) {
-    if (!$isEmbed) {
-        header('Location: recherche.php');
-        exit;
-    }
-    echo '<p class="text-danger">Utilisateur introuvable.</p>';
-    return;
+    header("Location: /frontend/pages/recherche.php");
+    exit();
 }
 
 $isOwner = ($targetId === $userId);
 
-function h(?string $val): string
-{
+function h(?string $val): string {
     return htmlspecialchars($val ?? '', ENT_QUOTES, 'UTF-8');
 }
-
-// ── En mode embed on ne génère PAS le squelette HTML complet ─────────────────
-if (!$isEmbed):
-=======
-session_start();
-
-if (!isset($_SESSION['email'])) {
-    header("Location: /frontend/pages/login.php");
-    exit();
-}
->>>>>>> 15f971717fb73f5145aa78a5ccea03e08145af33
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alumini | <?= h($user['prenom'] . ' ' . $user['nom']) ?></title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="/frontend/assets/css/profil.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
   <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-  <div id="navbar"></div>
-<?php endif; ?>
 
-<!-- ══════════════ En-tête profil ══════════════ -->
+<div id="navbar"></div>
+
 <div class="container">
   <div class="profile-main">
 
@@ -124,10 +84,7 @@ if (!isset($_SESSION['email'])) {
       <div class="profile-name-row">
         <h1 class="nom"><?= h($user['prenom'] . ' ' . $user['nom']) ?></h1>
         <?php if ($isOwner): ?>
-          <button id="editBtn" type="button" class="btn-edit"
-                  data-bs-toggle="modal" data-bs-target="#editProfileModal">
-            ✏️ Modifier
-          </button>
+          <a href="/frontend/pages/myprofile.php" class="btn-edit">✏️ Modifier mon profil</a>
         <?php endif; ?>
       </div>
 
@@ -145,7 +102,7 @@ if (!isset($_SESSION['email'])) {
         <p class="profile-tagline"><?= h($user['tagline']) ?></p>
       <?php endif; ?>
 
-      <p class="profile-bio info-text"><?= h($user['bio'] ?: 'No bio provided.') ?></p>
+      <p class="profile-bio"><?= h($user['bio'] ?: 'No bio provided.') ?></p>
 
       <div class="profile-links">
         <?php if (!empty($user['github_link'])): ?>
@@ -160,7 +117,7 @@ if (!isset($_SESSION['email'])) {
         <?php endif; ?>
         <?php if (!empty($user['profile_link'])): ?>
           <a href="<?= h($user['profile_link']) ?>" class="profile-link-btn" target="_blank">
-            <i class="fas fa-file-alt"></i> CV
+            <i class="fas fa-globe"></i> Portfolio
           </a>
         <?php endif; ?>
       </div>
@@ -169,7 +126,7 @@ if (!isset($_SESSION['email'])) {
   </div>
 </div>
 
-<!-- ══════════════ Sections ══════════════ -->
+<!-- Sections -->
 <div class="container" style="max-width:900px; margin:0 auto; padding:0 20px 60px;">
 
   <!-- Skills -->
@@ -186,7 +143,7 @@ if (!isset($_SESSION['email'])) {
     </div>
   </div>
 
-  <!-- Expérience -->
+  <!-- Experience -->
   <div class="profile-section">
     <span class="section-title">Experience</span>
     <div class="experience-list">
@@ -205,9 +162,7 @@ if (!isset($_SESSION['email'])) {
                 <p class="exp-desc"><?= h($exp['description']) ?></p>
               <?php endif; ?>
               <?php if (!empty($exp['lien'])): ?>
-                <a href="<?= h($exp['lien']) ?>" class="exp-link" target="_blank">
-                  <i class="fas fa-external-link-alt"></i> Voir le lien
-                </a>
+                <a href="<?= h($exp['lien']) ?>" target="_blank">Voir le lien</a>
               <?php endif; ?>
             </div>
           </div>
@@ -221,30 +176,28 @@ if (!isset($_SESSION['email'])) {
   <!-- Projects -->
   <div class="profile-section">
     <span class="section-title">Projects</span>
-    <div class="projects-list">
-      <?php if ($projects): ?>
-        <?php foreach ($projects as $proj): ?>
-          <div class="experience-card">
-            <div class="exp-icon">📁</div>
-            <div>
-              <p class="exp-title"><?= h($proj['title']) ?></p>
-              <p class="exp-meta">
-                <?= h($proj['date_debut'] ?? '') ?>
-                <?= !empty($proj['date_fin']) ? '– ' . h($proj['date_fin']) : '' ?>
-                <?php if (!empty($proj['lien'])): ?>
-                  · <a href="<?= h($proj['lien']) ?>" target="_blank">Voir le projet</a>
-                <?php endif; ?>
-              </p>
-              <?php if (!empty($proj['description'])): ?>
-                <p class="exp-desc"><?= h($proj['description']) ?></p>
+    <?php if ($projects): ?>
+      <?php foreach ($projects as $proj): ?>
+        <div class="experience-card">
+          <div class="exp-icon">📁</div>
+          <div>
+            <p class="exp-title"><?= h($proj['title']) ?></p>
+            <p class="exp-meta">
+              <?= h($proj['date_debut'] ?? '') ?>
+              <?= !empty($proj['date_fin']) ? '– ' . h($proj['date_fin']) : '' ?>
+              <?php if (!empty($proj['lien'])): ?>
+                · <a href="<?= h($proj['lien']) ?>" target="_blank">Voir le projet</a>
               <?php endif; ?>
-            </div>
+            </p>
+            <?php if (!empty($proj['description'])): ?>
+              <p class="exp-desc"><?= h($proj['description']) ?></p>
+            <?php endif; ?>
           </div>
-        <?php endforeach; ?>
-      <?php else: ?>
-        <p class="text-muted">No projects added yet.</p>
-      <?php endif; ?>
-    </div>
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p class="text-muted">No projects added yet.</p>
+    <?php endif; ?>
   </div>
 
   <!-- Achievements -->
@@ -263,11 +216,6 @@ if (!isset($_SESSION['email'])) {
             <?php if (!empty($ach['description'])): ?>
               <p class="achievement-desc"><?= h($ach['description']) ?></p>
             <?php endif; ?>
-            <?php if (!empty($ach['lien'])): ?>
-              <a href="<?= h($ach['lien']) ?>" class="exp-link" target="_blank">
-                <i class="fas fa-external-link-alt"></i> Voir le certificat
-              </a>
-            <?php endif; ?>
           </div>
         </div>
       <?php endforeach; ?>
@@ -276,15 +224,13 @@ if (!isset($_SESSION['email'])) {
     <?php endif; ?>
   </div>
 
-  <!-- Posts récents -->
+  <!-- Posts -->
   <div class="profile-section">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <span class="section-title" style="margin-bottom:0; border:none;">Posts récents</span>
       <?php if ($isOwner): ?>
-        <a href="/frontend/pages/createPost.html" class="btn btn-sm"
-           style="background:#65171e; color:#fff; border-radius:8px;">
-          + Publier
-        </a>
+        <a href="/frontend/pages/createPost.php" class="btn btn-sm"
+           style="background:#65171e; color:#fff; border-radius:8px;">+ Publier</a>
       <?php endif; ?>
     </div>
     <?php if (!empty($posts)): ?>
@@ -316,7 +262,7 @@ if (!isset($_SESSION['email'])) {
         <div class="review-card">
           <div class="review-header">
             <img src="<?= h($rec['author_avatar'] ?: '/frontend/assets/images/icon-7797704_1280.png') ?>"
-                 alt="avatar">
+                 alt="avatar" style="width:40px;height:40px;border-radius:50%;object-fit:cover;margin-right:10px;">
             <div>
               <div class="review-name"><?= h($rec['author_prenom'] . ' ' . $rec['author_nom']) ?></div>
               <div class="review-time"><?= h($rec['created_at']) ?></div>
@@ -332,7 +278,7 @@ if (!isset($_SESSION['email'])) {
 
 </div>
 
-<!-- Modal Recommandation (uniquement si pas le propriétaire) -->
+<!-- Modal Recommandation -->
 <?php if (!$isOwner): ?>
 <div class="modal fade" id="recommendModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
@@ -343,7 +289,7 @@ if (!isset($_SESSION['email'])) {
       </div>
       <form method="POST" action="profil.php?id=<?= $targetId ?>">
         <div class="modal-body">
-          <?php if (!empty($error)): ?>
+          <?php if ($error): ?>
             <div class="alert alert-danger"><?= h($error) ?></div>
           <?php endif; ?>
           <textarea name="texte" class="form-control" rows="4"
@@ -357,77 +303,20 @@ if (!isset($_SESSION['email'])) {
       </form>
     </div>
   </div>
-<<<<<<< HEAD
 </div>
 <?php endif; ?>
-=======
-<!-- Posts -->
-        <div class="profile-section">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="section-title" style="margin-bottom:0; border:none;">Posts récents</span>
-                <button id="addPostBtn"
-                        class="btn btn-sm"
-                        style="background:#65171e; color:#fff; border-radius:8px; display:none;"
-                        onclick="window.location.href='/frontend/pages/createPost.php'">
-                    + Publier
-                </button>
-            </div>
-            <div id="postsContainer"></div>
-        </div>
 
-<!-- Recommendations -->
-        <div class="profile-section">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="section-title" style="margin-bottom:0; border:none;">Recommendations</span>
-                <button class="btn btn-sm"
-                        style="background:#65171e; color:#fff; border-radius:8px;"
-                        data-bs-toggle="modal"
-                        data-bs-target="#recommendModal">
-                    + Recommander
-                </button>
-            </div>
-            <div id="recommendationsContainer"></div>
-        </div>
- 
-    </div>
+<div id="footer"></div>
 
-<!-- Recommendation Modal -->
-    <div class="modal fade" id="recommendModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Write Recommendation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <textarea id="recommendationText" class="form-control" rows="4"
-                        placeholder="Share your experience working with this person..."></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="submitRecommendation()">Send</button>
-                </div>
-            </div>
-        </div>
-    </div>
->>>>>>> 15f971717fb73f5145aa78a5ccea03e08145af33
+<script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/frontend/assets/js/root.js"></script>
+<script>
+  loadComponent("navbar", "/frontend/components/navbar.php", function () {
+    initTheme();
+    setActiveNav();
+  });
+  loadComponent("footer", "/frontend/components/footer.php");
+</script>
 
-<?php if (!$isEmbed): ?>
-  <div class="footer" id="footer"></div>
-  <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
-  <script src="/frontend/assets/js/root.js"></script>
-  <script>
-    loadComponent("navbar", "/frontend/components/navbar.php", function () {
-      initTheme();
-      setActiveNav();
-    });
-    loadComponent("footer", "/frontend/components/footer.php");
-<<<<<<< HEAD
-  </script>
 </body>
 </html>
-<?php endif; ?>
-=======
-</script>
-</html>
->>>>>>> 15f971717fb73f5145aa78a5ccea03e08145af33
