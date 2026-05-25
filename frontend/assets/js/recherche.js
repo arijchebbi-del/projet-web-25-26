@@ -1,129 +1,43 @@
-let usersTable = null;
-
-function collectSearchFilters() {
-    const keyword = document.getElementById("search_keyword");
-    const filterDropdown = document.getElementById("filter_dropdown");
-    const filterValue = document.getElementById("filter_value");
-
-    return {
-        q: keyword ? keyword.value.trim() : "",
-        filterBy: filterDropdown ? filterDropdown.value : "",
-        filterValue: filterValue ? filterValue.value.trim() : "",
-    };
-}
-
-function ensureDataTablesDependency() {
-    return typeof window.jQuery !== "undefined"
-        && typeof window.jQuery.fn !== "undefined"
-        && typeof window.jQuery.fn.DataTable !== "undefined";
-}
-
-function formatUserName(row) {
-    const fullName = [row.firstName || "", row.lastName || ""].join(" ").trim();
-    return fullName || "Unknown";
-}
-
-function formatSkills(row) {
-    if (!row.skills || !row.skills.length) {
-        return "-";
-    }
-    return row.skills.join(", ");
-}
-
-function initResearchTable() {
-    if (!ensureDataTablesDependency() || !document.getElementById("usersTable")) {
-        return;
-    }
-
-    const apiBase = window.authApiBase || "http://127.0.0.1:8000/api";
-
-    usersTable = window.jQuery("#usersTable").DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: apiBase + "/users/datatable",
-            type: "GET",
-            xhrFields: {
-                withCredentials: true,
-            },
-            data: function (request) {
-                return Object.assign(request, collectSearchFilters());
-            },
-        },
-        columns: [
-            {
-                data: null,
-                render: function (_, __, row) {
-                    return formatUserName(row);
-                },
-            },
-            { data: "promoYear" },
-            { data: "filiere" },
-            { data: "parcours" },
-            {
-                data: null,
-                render: function (_, __, row) {
-                    return formatSkills(row);
-                },
-            },
-            {
-                data: null,
-                orderable: false,
-                searchable: false,
-                render: function (_, __, row) {
-                    return '<a class="btn btn-sm btn-outline-primary" href="/frontend/pages/profil.html?id=' + row.id + '">View profile</a>';
-                },
-            },
-        ],
-        order: [[0, "asc"]],
-        pageLength: 10,
-        lengthMenu: [5, 10, 25, 50],
+function configureSkills(...skills) {
+    if (!skills.length) return '';
+    let acc = "";
+    skills.forEach(skill => {
+        acc += `<span class="badge skill-badge">${skill}</span>`;
     });
+    return acc;
 }
 
-function bindResearchFilters() {
-    const form = document.getElementById("researchForm");
-    const searchButton = document.getElementById("search_button");
-    const filterDropdown = document.getElementById("filter_dropdown");
+// Added `id` param so the card links to the real profile
+function createCard(name, photo, promo, id, ...skills) {
+    const imgHtml = photo
+        ? `<img class="avatar" src="${photo}" alt="${name}">`
+        : `<div class="avatar-fallback">${name.charAt(0).toUpperCase()}</div>`;
 
-    if (form) {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-            if (usersTable) {
-                usersTable.ajax.reload();
-            }
-        });
-    }
-
-    if (searchButton) {
-        searchButton.addEventListener("click", function () {
-            if (usersTable) {
-                usersTable.ajax.reload();
-            }
-        });
-    }
-
-    if (filterDropdown) {
-        filterDropdown.addEventListener("change", function () {
-            const filterValue = document.getElementById("filter_value");
-            if (!filterValue) return;
-
-            if (filterDropdown.value === "promo") {
-                filterValue.placeholder = "Example: 2026";
-            } else if (filterDropdown.value === "skills") {
-                filterValue.placeholder = "Example: PHP";
-            } else if (filterDropdown.value === "filiere") {
-                filterValue.placeholder = "Example: IIA";
-            } else if (filterDropdown.value === "parcours") {
-                filterValue.placeholder = "Example: Software Engineering";
-            } else {
-                filterValue.placeholder = "Filter value";
-            }
-        });
-    }
+    return `
+        <a href="/frontend/pages/profile.php?id=${id}"
+           class="result-card card border rounded-3 p-3 mb-2 w-100 d-block text-decoration-none">
+            <div class="d-flex align-items-center gap-3">
+                ${imgHtml}
+                <div class="flex-grow-1">
+                    <p class="fw-medium mb-0">${name}</p>
+                    <p class="text-muted mb-1">Promo ${promo ?? '—'}</p>
+                    <div class="d-flex flex-wrap gap-1">
+                        ${configureSkills(...skills)}
+                    </div>
+                </div>
+                <span class="arrow-icon ms-auto">›</span>
+            </div>
+        </a>
+    `;
 }
 
-function initResearchPage() {
-    initResearchTable();
-    bindResearchFilters();
+// id is now a required param passed from recherche.php
+function addCardToPage(name, photo, promo, id, ...skills) {
+    const container = document.getElementById("search_results");
+    const card      = createCard(name, photo, promo, id, ...skills);
+    if (container.querySelector("p.text-muted")) {
+        container.innerHTML = card;   // replace placeholder
+    } else {
+        container.innerHTML += card;
+    }
 }
