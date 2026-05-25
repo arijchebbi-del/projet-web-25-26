@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="/frontend/assets/js/auth.js"></script>
+    <!--<script src="/frontend/assets/js/auth.js"></script>-->
     <script>
         redirectIfAuthed();
     </script>

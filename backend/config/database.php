@@ -1,7 +1,7 @@
 <?php
 $host = "127.0.0.1";
 $port = "3306";
-$dbname = "webdb";
+$dbname = "webdb1";
 $username = "root";
 $password = "";
 
