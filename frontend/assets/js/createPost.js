@@ -62,3 +62,30 @@ workModeButtons.forEach(btn => {
 
     });
 });
+
+const countrySelect = document.querySelector('#postCountry');
+const otherInput = document.querySelector('#postCountryOther');
+
+countrySelect.addEventListener('change', () => {
+
+    if (countrySelect.value === 'other') {
+
+        // show input
+        otherInput.style.display = 'block';
+
+        // make required if you want
+        otherInput.required = true;
+
+    } else {
+
+        // hide input
+        otherInput.style.display = 'none';
+
+        // clear value
+        otherInput.value = '';
+
+        // remove required
+        otherInput.required = false;
+    }
+
+});

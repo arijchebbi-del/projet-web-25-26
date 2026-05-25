@@ -1,10 +1,11 @@
 <?php
 session_start();
-
+/*
 if (!isset($_SESSION['email'])) {
     header("Location: /frontend/pages/login.php");
     exit();
 }
+*/
 
 require_once '../../backend/config/ConnexionDB.php';
 
@@ -93,14 +94,14 @@ $userId = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
                             <label class="cp-label" for="postCountry">Country</label>
                             <select class="cp-input" id="postCountry" name="postCountry">
                                 <option value="" disabled selected>Select country</option>
-                                <option>Tunisia</option>
-                                <option>France</option>
-                                <option>Morocco</option>
-                                <option>Germany</option>
-                                <option>UAE</option>
+                                <option value="Tunisia">Tunisia</option>
+                                <option value="France">France</option>
+                                <option value="Morocco">Morocco</option>
+                                <option value="Germany">Germany</option>
+                                <option value="UAE">UAE</option>
                                 <option value="other">Other</option>
                             </select>
-                            <input type="text" class="cp-input" id="postCountryOther" placeholder="Type your country…" maxlength="120" style="display:none; margin-top: 8px;">
+                            <input type="text" class="cp-input" id="postCountryOther"  placeholder="Type your country…" maxlength="120" style="display:none; margin-top: 8px;">
                         </div>
                         <div class="cp-field">
                             <label class="cp-label" for="postCity">City</label>
