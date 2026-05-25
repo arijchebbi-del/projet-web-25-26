@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/frontend/assets/js/auth.js"></script>
+    <!--<script src="/frontend/assets/js/auth.js"></script>-->
     <script>
         requireAuth();
     </script>
@@ -88,11 +88,11 @@
     <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/frontend/assets/js/root.js"></script>
     <script>
-        loadComponent("navbar", "/frontend/components/navbar.html", function() {
+        loadComponent("navbar", "/frontend/components/navbar.php", function() {
             initTheme();
             setActiveNav();
         });
-        loadComponent("footer", "/frontend/components/footer.html");
+        loadComponent("footer", "/frontend/components/footer.php");
     </script>
 </body>
 </html>

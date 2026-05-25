@@ -27,10 +27,50 @@
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
-     public function findFilteredJobs($sql, $params) {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    public function findFiltered($title, $country, $city, $jobType, $remote, $salary,$onsite,$hybrid)
+{
+    $sql = "SELECT * FROM jobs WHERE 1=1";
+    $params = [];
+
+    if (!empty($title)) {
+        $sql .= " AND titre LIKE :title";
+        $params['title'] = "%$title%";
     }
+
+    if (!empty($country)) {
+    $sql .= " AND country_id = :country";
+    $params['country'] = $country;
 }
+
+    if (!empty($city)) {
+    $sql .= " AND city_id = :city";
+    $params['city'] = $city;
+}
+
+    if (!empty($jobType)) {
+        $sql .= " AND job_type = :job_type";
+        $params['job_type'] = $jobType;
+    }
+
+    if ($remote === "1") {
+        $sql .= " AND job_mode = 'remote'";
+    }
+    if ($onsite === "1") {
+        $sql .= " AND job_mode = 'onsite'";
+    }
+    if ($hybrid === "1") {
+        $sql .= " AND job_mode = 'hybrid'";
+    }
+    if (!empty($salary)) {
+        $sql .= " AND salary_max >= :salary";
+        $params['salary'] = $salary;
+    }
+
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute($params);
+
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}}
+
+
 ?>

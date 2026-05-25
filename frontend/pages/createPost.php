@@ -1,10 +1,28 @@
+<?php
+require_once '../../backend/config/ConnexionDB.php';
+/*
+if(isset($_SESSION["email"])){
+    header("Location: /frontend/pages/login.php");
+    exit();
+    }
+*/
+
+/*
+$conn = Database::getInstance();
+$email = $_SESSION['email'];
+$stmt = $conn->prepare("SELECT id FROM users WHERE email = :email")->execute(['email' => $email]);
+$userId = $stmt->fetch(PDO::FETCH_ASSOC)['id'];
+*/
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/frontend/assets/js/auth.js"></script>
-    <script>requireAuth();</script>
+    <!--<script src="/frontend/assets/js/auth.js"></script>-->
+    
     <title>Alumini | Post an Opportunity</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -61,18 +79,18 @@
                     <div class="cp-row">
                         <div class="cp-field">
                             <label class="cp-label" for="postTitle">Title <span class="cp-req">*</span></label>
-                            <input type="text" class="cp-input" id="postTitle" placeholder="e.g. Full-Stack Developer" required maxlength="255">
+                            <input type="text" class="cp-input" id="postTitle" name="postTitle" placeholder="e.g. Full-Stack Developer" required maxlength="255">
                         </div>
                         <div class="cp-field">
                             <label class="cp-label" for="postCompany">Company <span class="cp-req">*</span></label>
-                            <input type="text" class="cp-input" id="postCompany" placeholder="e.g. Vermeg" required maxlength="255">
+                            <input type="text" class="cp-input" id="postCompany" name="postCompany" placeholder="e.g. Vermeg" required maxlength="255">
                         </div>
                     </div>
 
                     <div class="cp-row">
                         <div class="cp-field">
                             <label class="cp-label" for="postCountry">Country</label>
-                            <select class="cp-input" id="postCountry">
+                            <select class="cp-input" id="postCountry" name="postCountry">
                                 <option value="" disabled selected>Select country</option>
                                 <option>Tunisia</option>
                                 <option>France</option>
@@ -142,12 +160,12 @@
                         Required Skills
                     </div>
                     <div class="cp-skill-input-row">
-                        <input type="text" class="cp-input" id="skillInput" placeholder="Type a skill and press Enter…">
+                        <input type="text" class="cp-input" id="skillInput1" placeholder="Type a skill and press Enter…">
+        
                         <button type="button" class="cp-skill-add-btn" id="addSkillBtn">
                             <i class="bi bi-plus-lg"></i>
                         </button>
                     </div>
-                    <div class="cp-skill-tags" id="skillTags"></div>
                 </div>
 
                 <!--  Description -->
@@ -224,11 +242,11 @@
 <script src="/frontend/assets/js/root.js"></script>
 <script src="/frontend/assets/js/createPost.js"></script>
 <script>
-    loadComponent("navbar", "/frontend/components/navbar.html", function () {
+    loadComponent("navbar", "/frontend/components/navbar.php", function () {
         initTheme();
         setActiveNav();
     });
-    loadComponent("footer", "/frontend/components/footer.html");
+    loadComponent("footer", "/frontend/components/footer.php");
 </script>
 
 </body>
