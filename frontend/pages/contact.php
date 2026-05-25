@@ -1,3 +1,24 @@
+<?php
+header('Content-Type: application/json');
+session_start();
+
+require_once __DIR__ . '/config/ConnexionDB.php';
+require_once __DIR__ . '/repository/contactRepository.php';
+require_once __DIR__ . '/service/contactService.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
+    exit;
+}
+
+try {
+    $service = new ContactService();
+    $result  = $service->saveContactMessage($_POST);
+    echo json_encode($result);
+} catch (Exception $e) {
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
