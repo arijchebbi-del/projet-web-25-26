@@ -8,6 +8,7 @@ function loadComponent(id, file, callback) {
                 bindNavbarActions();
             }
             if (callback) callback();
+            
         })
         .catch(err => console.error("Error loading:", file, err));
 }
