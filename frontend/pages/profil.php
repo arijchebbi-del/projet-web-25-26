@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /**
  * profil.php — Affichage du profil d'un utilisateur.
  *
@@ -85,6 +86,14 @@ function h(?string $val): string
 
 // ── En mode embed on ne génère PAS le squelette HTML complet ─────────────────
 if (!$isEmbed):
+=======
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
+>>>>>>> 15f971717fb73f5145aa78a5ccea03e08145af33
 ?>
 <!doctype html>
 <html lang="fr">
@@ -348,8 +357,60 @@ if (!$isEmbed):
       </form>
     </div>
   </div>
+<<<<<<< HEAD
 </div>
 <?php endif; ?>
+=======
+<!-- Posts -->
+        <div class="profile-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="section-title" style="margin-bottom:0; border:none;">Posts récents</span>
+                <button id="addPostBtn"
+                        class="btn btn-sm"
+                        style="background:#65171e; color:#fff; border-radius:8px; display:none;"
+                        onclick="window.location.href='/frontend/pages/createPost.php'">
+                    + Publier
+                </button>
+            </div>
+            <div id="postsContainer"></div>
+        </div>
+
+<!-- Recommendations -->
+        <div class="profile-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="section-title" style="margin-bottom:0; border:none;">Recommendations</span>
+                <button class="btn btn-sm"
+                        style="background:#65171e; color:#fff; border-radius:8px;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#recommendModal">
+                    + Recommander
+                </button>
+            </div>
+            <div id="recommendationsContainer"></div>
+        </div>
+ 
+    </div>
+
+<!-- Recommendation Modal -->
+    <div class="modal fade" id="recommendModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Write Recommendation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="recommendationText" class="form-control" rows="4"
+                        placeholder="Share your experience working with this person..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitRecommendation()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> 15f971717fb73f5145aa78a5ccea03e08145af33
 
 <?php if (!$isEmbed): ?>
   <div class="footer" id="footer"></div>
@@ -361,7 +422,12 @@ if (!$isEmbed):
       setActiveNav();
     });
     loadComponent("footer", "/frontend/components/footer.php");
+<<<<<<< HEAD
   </script>
 </body>
 </html>
 <?php endif; ?>
+=======
+</script>
+</html>
+>>>>>>> 15f971717fb73f5145aa78a5ccea03e08145af33

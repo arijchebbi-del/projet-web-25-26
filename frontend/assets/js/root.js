@@ -22,11 +22,7 @@ function bindNavbarActions() {
     logoutLink.addEventListener("click", async function (event) {
         event.preventDefault();
 
-        if (typeof logoutSession === "function") {
-            await logoutSession();
-        }
-
-        window.location.href = "/frontend/pages/main.html";
+        window.location.href = logoutLink.getAttribute("href") || "/frontend/pages/logout.php";
     });
 
     logoutLink.dataset.bound = "true";

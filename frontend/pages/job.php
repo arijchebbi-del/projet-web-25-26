@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
+
 require_once '../../backend/config/ConnexionDB.php';
 require_once '../../backend/repository/jobRepository.php';
 
@@ -40,10 +45,6 @@ $jobs = $jobRepo->findFiltered(
     <link rel="stylesheet" href="../assets/css/job.css">
     <link rel="stylesheet" href="../assets/css/footer_navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="/frontend/assets/js/auth.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => requireAuth());
-    </script>
 </head>
 
 <body>

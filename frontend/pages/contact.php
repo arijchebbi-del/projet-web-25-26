@@ -1,33 +1,34 @@
 <?php
-header('Content-Type: application/json');
 session_start();
 
-require_once __DIR__ . '/config/ConnexionDB.php';
-require_once __DIR__ . '/repository/contactRepository.php';
-require_once __DIR__ . '/service/contactService.php';
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(['success' => false, 'message' => 'Méthode non autorisée.']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+
+    require_once '../../backend/config/ConnexionDB.php';
+    require_once '../../backend/repository/contactRepository.php';
+    require_once '../../backend/service/contactService.php';
+    try {
+        $service = new ContactService();
+        $result  = $service->saveContactMessage($_POST);
+        echo json_encode($result);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+
     exit;
 }
 
-try {
-    $service = new ContactService();
-    $result  = $service->saveContactMessage($_POST);
-    echo json_encode($result);
-} catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<script src="/frontend/assets/js/auth.js"></script>-->
-    <script>
-        requireAuth();
-    </script>
     <title>Alumini | Contact</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
@@ -176,7 +177,7 @@ try {
                 <div class="contact-success-icon">🎉</div>
                 <h3>Message Received!</h3>
                 <p>Thanks for reaching out. We'll get back to you within 24 hours. In the meantime, explore the alumni network!</p>
-                <a href="/frontend/pages/feed.html" class="btn contact-submit-btn mt-2">← Back to Feed</a>
+                <a href="/frontend/pages/feed.php" class="btn contact-submit-btn mt-2">← Back to Feed</a>
             </div>
 
         </div>

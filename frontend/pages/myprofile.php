@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<?php
 /**
  * myprofile.php — Page "Mon Profil" (utilisateur connecté).
@@ -62,6 +63,29 @@ function h(?string $val): string
   <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+=======
+<?php
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: /frontend/pages/login.php");
+    exit();
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/frontend/assets/css/profil.css">
+    <link rel="stylesheet" href="/frontend/assets/css/myprofile.css">
+    <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>My Profile</title>
+>>>>>>> 15f971717fb73f5145aa78a5ccea03e08145af33
 </head>
 <body>
 

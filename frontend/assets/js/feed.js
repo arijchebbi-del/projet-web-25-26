@@ -183,5 +183,9 @@ async function loadData() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    if (typeof authApiFetch !== "function") {
+      return;
+    }
+
     loadData();
 });
