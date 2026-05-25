@@ -93,7 +93,7 @@ $internships = $jobRepo->findInternships();
               <?= htmlspecialchars(substr($job->description, 0, 100)) ?>...
             </p>
 
-            <a href="post.php?id=<?= $job->id ?>" class="btn btn-primary"></a>
+            <a href="post.php?id=<?= $job->id ?>" class="btn btn-primary">
               See more
             </a>
 

@@ -41,7 +41,6 @@ class profileService {
                 'github_link'   => $post['github_link'] ?? null,
                 'linkedin_link' => $post['linkedin_link'] ?? null,
                 'profile_link'  => $post['profile_link'] ?? null,
-                'avatar_url'    => $post['avatar_url'] ?? null,
             ]);
         $this->repo->updateInsatien($userId, [
                 'nom'        => $post['nom'] ?? '',

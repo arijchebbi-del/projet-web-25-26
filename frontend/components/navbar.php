@@ -61,16 +61,6 @@
                     value="<?= isset($_GET['query']) ? htmlspecialchars($_GET['query']) : '' ?>" />
                 <button type="submit" class="btn btn-outline-success">Search</button>
             </form>
-            <script>
-                let buttonSearch = window.querySelector(".btn-outline-success");
-                buttonSearch.addEventListener("click", function() {
-                <?php
-              if(isset($_GET['query'])) {
-              header("Location: /frontend/pages/recherche.php?query=" . urlencode($_GET['query']));}
-              ?>
-                });
-                </script>
-
             <!-- RIGHT -->
             <ul class="navbar-nav ms-2 mb-2 mb-lg-0">
                 <li class="nav-item">

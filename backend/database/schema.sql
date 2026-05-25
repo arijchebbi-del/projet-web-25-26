@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS users (
     github_link TEXT         NULL,
     linkedin_link TEXT         NULL,
 
+    tagline      VARCHAR(255) NULL,
     bio          TEXT         NULL,
     avatar_url   TEXT         NULL,
     insatien_id  INT          NOT NULL UNIQUE,
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS jobs (
     job_type         ENUM('part-time','full-time','internship') NOT NULL,
     job_mode         ENUM('remote','onsite','hybrid') NOT NULL,
     description      TEXT           NULL,
-    Application_link TEXT         NULL,
+    application_link TEXT         NULL,
     company_link TEXT         NULL,
     contact_email        VARCHAR(150) NOT NULL UNIQUE,
     requirements     TEXT           NULL,
@@ -84,7 +85,7 @@ CREATE TABLE IF NOT EXISTS jobs (
     FOREIGN KEY (country_id)   REFERENCES countries(id) ON DELETE SET NULL,
     FOREIGN KEY (city_id)      REFERENCES cities(id)    ON DELETE SET NULL,
     INDEX idx_jobs_type       (job_type),
-    INDEX idx_jobs_remote     (remote),
+    INDEX idx_jobs_mode       (job_mode),
     INDEX idx_jobs_salary     (salary_min, salary_max),
     INDEX idx_jobs_experience (req_experience)
 );
@@ -108,7 +109,7 @@ CREATE TABLE IF NOT EXISTS experience (
     date_debut      DATE         NULL,
     date_fin        DATE         NULL,      -- NULL = current position
     entreprise      VARCHAR(255) NULL,
-    experience_type ENUM('skill','job','certification') NOT NULL,
+    experience_type ENUM('skill','job','internship','freelance','certification') NOT NULL,
     lien            TEXT         NULL,
     description     TEXT         NULL,
     created_at      TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
@@ -168,6 +169,16 @@ CREATE TABLE IF NOT EXISTS achievements (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     INDEX idx_achievements_user (user_id),
     INDEX idx_achievements_type (achievement_type)
+);
+
+CREATE TABLE IF NOT EXISTS posts (
+    id         INT       AUTO_INCREMENT PRIMARY KEY,
+    user_id    INT       NOT NULL,
+    content    TEXT      NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_posts_user (user_id),
+    INDEX idx_posts_created_at (created_at)
 );
 
 CREATE TABLE IF NOT EXISTS contact_messages (

@@ -22,6 +22,17 @@ class userRepository {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function findByEmail(string $email): array|false {
+        $stmt = $this->pdo->prepare("
+            SELECT id, email
+            FROM users
+            WHERE email = ?
+            LIMIT 1
+        ");
+        $stmt->execute([$email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     //recuperer le profil a afficher 
     public function findById($userId) : array|false{
         $stmt=$this->pdo->prepare("
@@ -210,7 +221,7 @@ class userRepository {
         $stmt = $this->pdo->prepare("
             UPDATE users
             SET bio           = ?,tagline       = ?,github_link   = ?,
-            linkedin_link = ?,profile_link  = ?,avatar_url    = ?
+            linkedin_link = ?,profile_link  = ?
             WHERE id = ?
         ");
         $stmt->execute([
@@ -219,7 +230,6 @@ class userRepository {
             $data['github_link']  ?? null,
             $data['linkedin_link']?? null,
             $data['profile_link'] ?? null,
-            $data['avatar_url']   ?? null,
             $userId,
         ]);
     }

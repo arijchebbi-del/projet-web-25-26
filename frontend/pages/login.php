@@ -19,12 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $conn = ConnexionDB::getInstance();
 
         if ($action === 'signin') {
-            $stmt = $conn->prepare("SELECT email, password_hash FROM users WHERE email = :email LIMIT 1");
+            $stmt = $conn->prepare("SELECT id, email, password_hash FROM users WHERE email = :email LIMIT 1");
             $stmt->execute([':email' => $email]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user && password_verify($password, $user['password_hash'])) {
                 $_SESSION['email'] = $user['email'];
+                $_SESSION['user_id'] = (int) $user['id'];
                 header("Location: /frontend/pages/feed.php");
                 exit();
             }
@@ -70,8 +71,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':insatien_id' => $insatienId,
                     ]);
 
+                    $newUserId = (int) $conn->lastInsertId();
                     $conn->commit();
                     $_SESSION['email'] = $email;
+                    $_SESSION['user_id'] = $newUserId;
                     header("Location: /frontend/pages/feed.php");
                     exit();
                 }

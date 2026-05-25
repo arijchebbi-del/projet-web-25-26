@@ -58,7 +58,7 @@ INSERT INTO users
 VALUES
 (
  'arij.chebbi@gmail.com',
- '$2y$10$hash1',
+ '$2y$12$3F/.J4/r2IFQbD0S1d2FZesFTblTSzQYKPC8ht2sDlXzOeopo./w.',
  'https://portfolio-ahmed.dev',
  'https://github.com/ahmedbenamor',
  'https://linkedin.com/in/ahmedbenamor',
@@ -68,7 +68,7 @@ VALUES
 ),
 (
  'loua.klai@gmail.com',
- '$2y$10$hash2',
+ '$2y$12$3F/.J4/r2IFQbD0S1d2FZesFTblTSzQYKPC8ht2sDlXzOeopo./w.',
  'https://yasmine-tech.dev',
  'https://github.com/yasminetr',
  'https://linkedin.com/in/yasminetr',
@@ -78,7 +78,7 @@ VALUES
 ),
 (
  'wala.selmi@gmail.com',
- '$2y$10$hash3',
+ '$2y$12$3F/.J4/r2IFQbD0S1d2FZesFTblTSzQYKPC8ht2sDlXzOeopo./w.',
  NULL,
  'https://github.com/walaselmi',
  'https://linkedin.com/in/walaselmi',
@@ -88,7 +88,7 @@ VALUES
 ),
 (
  'sarra.gharbi@gmail.com',
- '$2y$10$hash4',
+ '$2y$12$3F/.J4/r2IFQbD0S1d2FZesFTblTSzQYKPC8ht2sDlXzOeopo./w.',
  NULL,
  'https://github.com/sarragh',
  'https://linkedin.com/in/sarragh',
@@ -98,7 +98,7 @@ VALUES
 ),
 (
  'mohamed.jlassi@gmail.com',
- '$2y$10$hash5',
+ '$2y$12$3F/.J4/r2IFQbD0S1d2FZesFTblTSzQYKPC8ht2sDlXzOeopo./w.',
  NULL,
  'https://github.com/mjlassi',
  'https://linkedin.com/in/mjlassi',
@@ -338,6 +338,13 @@ VALUES
  3,
  'Omar has excellent cybersecurity knowledge and analytical thinking.'
 );
+
+INSERT INTO posts
+(user_id, content)
+VALUES
+(1, 'Shared a few notes from my latest backend internship experience.'),
+(2, 'Looking for collaborators on a data engineering study project.'),
+(3, 'Posted useful cybersecurity resources for students preparing CTFs.');
 
 INSERT INTO contact_messages
 (first_name, last_name, email,

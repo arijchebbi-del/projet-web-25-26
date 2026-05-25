@@ -126,7 +126,7 @@ function initJobsDataTable() {
                 orderable: false,
                 searchable: false,
                 render: function (_, __, row) {
-                    return '<a class="btn btn-sm btn-outline-primary" href="/frontend/pages/post.html?id=' + row.id + '">See more</a>';
+                    return '<a class="btn btn-sm btn-outline-primary" href="/frontend/pages/post.php?id=' + row.id + '">See more</a>';
                 },
             },
         ],

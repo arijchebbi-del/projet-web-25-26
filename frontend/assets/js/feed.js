@@ -16,7 +16,7 @@ function addProfileCard(name, photo, description, skills = []) {
         ${description}<br>
         ${skills.length > 0 ? "Skills: " + skillHtml : ""}
       </p>
-      <a href="/frontend/pages/profil.html?id=${name}" class="btn btn-primary w-100">View Profile</a>
+      <a href="/frontend/pages/profil.php?id=${name}" class="btn btn-primary w-100">View Profile</a>
     </div>`;
   container.appendChild(card);
 }
@@ -130,7 +130,7 @@ async function loadData() {
       jobs.forEach(j => {
           const isInternship = j.type && j.type.toLowerCase() === 'internship';
           const containerId = isInternship ? "internships" : "jobs";
-          const link = "/frontend/pages/post.html?id=" + j.id;
+          const link = "/frontend/pages/post.php?id=" + j.id;
           
           let desc = j.company ? j.company + " - " : "";
           desc += j.location || "Location not specified";

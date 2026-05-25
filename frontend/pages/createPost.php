@@ -2,12 +2,24 @@
 session_start();
 
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['email'])) {
     header('Location: /frontend/pages/login.php');
     exit();
 }
 
 require_once '../../backend/config/ConnexionDB.php';
+
+$conn = ConnexionDB::getInstance();
+$userStmt = $conn->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
+$userStmt->execute([':email' => $_SESSION['email']]);
+$currentUserId = (int) $userStmt->fetchColumn();
+
+if (!$currentUserId) {
+    header('Location: /frontend/pages/logout.php');
+    exit();
+}
+
+$_SESSION['user_id'] = $currentUserId;
 
 /* ═══════════════════════════════════════════════════════════════════════
    POST handler  –  runs only on form submission, before any HTML output
@@ -123,7 +135,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     /* ── 4. Resolve country_id (insert if unknown) ────────────────────── */
 
-    $conn      = Database::getInstance();
     $countryId = null;
 
     if ($postCountry !== '') {
@@ -168,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $conn->prepare('
             INSERT INTO jobs (
                 titre, entreprise, job_type, job_mode,
-                description, Application_link, company_link,
+                description, application_link, company_link,
                 contact_email, requirements,
                 salary_min, salary_max, currency,
                 req_experience,
@@ -202,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':country_id'     => $countryId,
             ':city_id'        => $cityId,
             ':deadline'       => $deadline,
-            ':created_by'     => $_SESSION['user_id'] ?? null,
+            ':created_by'     => $currentUserId,
         ]);
 
         $_SESSION['new_job_id'] = (int) $conn->lastInsertId();
