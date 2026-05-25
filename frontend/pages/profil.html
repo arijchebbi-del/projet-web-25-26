@@ -5,9 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="/frontend/assets/js/auth.js"></script>
-    <script>
-      requireAuth();
-    </script>
+    
     <link rel="stylesheet" href="/frontend/assets/css/profil.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
      <link rel="stylesheet" href="/frontend/assets/css/footer_navbar.css">
@@ -18,141 +16,173 @@
     <div id="navbar"></div>
    <div class="container">
       <div class="profile-main">
-         <div class="profile-container-inner">
-            <img src="/frontend/assets/images/icon-7797704_1280.png" class="profile-pic" > 
-               <h1 class="nom"> Nom Prenom </h1>
-                  <div style="position: center; text-align: center;"> <button id="editBtn" type="button" class="btn btn-primary invisible " data-bs-toggle="modal" style="font-size: 1.2rem; padding: 12px 40px;" data-bs-target="#editProfileModal">Edit Profile</button> </div>
-         </div>
-            <ul class="infoo"> 
-                <div class="info">
-                <div class="info-body">
-                    <h5>About Me !!</h5>
-                     <p class="info-text">Hi!I'm a passionate developer who loves building modern and creative web
-                       applications.I enjoy learning new technologies and improving my skills
-                       every day .My goal is to create professional and user-friendly digital
-                       experiences.
-                     </p>
-                </div>
-                </div>
-               <li class="id"> id-insat :<a class="num-id">2500123</a> </li> 
-               <li class="id">promo :<a class="num-id">2028</a></li> 
-                  <ul><li class="liste-lien"><img src="/frontend/assets/images/mohamed_hassan-resume-7637442_1280.png" alt="" class="icons-img"> <a href="#" class="liens"> link_cv </a> </li>
-                     <li class="liste-lien"><img src="/frontend/assets/images/sllmnht-github-6980894_1280.png" alt="" class="icons-img"> <a href="#" class="liens">github</a> </li>
-                     <li class="liste-lien"><img src="/frontend/assets/images/illustrationfiles-gmail-4561841_1280.png" alt="" class="icons-img"> <a href="#" class="liens">gmail</a></li>
-                     <li class="liste-lien"><img src="/frontend/assets/images/bedexpstock-linked-in-2668696_1280.png" alt="" class="icons-img"> <a href="#" class="liens">linkedin</a> </li>
-                  </ul>
-            </ul>
-      </div>
+
+    <!-- Photo -->
+    <img src="/frontend/assets/images/icon-7797704_1280.png" 
+         class="profile-pic" 
+         alt="Photo de profil">
+
+    <!-- Infos -->
+    <div class="profile-info">
+
+        <!-- Ligne 1 : Nom + bouton Edit -->
+        <div class="profile-name-row">
+            <h1 class="nom">Nom Prénom</h1>
+            <button id="editBtn" 
+                    type="button" 
+                    class="btn-edit invisible"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#editProfileModal">
+                ✏️ Modifier
+            </button>
+        </div>
+
+        <!-- Ligne 2 : Meta (filière, promo, id) -->
+        <div class="profile-meta">
+            <span class="meta-badge">GL · Génie Logiciel</span>
+            <span class="meta-sep">·</span>
+            <span class="meta-badge">Promo <span class="num-id">2028</span></span>
+            <span class="meta-sep">·</span>
+            <span class="meta-badge">ID <span class="num-id">2500123</span></span>
+        </div>
+
+        <!-- Ligne 3 : Bio -->
+        <p class="profile-bio info-text">
+            Hi! I'm a passionate developer who loves building modern web applications.
+        </p>
+
+        <!-- Ligne 4 : Liens sociaux -->
+        <div class="profile-links">
+            <a href="#" class="profile-link-btn">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="#" class="profile-link-btn">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="#" class="profile-link-btn">
+                <i class="fas fa-envelope"></i> Gmail
+            </a>
+            <a href="#" class="profile-link-btn">
+                <i class="fas fa-file-alt"></i> CV
+            </a>
+        </div>
+
+    </div>
+</div>
 
 </div>
-      <div class="partie3">
-  <h3 class="partie3-1">My Experience</h3>
+   <div class="container" style="max-width:900px; margin: 0 auto; padding: 0 20px 60px;">
 
-  <div class="scroll-container">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Skills and Certification</h5>
-        <p class="card-text">
-          <li><p> Java Programming </p></li>
-          <li><p> SQL Basics </p></li>
-        </p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Achievements</h5>
-        <p class="card-text">
-          <li><h3> Best Student 2025</h3>
-      <p>Recognized as the top student in Computer Science department.</p>
-     </li>
-     <li>
-     <h3> Volunteer Star</h3>
-      <p>Contributed over 200 hours of community service.</p></li>
-        </p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Projects</h5>
-        <p class="card-text">
-          <li>  <h3>Smart Home App</h3>
-      <p>Created an app to automate home devices and security.</p>  </li>
-        </p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Jobs</h5>
-        <p class="card-text">
-          <li> </li>
-        </p>
-      </div>
-    </div>
-   </div>
-</div>
-<hr class="separator"> </hr>  <div class="user-posts">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h4 class="partie3-1 m-0">Recent Posts</h4>
-      <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#postModal" id="addPostBtn" style="display: none;">
-        <i class="bi bi-pencil-square"></i> Create Post
-      </button>
-    </div>
-    <div class="posts-container" id="postsContainer" style="display: flex; flex-direction: column; gap:10px;">
-      <!-- Posts will be loaded dynamically by JS -->
+  <!-- Skills -->
+  <div class="profile-section">
+    <span class="section-title">Skills</span>
+    <div class="skills-grid" id="skillsContainer">
+      <span class="skill-badge">Java</span>
+      <span class="skill-badge">SQL</span>
     </div>
   </div>
 
-  <hr class="separator"> </hr>   <div class="reviews">
-  <div class="d-flex justify-content-between align-items-center">
-    <h4 class="partie3-1 m-0">Recommendations</h4>
-    <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#recommendModal">
-      <i class="bi bi-chat-left-quote"></i> Recommend
-    </button>
-  </div>
+  <!-- Expérience -->
+  <div class="profile-section">
+    <span class="section-title">Experience</span>
+    <div class="experience-list" id="experienceContainer">
 
-<div class="reviews-container" id="recommendationsContainer">
-    <!-- Recommendations will be loaded dynamically by JS -->
-  </div>
-</div>
-</div>
+      <div class="experience-card">
+        <div class="exp-icon">🏢</div>
+        <div>
+          <p class="exp-title">Software Intern</p>
+          <p class="exp-meta">Vermeg · Juin 2023 – Août 2023</p>
+          <p class="exp-desc">Worked on Spring Boot microservices.</p>
+        </div>
+      </div>
 
-<!-- Post Modal -->
-<div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="postModalLabel">Create Post</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <textarea id="postContentInput" class="form-control" rows="4" placeholder="What do you want to share with the community?"></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" onclick="submitUserProfilePost()">Post</button>
-      </div>
     </div>
   </div>
-</div>
+
+  <!-- Projects -->
+  <div class="profile-section">
+    <span class="section-title">Projects</span>
+    <div class="projects-grid" id="projectsContainer">
+
+      <div class="project-card">
+        <p class="project-title">Smart Campus</p>
+        <p class="project-desc">Web platform for university management.</p>
+        <div class="project-skills">
+          <span class="project-skill-tag">Spring Boot</span>
+          <span class="project-skill-tag">SQL</span>
+          <span class="project-skill-tag">Docker</span>
+        </div>
+        <a href="#" class="project-link">Voir le projet →</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Achievements -->
+  <div class="profile-section">
+    <span class="section-title">Achievements</span>
+    <div id="achievementsContainer">
+
+      <div class="achievement-card">
+        <span class="achievement-icon">🏆</span>
+        <div>
+          <p class="achievement-title">Hackathon Winner</p>
+          <p class="achievement-meta">INSAT · Avril 2024</p>
+          <p class="achievement-desc">Won first place in INSAT Hackathon.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<!-- Posts -->
+        <div class="profile-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="section-title" style="margin-bottom:0; border:none;">Posts récents</span>
+                <button id="addPostBtn"
+                        class="btn btn-sm"
+                        style="background:#65171e; color:#fff; border-radius:8px; display:none;"
+                        onclick="window.location.href='/frontend/pages/createPost.html'">
+                    + Publier
+                </button>
+            </div>
+            <div id="postsContainer"></div>
+        </div>
+
+<!-- Recommendations -->
+        <div class="profile-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="section-title" style="margin-bottom:0; border:none;">Recommendations</span>
+                <button class="btn btn-sm"
+                        style="background:#65171e; color:#fff; border-radius:8px;"
+                        data-bs-toggle="modal"
+                        data-bs-target="#recommendModal">
+                    + Recommander
+                </button>
+            </div>
+            <div id="recommendationsContainer"></div>
+        </div>
+ 
+    </div>
 
 <!-- Recommendation Modal -->
-<div class="modal fade" id="recommendModal" tabindex="-1" aria-labelledby="recommendModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="recommendModalLabel">Write Recommendation</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <textarea id="recommendationText" class="form-control" rows="4" placeholder="Share your experience working with this person..."></textarea>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" onclick="submitRecommendation()">Send</button>
-      </div>
+    <div class="modal fade" id="recommendModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Write Recommendation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="recommendationText" class="form-control" rows="4"
+                        placeholder="Share your experience working with this person..."></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitRecommendation()">Send</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
   <div class="footer" id="footer"></div>
   </body>
