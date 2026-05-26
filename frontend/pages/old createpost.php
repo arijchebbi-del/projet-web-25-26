@@ -42,11 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $jobTypeRaw    = sanitizeStr($_POST['jobType']          ?? 'Full-time');
     $workModeRaw   = sanitizeStr($_POST['workMode']         ?? 'On-site');
     $experienceKey = sanitizeStr($_POST['postExperience']   ?? '');
-    $salaryRaw     = sanitizeStr($_POST['postSalary']       ?? '');
     $salaryMinRaw  = sanitizeStr($_POST['salaryMin']        ?? '');
     $salaryMaxRaw  = sanitizeStr($_POST['salaryMax']        ?? '');
     $currencyInput = sanitizeStr($_POST['salaryCurrency']   ?? '');
     $description   = sanitizeStr($_POST['postDescription']  ?? '');
+    $responsibilities = sanitizeStr($_POST['postResponsibilities'] ?? '');
     $appLink       = nullIfEmpty(filter_var($_POST['postLink']           ?? '', FILTER_SANITIZE_URL));
     $companyWebsite= nullIfEmpty(filter_var($_POST['postCompanyWebsite'] ?? '', FILTER_SANITIZE_URL));
     $contact       = nullIfEmpty(filter_var($_POST['postContact']        ?? '', FILTER_SANITIZE_EMAIL));
@@ -97,20 +97,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $currency = $currency !== '' ? substr($currency, 0, 3) : 'TND';
     }
 
-    if (($salaryMin === null && $salaryMax === null) && !empty($salaryRaw) && strtolower($salaryRaw) !== 'unpaid') {
-        preg_match_all('/\d[\d,]*(?:\.\d+)?/', $salaryRaw, $m);
-        if (!empty($m[0])) {
-            $salaryMin = (float) str_replace(',', '', $m[0][0]);
-            if (isset($m[0][1])) $salaryMax = (float) str_replace(',', '', $m[0][1]);
-        }
-        if      (preg_match('/\bTND\b|\bDT\b/i', $salaryRaw)) $currency = 'TND';
-        elseif  (preg_match('/\bEUR\b|€/i',       $salaryRaw)) $currency = 'EUR';
-        elseif  (preg_match('/\bUSD\b|\$/i',       $salaryRaw)) $currency = 'USD';
-        elseif  (preg_match('/\bGBP\b|£/i',        $salaryRaw)) $currency = 'GBP';
-    }
-
     /* requirements TEXT – skills stored as CSV (no job_skills pivot in schema) */
     $requirements = nullIfEmpty(implode(', ', $skillsRaw));
+    $responsibilities = nullIfEmpty($responsibilities);
 
     /* deadline TIMESTAMP */
     $deadline = nullIfEmpty($deadlineRaw);
@@ -185,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             INSERT INTO jobs (
                 titre, entreprise, job_type, job_mode,
                 description, application_link, company_link,
-                contact_email, requirements,
+                contact_email, requirements, responsibilities,
                 salary_min, salary_max, currency,
                 req_experience,
                 country_id, city_id,
@@ -193,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ) VALUES (
                 :titre, :entreprise, :job_type, :job_mode,
                 :description, :app_link, :company_link,
-                :contact_email, :requirements,
+                :contact_email, :requirements, :responsibilities,
                 :salary_min, :salary_max, :currency,
                 :req_experience,
                 :country_id, :city_id,
@@ -211,6 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':company_link'   => $companyWebsite,
             ':contact_email'  => $contact,
             ':requirements'   => $requirements,
+            ':responsibilities' => $responsibilities,
             ':salary_min'     => $salaryMin,
             ':salary_max'     => $salaryMax,
             ':currency'       => $currency,
@@ -411,7 +401,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label class="cp-label" for="postSalary">Salary</label>
                             <input type="text" class="cp-input" id="postSalary"
                                    name="postSalary"
-                                   placeholder="e.g. 1200 DT/month or Unpaid">
+                                   placeholder="e.g. 1200 DT/month or Unpaid" disabled>
                         </div>
                     </div>
 
@@ -437,6 +427,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
 
+                <!-- Step 5 – Responsibilities -->
+                <div class="cp-section">
+                    <div class="cp-section-label">
+                        <span class="cp-step">5</span>
+                        Responsibilities
+                    </div>
+                    <textarea class="cp-input cp-textarea" id="postResponsibilities"
+                              name="postResponsibilities"
+                              rows="4"
+                              placeholder="List the main missions or responsibilities…"
+                              maxlength="60000"></textarea>
+                </div>
+
                 <!-- Step 4 – Required Skills -->
                 <div class="cp-section">
                     <div class="cp-section-label">
@@ -456,7 +459,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Step 5 – Description -->
                 <div class="cp-section">
                     <div class="cp-section-label">
-                        <span class="cp-step">5</span>
+                        <span class="cp-step">6</span>
                         Description <span class="cp-req">*</span>
                     </div>
                     <textarea class="cp-input cp-textarea" id="postDescription"
@@ -471,7 +474,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Step 6 – Application -->
                 <div class="cp-section">
                     <div class="cp-section-label">
-                        <span class="cp-step">6</span>
+                        <span class="cp-step">7</span>
                         Application
                     </div>
                     <div class="cp-row">
