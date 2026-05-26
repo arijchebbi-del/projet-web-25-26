@@ -33,7 +33,7 @@ class ConnexionDB
 
             $host = self::env('DB_HOST', 'localhost');
             $port = self::env('DB_PORT', '3306');
-            $dbname = self::env('DB_NAME', self::env('DB_DATABASE', 'webdb'));
+            $dbname = self::env('DB_NAME', self::env('DB_DATABASE', 'webdb1'));
             $username = self::env('DB_USER', self::env('DB_USERNAME', 'root'));
             $password = self::env('DB_PASS', self::env('DB_PASSWORD', ''));
 
