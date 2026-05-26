@@ -238,6 +238,11 @@ class userRepository {
     }
     //update table insatien 
     public function updateInsatien(int $userId, array $data): void {
+        $parcoursId = $data['parcours_id'] ?? null;
+        if ($parcoursId === '') {
+            $parcoursId = null;
+        }
+
         $stmt = $this->pdo->prepare("
             UPDATE insatien i
             JOIN users u ON u.insatien_id = i.id
@@ -251,7 +256,7 @@ class userRepository {
             $data['nom']        ?? '',
             $data['prenom']     ?? '',
             $data['promo_year'] ?? null,
-            $data['parcours_id'] ?? null,
+            $parcoursId,
             $userId,
         ]);
     }

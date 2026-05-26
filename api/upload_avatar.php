@@ -36,7 +36,20 @@ $allowed = [
     'image/gif' => 'gif',
 ];
 
-$mime = mime_content_type($file['tmp_name']);
+$mime = null;
+if (function_exists('mime_content_type')) {
+    $mime = mime_content_type($file['tmp_name']);
+} elseif (class_exists('finfo')) {
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $finfo->file($file['tmp_name']);
+} else {
+    $mime = $file['type'] ?? null;
+}
+
+if (!$mime) {
+    echo json_encode(['ok' => false, 'message' => 'Unable to detect file type.']);
+    exit();
+}
 if (!isset($allowed[$mime])) {
     echo json_encode(['ok' => false, 'message' => 'Only image files are allowed.']);
     exit();

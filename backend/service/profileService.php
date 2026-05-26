@@ -46,7 +46,9 @@ class profileService {
                 'nom'        => $post['nom'] ?? '',
                 'prenom'     => $post['prenom'] ?? '',
                 'promo_year' => $post['promo_year'] ?? null,
-            'parcours_id' => $post['parcours_id'] ?? null,
+                'parcours_id' => isset($post['parcours_id']) && $post['parcours_id'] !== ''
+                    ? (int)$post['parcours_id']
+                    : null,
             ]);
         $this->repo->syncSkills($userId, $post['skills'] ?? []);
         $this->repo->syncExperiences($userId, $post['experiences'] ?? []);
