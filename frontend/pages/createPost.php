@@ -141,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script src="/frontend/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/frontend/assets/js/root.js"></script>
-<script src="/frontend/assets/js/createPost.js"></script>
+<script src="/frontend/assets/js/textPost.js"></script>
 <script>
     loadComponent("navbar", "/frontend/components/navbar.php", function () {
         initTheme();

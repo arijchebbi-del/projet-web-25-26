@@ -17,63 +17,126 @@ $results = [];
 
 if ($query !== '') {
     try {
-        // Base SELECT — always fetch avatar + aggregated skills
-        $sql = "
-            SELECT
-                i.id,
-                i.nom,
-                i.prenom,
-                i.promo_year,
-                p.name          AS parcours_name,
-                f.name          AS filiere_name,
-                u.avatar_url,
-                GROUP_CONCAT(DISTINCT s.name ORDER BY s.name SEPARATOR ',') AS skills
-            FROM insatien i
-            LEFT JOIN users      u  ON u.insatien_id = i.id
-            LEFT JOIN parcours   p  ON p.id          = i.parcours_id
-            LEFT JOIN filieres   f  ON f.id          = p.filiere_id
-            LEFT JOIN user_skills us ON us.user_id   = u.id
-            LEFT JOIN skills     s  ON s.id          = us.skill_id
-        ";
-
-        // WHERE clause depends on selected filter
-        switch ($filter) {
-            case 'promo':
-                if (ctype_digit($query)) {
-                    $sql .= " WHERE i.promo_year = :promo_year";
-                } else {
-                    $sql .= " WHERE i.nom LIKE :query
-                                 OR i.prenom LIKE :query
-                                 OR i.email LIKE :query";
-                }
-                break;
-            case 'skills':
-                $sql .= " WHERE s.name LIKE :query";
-                break;
-            case 'filiere':
-                $sql .= " WHERE f.name LIKE :query";
-                break;
-            case 'parcours':
-                $sql .= " WHERE p.name LIKE :query";
-                break;
-            default: // search by name
-                $sql .= " WHERE i.nom    LIKE :query
-                             OR i.prenom LIKE :query
-                             OR i.email  LIKE :query";
-                break;
-        }
-
-        $sql .= " GROUP BY i.id, i.nom, i.prenom, i.promo_year,
-                            p.name, f.name, u.avatar_url";
         $conn = ConnexionDB::getInstance();
-        $stmt = $conn->prepare($sql);
         $params = [':query' => '%' . $query . '%'];
-        if ($filter === 'promo' && ctype_digit($query)) {
-            $params[':promo_year'] = (int)$query;
-        }
-        $stmt->execute($params);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        if ($filter === 'all') {
+            $userSql = "
+                SELECT
+                    'user' AS result_type,
+                    i.id AS result_id,
+                    CONCAT(i.nom, ' ', i.prenom) AS title,
+                    CASE
+                        WHEN i.promo_year IS NULL THEN 'Promo —'
+                        ELSE CONCAT('Promo ', i.promo_year)
+                    END AS subtitle,
+                    u.avatar_url AS avatar_url,
+                    GROUP_CONCAT(DISTINCT s.name ORDER BY s.name SEPARATOR ',') AS skills
+                FROM insatien i
+                LEFT JOIN users       u  ON u.insatien_id = i.id
+                LEFT JOIN parcours    p  ON p.id          = i.parcours_id
+                LEFT JOIN filieres    f  ON f.id          = p.filiere_id
+                LEFT JOIN user_skills us ON us.user_id    = u.id
+                LEFT JOIN skills      s  ON s.id          = us.skill_id
+                WHERE i.nom LIKE :query
+                   OR i.prenom LIKE :query
+                   OR i.email LIKE :query
+                   OR p.name LIKE :query
+                   OR f.name LIKE :query
+                   OR s.name LIKE :query
+                GROUP BY i.id, i.nom, i.prenom, i.promo_year, u.avatar_url
+            ";
+
+            $jobSql = "
+                SELECT
+                    'job' AS result_type,
+                    j.id AS result_id,
+                    j.titre AS title,
+                    j.entreprise AS subtitle,
+                    NULL AS avatar_url,
+                    NULL AS skills
+                FROM jobs j
+                WHERE j.titre LIKE :query
+                   OR j.entreprise LIKE :query
+                   OR j.description LIKE :query
+                   OR j.requirements LIKE :query
+                   OR j.responsibilities LIKE :query
+            ";
+
+            $postSql = "
+                SELECT
+                    'post' AS result_type,
+                    p.id AS result_id,
+                    CONCAT(i.nom, ' ', i.prenom) AS title,
+                    LEFT(p.content, 140) AS subtitle,
+                    u.avatar_url AS avatar_url,
+                    NULL AS skills
+                FROM posts p
+                INNER JOIN users u ON u.id = p.user_id
+                INNER JOIN insatien i ON i.id = u.insatien_id
+                WHERE p.content LIKE :query
+            ";
+
+            $sql = $userSql . " UNION ALL " . $jobSql . " UNION ALL " . $postSql . " ORDER BY result_type, title";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute($params);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            // Base SELECT — always fetch avatar + aggregated skills
+            $sql = "
+                SELECT
+                    i.id,
+                    i.nom,
+                    i.prenom,
+                    i.promo_year,
+                    p.name          AS parcours_name,
+                    f.name          AS filiere_name,
+                    u.avatar_url,
+                    GROUP_CONCAT(DISTINCT s.name ORDER BY s.name SEPARATOR ',') AS skills
+                FROM insatien i
+                LEFT JOIN users      u  ON u.insatien_id = i.id
+                LEFT JOIN parcours   p  ON p.id          = i.parcours_id
+                LEFT JOIN filieres   f  ON f.id          = p.filiere_id
+                LEFT JOIN user_skills us ON us.user_id   = u.id
+                LEFT JOIN skills     s  ON s.id          = us.skill_id
+            ";
+
+            // WHERE clause depends on selected filter
+            switch ($filter) {
+                case 'promo':
+                    if (ctype_digit($query)) {
+                        $sql .= " WHERE i.promo_year = :promo_year";
+                    } else {
+                        $sql .= " WHERE i.nom LIKE :query
+                                     OR i.prenom LIKE :query
+                                     OR i.email LIKE :query";
+                    }
+                    break;
+                case 'skills':
+                    $sql .= " WHERE s.name LIKE :query";
+                    break;
+                case 'filiere':
+                    $sql .= " WHERE f.name LIKE :query";
+                    break;
+                case 'parcours':
+                    $sql .= " WHERE p.name LIKE :query";
+                    break;
+                default: // search by name
+                    $sql .= " WHERE i.nom    LIKE :query
+                                 OR i.prenom LIKE :query
+                                 OR i.email  LIKE :query";
+                    break;
+            }
+
+            $sql .= " GROUP BY i.id, i.nom, i.prenom, i.promo_year,
+                                p.name, f.name, u.avatar_url";
+            $stmt = $conn->prepare($sql);
+            if ($filter === 'promo' && ctype_digit($query)) {
+                $params[':promo_year'] = (int)$query;
+            }
+            $stmt->execute($params);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
     } catch (PDOException $e) {
         error_log($e->getMessage());
     }
@@ -243,10 +306,8 @@ function showPage(page) {
     const end   = Math.min(start + PER_PAGE, RESULTS.length);
 
     for (let i = start; i < end; i++) {
-        const r      = RESULTS[i];
-        const skills = r.skills ? r.skills.split(',') : [];
-        const name   = r.nom + ' ' + r.prenom;
-        addCardToPage(name, r.avatar_url, r.promo_year, r.id, ...skills);
+        const r = RESULTS[i];
+        addCardToPage(r);
     }
 
     // Update active page button

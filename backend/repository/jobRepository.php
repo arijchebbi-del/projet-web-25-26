@@ -17,7 +17,13 @@
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     public function findById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM jobs WHERE id = :id");
+        $stmt = $this->pdo->prepare("\
+            SELECT jobs.*, countries.name AS country_name, cities.name AS city_name
+            FROM jobs
+            LEFT JOIN countries ON jobs.country_id = countries.id
+            LEFT JOIN cities ON jobs.city_id = cities.id
+            WHERE jobs.id = :id
+        ");
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_OBJ);
     }

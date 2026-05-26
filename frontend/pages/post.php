@@ -22,6 +22,30 @@ $job = $jobRepo->findById($id);
 if (!$job) {
     die("Job not found");
 }
+
+$salaryMin = $job->salary_min;
+$salaryMax = $job->salary_max;
+$currency = $job->currency ?: 'TND';
+
+if ($salaryMin === null && $salaryMax === null) {
+    $salaryText = 'Not specified';
+} elseif ($salaryMin !== null && $salaryMax !== null) {
+    $salaryText = number_format((float) $salaryMin, 2) . ' - ' . number_format((float) $salaryMax, 2) . ' ' . $currency;
+} elseif ($salaryMin !== null) {
+    $salaryText = number_format((float) $salaryMin, 2) . ' ' . $currency;
+} else {
+    $salaryText = number_format((float) $salaryMax, 2) . ' ' . $currency;
+}
+
+$experienceText = $job->req_experience === null
+    ? 'Not specified'
+    : htmlspecialchars($job->req_experience) . ' years';
+
+$countryText = $job->country_name ?: 'Not specified';
+$cityText = $job->city_name ?: 'Not specified';
+
+$publicationText = $job->date_publication ?: 'Not specified';
+$deadlineText = $job->deadline ?: 'Not specified';
 ?>
 <!--codek ya talel hedha 
     <title>Alumini | Jobs</title>
@@ -103,7 +127,7 @@ if (!$job) {
                             <div class="job-meta-box">
                                 <small class="text-muted">Required Experience</small>
                                 <div>
-                                    <?= htmlspecialchars($job->req_experience) ?> years
+                                    <?= $experienceText ?>
                                 </div>
                             </div>
                         </div>
@@ -112,10 +136,7 @@ if (!$job) {
                             <div class="job-meta-box">
                                 <small class="text-muted">Salary</small>
                                 <div>
-                                    <?= htmlspecialchars($job->salary_min) ?>
-                                    -
-                                    <?= htmlspecialchars($job->salary_max) ?>
-                                    DT
+                                    <?= htmlspecialchars($salaryText) ?>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +145,7 @@ if (!$job) {
                             <div class="job-meta-box">
                                 <small class="text-muted">Country</small>
                                 <div>
-                                    <?= htmlspecialchars($job->country_id) ?>
+                                    <?= htmlspecialchars($countryText) ?>
                                 </div>
                             </div>
                         </div>
@@ -133,7 +154,7 @@ if (!$job) {
                             <div class="job-meta-box">
                                 <small class="text-muted">City</small>
                                 <div>
-                                    <?= htmlspecialchars($job->city_id) ?>
+                                    <?= htmlspecialchars($cityText) ?>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +163,7 @@ if (!$job) {
                             <div class="job-meta-box">
                                 <small class="text-muted">Publication Date</small>
                                 <div>
-                                    <?= htmlspecialchars($job->date_publication) ?>
+                                    <?= htmlspecialchars($publicationText) ?>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +172,7 @@ if (!$job) {
                             <div class="job-meta-box">
                                 <small class="text-muted">Deadline</small>
                                 <div>
-                                    <?= htmlspecialchars($job->deadline) ?>
+                                    <?= htmlspecialchars($deadlineText) ?>
                                 </div>
                             </div>
                         </div>
