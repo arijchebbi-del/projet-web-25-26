@@ -1,6 +1,6 @@
 
-CREATE DATABASE IF NOT EXISTS webdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE webdb;
+CREATE DATABASE IF NOT EXISTS webdb2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE webdb2;
 
 CREATE TABLE IF NOT EXISTS filieres (
     id   INT          AUTO_INCREMENT PRIMARY KEY,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS experience (
     date_debut      DATE         NULL,
     date_fin        DATE         NULL,      -- NULL = current position
     entreprise      VARCHAR(255) NULL,
-    experience_type ENUM('skill','job','internship','freelance','certification') NOT NULL,
+    experience_type ENUM('skill','job','certification') NOT NULL,
     lien            TEXT         NULL,
     description     TEXT         NULL,
     created_at      TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,

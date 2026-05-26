@@ -14,8 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once '../../backend/service/contactService.php';
     try {
         $service = new ContactService();
-        $result  = $service->saveContactMessage($_POST);
-        echo json_encode($result);
+        $ok = $service->saveContactMessage($_POST);
+        echo json_encode([
+            'success' => $ok,
+            'message' => $ok ? 'Message saved.' : 'Please fill all required fields.'
+        ]);
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
@@ -111,11 +114,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label for="firstName" class="form-label">First Name <span class="contact-req">*</span></label>
-                        <input type="text" class="form-control contact-input" id="firstName" name="firstName" placeholder="Jane" required>
+                        <input type="text" class="form-control contact-input" id="firstName" name="first_name" placeholder="Jane" required>
                     </div>
                     <div class="col-md-6">
                         <label for="lastName" class="form-label">Last Name <span class="contact-req">*</span></label>
-                        <input type="text" class="form-control contact-input" id="lastName" name="lastName" placeholder="Doe" required>
+                        <input type="text" class="form-control contact-input" id="lastName" name="last_name" placeholder="Doe" required>
                     </div>
                 </div>
 
@@ -172,6 +175,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             </form>
 
+            <div class="alert alert-danger mt-3 d-none" id="contactError"></div>
+
             <!-- Success state -->
             <div class="contact-success d-none" id="successState">
                 <div class="contact-success-icon">🎉</div>
@@ -195,20 +200,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     const btnText = submitBtn.querySelector('.btn-text');
     const btnLoader = document.getElementById('btnLoader');
     const successState = document.getElementById('successState');
+    const contactError = document.getElementById('contactError');
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (!validateForm()) return;
+
+        contactError.classList.add('d-none');
+        contactError.textContent = '';
 
         // Show loader
         btnText.classList.add('d-none');
         btnLoader.classList.remove('d-none');
         submitBtn.disabled = true;
 
-        setTimeout(() => {
-            form.classList.add('d-none');
-            successState.classList.remove('d-none');
-        }, 1400);
+        fetch('/frontend/pages/contact.php', {
+            method: 'POST',
+            body: new FormData(form)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                form.classList.add('d-none');
+                successState.classList.remove('d-none');
+                return;
+            }
+
+            contactError.textContent = data.message || 'Failed to send message.';
+            contactError.classList.remove('d-none');
+        })
+        .catch(() => {
+            contactError.textContent = 'Server error. Please try again.';
+            contactError.classList.remove('d-none');
+        })
+        .finally(() => {
+            btnText.classList.remove('d-none');
+            btnLoader.classList.add('d-none');
+            submitBtn.disabled = false;
+        });
     });
 
     function validateForm() {

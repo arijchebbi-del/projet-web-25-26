@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadExperienceRows();
         loadProjectRows();
         loadAchievementRows();
+        initParcoursFilter();
     });
 
     // Sync nom/tagline en temps réel dans l'en-tête du modal
@@ -22,6 +23,39 @@ document.addEventListener('DOMContentLoaded', () => {
         bootstrap.Modal.getInstance(modal)?.hide();
     });
 });
+
+function initParcoursFilter() {
+    const filiereSelect = document.getElementById('filiereSelect');
+    const parcoursSelect = document.getElementById('parcoursSelect');
+    if (!filiereSelect || !parcoursSelect) return;
+
+    const options = Array.from(parcoursSelect.querySelectorAll('option'));
+
+    function applyFilter() {
+        const filiereId = filiereSelect.value;
+        options.forEach(opt => {
+            const optionFiliere = opt.dataset.filiereId || '';
+            if (!optionFiliere) return;
+            opt.hidden = filiereId !== '' && optionFiliere !== filiereId;
+        });
+
+        const selected = parcoursSelect.selectedOptions[0];
+        if (selected && selected.hidden) {
+            parcoursSelect.value = '';
+        }
+    }
+
+    filiereSelect.addEventListener('change', applyFilter);
+    parcoursSelect.addEventListener('change', () => {
+        const selected = parcoursSelect.selectedOptions[0];
+        const optionFiliere = selected?.dataset.filiereId || '';
+        if (optionFiliere) {
+            filiereSelect.value = optionFiliere;
+        }
+    });
+
+    applyFilter();
+}
 
 function syncModalHeader() {
     const first = document.getElementById('firstName')?.value  || '';
@@ -284,7 +318,7 @@ function saveProfile() {
     // Créer un <form> dynamique et le soumettre en POST standard
     const form = document.createElement('form');
     form.method = 'POST';
-    form.action = '/frontend/pages/myprofile.php';
+    form.action = 'myprofile.php';
 
     function addField(name, value) {
         const input = document.createElement('input');
@@ -299,6 +333,7 @@ function saveProfile() {
     addField('nom',          document.getElementById('lastName')?.value.trim());
     addField('bio',          document.getElementById('editBio')?.value.trim());
     addField('promo_year',   document.getElementById('promoYear')?.value.trim());
+    addField('parcours_id',  document.getElementById('parcoursSelect')?.value);
     addField('tagline',      document.getElementById('editTagline')?.value.trim());
     addField('github_link',  document.getElementById('githubLink')?.value.trim());
     addField('linkedin_link',document.getElementById('linkedinLink')?.value.trim());

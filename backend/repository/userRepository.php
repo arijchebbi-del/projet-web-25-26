@@ -33,13 +33,14 @@ class userRepository {
         $stmt->execute([$email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    //recuperer le profil a afficher 
+    //recuperer le profil a afficher  elih bech nebniou alih khedma we sessions 
     public function findById($userId) : array|false{
         $stmt=$this->pdo->prepare("
-         SELECT
-            u.id,u.email,u.bio,u.tagline,u.avatar_url,u.github_link,
-            u.linkedin_link,u.profile_link,i.nom,i.prenom,i.promo_year,
-            i.id AS insatien_id, p.name AS parcours,f.name  AS filiere
+            SELECT
+                u.id,u.email,u.bio,u.tagline,u.avatar_url,u.github_link,
+                u.linkedin_link,u.profile_link,i.nom,i.prenom,i.promo_year,
+                i.id AS insatien_id, p.id AS parcours_id, p.name AS parcours,
+                f.id AS filiere_id, f.name AS filiere
             FROM users u
             JOIN insatien i ON i.id = u.insatien_id
             LEFT JOIN parcours p ON p.id = i.parcours_id
@@ -50,7 +51,7 @@ class userRepository {
         return $stmt->fetch(PDO::FETCH_ASSOC);
 
     }
-    //recuperer les skills d'un user
+    //recuperer les skills d'un user pour page user
     public function findskills(int $userId): array|false {
         $stmt=$this->pdo->prepare("
           SELECT s.id, s.name
@@ -150,10 +151,12 @@ class userRepository {
         ");
  
         foreach ($experiences as $exp) {
+            $type = $exp['experience_type'] ?? 'job';
+            $type = in_array($type, ['skill', 'job', 'certification'], true) ? $type : 'job';
             $stmt->execute([
                 $userId,
                 $exp['entreprise']      ?? null,
-                $exp['experience_type'] ?? 'job',
+                $type,
                 $exp['date_debut']      ?: null,
                 $exp['date_fin']        ?: null,
                 $exp['description']     ?? null,
@@ -240,13 +243,15 @@ class userRepository {
             JOIN users u ON u.insatien_id = i.id
             SET i.nom        = ?,
                 i.prenom     = ?,
-                i.promo_year = ?
+                i.promo_year = ?,
+                i.parcours_id = ?
             WHERE u.id = ?
         ");
         $stmt->execute([
             $data['nom']        ?? '',
             $data['prenom']     ?? '',
             $data['promo_year'] ?? null,
+            $data['parcours_id'] ?? null,
             $userId,
         ]);
     }

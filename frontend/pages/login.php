@@ -108,6 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="alert alert-danger auth-alert">
                 <?= htmlspecialchars($authError) ?>
             </div>
+            <script>
+                alert(<?= json_encode($authError) ?>);
+            </script>
         <?php endif; ?>
         <div class="form-box login">
         <!--formulaire sign in-->

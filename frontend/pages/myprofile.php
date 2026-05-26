@@ -35,14 +35,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Données pour pré-remplir le modal
-$data            = $service->getFullProfile($userId);
-$user            = $data['user'];
-$skills          = $data['skills'];
-$experiences     = $data['experiences'];
-$projects        = $data['projects'];
-$achievements    = $data['achievements'];
-$recommendations = $data['recommendations'];
-$posts           = $data['posts'];
+$pageError = '';
+try {
+  $filieresStmt = $conn->query("SELECT id, name FROM filieres ORDER BY name");
+  $filieres = $filieresStmt ? $filieresStmt->fetchAll(PDO::FETCH_ASSOC) : [];
+  $parcoursStmt = $conn->query("SELECT id, name, filiere_id FROM parcours ORDER BY name");
+  $parcours = $parcoursStmt ? $parcoursStmt->fetchAll(PDO::FETCH_ASSOC) : [];
+  $data            = $service->getFullProfile($userId);
+  $user            = $data['user'];
+  $skills          = $data['skills'];
+  $experiences     = $data['experiences'];
+  $projects        = $data['projects'];
+  $achievements    = $data['achievements'];
+  $recommendations = $data['recommendations'];
+  $posts           = $data['posts'];
+} catch (Exception $e) {
+  $pageError = $e->getMessage();
+  $filieres = [];
+  $parcours = [];
+  $user = [
+    'prenom' => '',
+    'nom' => '',
+    'avatar_url' => null,
+    'filiere' => null,
+    'filiere_id' => null,
+    'parcours' => null,
+    'parcours_id' => null,
+    'promo_year' => null,
+    'insatien_id' => null,
+    'tagline' => null,
+    'bio' => null,
+    'github_link' => null,
+    'linkedin_link' => null,
+    'profile_link' => null,
+  ];
+  $skills = [];
+  $experiences = [];
+  $projects = [];
+  $achievements = [];
+  $recommendations = [];
+  $posts = [];
+}
 
 function h(?string $val): string {
     return htmlspecialchars($val ?? '', ENT_QUOTES, 'UTF-8');
@@ -75,6 +108,9 @@ function h(?string $val): string {
 
 <?php if (!empty($saveError)): ?>
   <div class="alert alert-danger m-3"><?= h($saveError) ?></div>
+<?php endif; ?>
+<?php if (!empty($pageError)): ?>
+  <div class="alert alert-danger m-3"><?= h($pageError) ?></div>
 <?php endif; ?>
 
 <!-- Profil affiché (même rendu que profil.php) -->
@@ -314,6 +350,31 @@ function h(?string $val): string {
               <label class="form-label">Promo Year</label>
               <input type="text" id="promoYear" class="form-control"
                      value="<?= h($user['promo_year'] ?? '') ?>">
+            </div>
+            <div class="col-6">
+              <label class="form-label">Filiere</label>
+              <select id="filiereSelect" class="form-select">
+                <option value="">Select filiere</option>
+                <?php foreach ($filieres as $filiere): ?>
+                  <option value="<?= h((string)$filiere['id']) ?>"
+                    <?= (string)($user['filiere_id'] ?? '') === (string)$filiere['id'] ? 'selected' : '' ?>>
+                    <?= h($filiere['name']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Parcours</label>
+              <select id="parcoursSelect" class="form-select">
+                <option value="">Select parcours</option>
+                <?php foreach ($parcours as $parc): ?>
+                  <option value="<?= h((string)$parc['id']) ?>"
+                          data-filiere-id="<?= h((string)$parc['filiere_id']) ?>"
+                    <?= (string)($user['parcours_id'] ?? '') === (string)$parc['id'] ? 'selected' : '' ?>>
+                    <?= h($parc['name']) ?>
+                  </option>
+                <?php endforeach; ?>
+              </select>
             </div>
             <div class="col-12">
               <label class="form-label">Tagline</label>

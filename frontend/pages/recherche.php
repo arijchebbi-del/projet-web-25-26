@@ -39,7 +39,13 @@ if ($query !== '') {
         // WHERE clause depends on selected filter
         switch ($filter) {
             case 'promo':
-                $sql .= " WHERE i.promo_year LIKE :query";
+                if (ctype_digit($query)) {
+                    $sql .= " WHERE i.promo_year = :promo_year";
+                } else {
+                    $sql .= " WHERE i.nom LIKE :query
+                                 OR i.prenom LIKE :query
+                                 OR i.email LIKE :query";
+                }
                 break;
             case 'skills':
                 $sql .= " WHERE s.name LIKE :query";
@@ -61,7 +67,11 @@ if ($query !== '') {
                             p.name, f.name, u.avatar_url";
         $conn = ConnexionDB::getInstance();
         $stmt = $conn->prepare($sql);
-        $stmt->execute([':query' => '%' . $query . '%']);
+        $params = [':query' => '%' . $query . '%'];
+        if ($filter === 'promo' && ctype_digit($query)) {
+            $params[':promo_year'] = (int)$query;
+        }
+        $stmt->execute($params);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     } catch (PDOException $e) {

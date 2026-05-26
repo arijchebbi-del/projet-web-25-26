@@ -15,7 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_FILES['avatar'])) {
 $file = $_FILES['avatar'];
 
 if ($file['error'] !== UPLOAD_ERR_OK) {
-    echo json_encode(['ok' => false, 'message' => 'Upload failed.']);
+    $errors = [
+        UPLOAD_ERR_INI_SIZE => 'File exceeds server limit.',
+        UPLOAD_ERR_FORM_SIZE => 'File exceeds form limit.',
+        UPLOAD_ERR_PARTIAL => 'Upload was incomplete.',
+        UPLOAD_ERR_NO_FILE => 'No file uploaded.',
+        UPLOAD_ERR_NO_TMP_DIR => 'Missing temporary folder.',
+        UPLOAD_ERR_CANT_WRITE => 'Failed to write file to disk.',
+        UPLOAD_ERR_EXTENSION => 'Upload blocked by server extension.',
+    ];
+    $message = $errors[$file['error']] ?? 'Upload failed.';
+    echo json_encode(['ok' => false, 'message' => $message]);
     exit();
 }
 
@@ -33,8 +43,9 @@ if (!isset($allowed[$mime])) {
 }
 
 $uploadDir = __DIR__ . '/../frontend/assets/images/uploads';
-if (!is_dir($uploadDir)) {
-    mkdir($uploadDir, 0775, true);
+if (!is_dir($uploadDir) && !mkdir($uploadDir, 0775, true)) {
+    echo json_encode(['ok' => false, 'message' => 'Unable to create upload directory.']);
+    exit();
 }
 
 $filename = 'avatar_' . session_id() . '_' . time() . '.' . $allowed[$mime];
@@ -49,12 +60,17 @@ $avatarUrl = '/frontend/assets/images/uploads/' . $filename;
 
 require_once __DIR__ . '/../backend/config/ConnexionDB.php';
 
-$conn = ConnexionDB::getInstance();
-$stmt = $conn->prepare('UPDATE users SET avatar_url = :avatar_url WHERE email = :email');
-$stmt->execute([
-    ':avatar_url' => $avatarUrl,
-    ':email' => $_SESSION['email'],
-]);
+try {
+    $conn = ConnexionDB::getInstance();
+    $stmt = $conn->prepare('UPDATE users SET avatar_url = :avatar_url WHERE email = :email');
+    $stmt->execute([
+        ':avatar_url' => $avatarUrl,
+        ':email' => $_SESSION['email'],
+    ]);
+} catch (Throwable $e) {
+    echo json_encode(['ok' => false, 'message' => 'Database error: ' . $e->getMessage()]);
+    exit();
+}
 
 echo json_encode(['ok' => true, 'avatarUrl' => $avatarUrl]);
 ?>

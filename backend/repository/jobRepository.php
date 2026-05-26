@@ -75,7 +75,53 @@
     $stmt->execute($params);
 
     return $stmt->fetchAll(PDO::FETCH_OBJ);
-}}
+}
+
+    public function createJob(array $data): void {
+        $currency = strtoupper(trim($data['currency'] ?? ''));
+        $currency = $currency !== '' ? preg_replace('/[^A-Z]/', '', $currency) : '';
+        $currency = $currency !== '' ? substr($currency, 0, 3) : 'TND';
+
+        $stmt = $this->pdo->prepare("
+            INSERT INTO jobs (
+                titre, entreprise, job_type, job_mode,
+                description, application_link, company_link,
+                contact_email, requirements, responsibilities,
+                salary_min, salary_max, currency,
+                req_experience, country_id, city_id,
+                deadline, created_by
+            ) VALUES (
+                :titre, :entreprise, :job_type, :job_mode,
+                :description, :application_link, :company_link,
+                :contact_email, :requirements, :responsibilities,
+                :salary_min, :salary_max, :currency,
+                :req_experience, :country_id, :city_id,
+                :deadline, :created_by
+            )
+        ");
+
+        $stmt->execute([
+            ':titre' => $data['title'],
+            ':entreprise' => $data['company'] ?: null,
+            ':job_type' => $data['job_type'],
+            ':job_mode' => $data['job_mode'],
+            ':description' => $data['description'] ?: null,
+            ':application_link' => $data['application_link'] ?: null,
+            ':company_link' => $data['company_link'] ?: null,
+            ':contact_email' => $data['contact_email'],
+            ':requirements' => $data['requirements'] ?: null,
+            ':responsibilities' => $data['responsibilities'] ?: null,
+            ':salary_min' => $data['salary_min'] !== '' ? $data['salary_min'] : null,
+            ':salary_max' => $data['salary_max'] !== '' ? $data['salary_max'] : null,
+            ':currency' => $currency,
+            ':req_experience' => $data['req_experience'] !== '' ? $data['req_experience'] : null,
+            ':country_id' => $data['country_id'] !== '' ? $data['country_id'] : null,
+            ':city_id' => $data['city_id'] !== '' ? $data['city_id'] : null,
+            ':deadline' => $data['deadline'] ?: null,
+            ':created_by' => $data['created_by'],
+        ]);
+    }
+}
 
 
 ?>

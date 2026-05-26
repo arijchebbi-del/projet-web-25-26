@@ -37,14 +37,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texte'])) {
     }
 }
 
-$data            = $service->getFullProfile($targetId);
-$user            = $data['user'];
-$skills          = $data['skills'];
-$experiences     = $data['experiences'];
-$projects        = $data['projects'];
-$achievements    = $data['achievements'];
-$recommendations = $data['recommendations'];
-$posts           = $data['posts'];
+$pageError = '';
+try {
+  $data            = $service->getFullProfile($targetId);
+  $user            = $data['user'];
+  $skills          = $data['skills'];
+  $experiences     = $data['experiences'];
+  $projects        = $data['projects'];
+  $achievements    = $data['achievements'];
+  $recommendations = $data['recommendations'];
+  $posts           = $data['posts'];
+} catch (Exception $e) {
+  $pageError = $e->getMessage();
+  $user = [
+    'prenom' => '',
+    'nom' => '',
+    'avatar_url' => null,
+    'filiere' => null,
+    'parcours' => null,
+    'promo_year' => null,
+    'insatien_id' => null,
+    'tagline' => null,
+    'bio' => null,
+    'github_link' => null,
+    'linkedin_link' => null,
+    'profile_link' => null,
+  ];
+  $skills = [];
+  $experiences = [];
+  $projects = [];
+  $achievements = [];
+  $recommendations = [];
+  $posts = [];
+}
 
 if (!$user) {
     header("Location: /frontend/pages/recherche.php");
@@ -72,6 +97,10 @@ function h(?string $val): string {
 <body>
 
 <div id="navbar"></div>
+
+<?php if ($pageError): ?>
+  <div class="alert alert-danger m-3"><?= h($pageError) ?></div>
+<?php endif; ?>
 
 <div class="container">
   <div class="profile-main">
