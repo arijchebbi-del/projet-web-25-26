@@ -3,19 +3,23 @@ session_start();
 
 if (!isset($_SESSION['email'])) {
     header("Location: /frontend/pages/login.php");
-    exit();
+exit();
 }
 
 require_once '../../backend/config/ConnexionDB.php';
 require_once '../../backend/repository/jobRepository.php';
 require_once '../../backend/repository/userRepository.php';
+require_once '../../backend/repository/postRepository.php';
+
 
 $jobRepo = new jobRepository();
 $userRepo = new userRepository();
+$postRepo = new postRepository();
 
 $profiles = $userRepo->findAllProfiles();
 $jobs = $jobRepo->findAllJobs();
 $internships = $jobRepo->findInternships();
+$posts = $postRepo->findAllPosts();
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +61,7 @@ $internships = $jobRepo->findInternships();
             </h5>
 
             <p class="card-text">
-              <?= htmlspecialchars($p->bio) ?>
+              <?= htmlspecialchars($p->tagline) ?>
             </p>
 
             <a href="profil.php?id=<?= $p->id ?>" class="btn btn-primary w-100">
@@ -71,6 +75,75 @@ $internships = $jobRepo->findInternships();
   </div>
 
   <button class="marquee-btn btn-right" onclick="scrollMarquee(this, 1)">&#62;</button>
+</div>
+<h1 class="h1">New Posts</h1>
+
+<div class="marquee-container">
+
+    <button class="marquee-btn btn-left" onclick="scrollMarquee(this, -1)">
+        &#60;
+    </button>
+
+    <div class="marquee-wrapper">
+
+        <div class="marquee-track" id="posts">
+
+            <?php if (!empty($posts)): ?>
+
+                <?php foreach ($posts as $post): ?>
+
+                    <div class="card feed-card">
+
+                        <div class="card-body">
+
+                            <div class="post-header">
+
+                                <div class="user-info">
+
+                                    <h5 class="card-title">
+                                        <?= htmlspecialchars(($post->prenom ?? '') . ' ' . ($post->nom ?? '')) ?>
+                                    </h5>
+
+                                    <span class="post-date">
+                                        <?= date('d M Y', strtotime($post->created_at)) ?>
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <p class="card-text">
+                                <?= nl2br(htmlspecialchars(substr($post->content, 0, 150))) ?>
+
+                                <?php if (strlen($post->content) > 150): ?>
+                                    ...
+                                <?php endif; ?>
+                            </p>
+
+                            <a href="profil.php?id=<?= $post->userId ?>" class="btn btn-primary w-100">
+                              View Profile
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            <?php else: ?>
+
+                <p class="no-posts">No posts available.</p>
+
+            <?php endif; ?>
+
+        </div>
+
+    </div>
+
+    <button class="marquee-btn btn-right" onclick="scrollMarquee(this, 1)">
+        &#62;
+    </button>
+
 </div>
 
 <h1 class="h1">Job Offers</h1>
