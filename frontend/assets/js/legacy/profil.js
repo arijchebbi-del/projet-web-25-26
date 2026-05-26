@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 document.querySelector('.profile-pic').src = user.avatarUrl;
             }
 
-            // Render recommendations
             const recContainer = document.getElementById('recommendationsContainer');
             if (recContainer) {
                 recContainer.innerHTML = '';
@@ -101,11 +100,8 @@ async function submitRecommendation() {
         if (data.ok) {
             alert("Recommendation submitted!");
             document.getElementById('recommendationText').value = '';
-            // Close modal
             const myModal = bootstrap.Modal.getInstance(document.getElementById('recommendModal'));
             if (myModal) myModal.hide();
-            
-            // Reload page to show new recommendation
             window.location.reload();
         } else {
             alert("Failed: " + data.message);
@@ -133,11 +129,8 @@ async function submitUserProfilePost() {
 
         if (data.ok) {
             document.getElementById('postContentInput').value = '';
-            // Close modal
             const myModal = bootstrap.Modal.getInstance(document.getElementById('postModal'));
             if (myModal) myModal.hide();
-
-            // Reload page to show new post
             window.location.reload();
         } else {
             alert("Failed to create post: " + data.message);
@@ -147,4 +140,3 @@ async function submitUserProfilePost() {
         alert("Network error.");
     }
 }
-

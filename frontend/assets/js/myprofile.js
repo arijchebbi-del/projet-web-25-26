@@ -1,6 +1,7 @@
 /* ══════════════════════════════════════════
    INIT — pré-remplir le modal à l'ouverture
 ══════════════════════════════════════════ */
+//explain all this 
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('editProfileModal');
     if (!modal) return;

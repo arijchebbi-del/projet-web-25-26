@@ -1,14 +1,10 @@
 # Backend Setup (PHP + MySQL)
 
-This backend provides the first MVP API for:
-- auth (register, login, logout, me)
-- jobs datatable + job details
-- users datatable (research)
-- profile me/show/update
+This app is primarily server-rendered PHP pages backed by MySQL. Repositories and services handle data access and validation, and the PHP pages render HTML directly.
 
 ## 1) Configure environment
 
-Copy `backend/.env.example` to `backend/.env` and update DB credentials.
+Copy backend/.env.example to backend/.env and update DB credentials (used by ConnexionDB).
 
 ## 2) Create schema and seed data
 
@@ -21,41 +17,20 @@ SOURCE backend/database/seed.sql;
 
 ## 3) Start development server
 
-From repository root:
+From the repository root (so /frontend and /backend are available):
 
 ```bash
-php -S 127.0.0.1:8000 -t backend/public backend/public/index.php
+php -S 127.0.0.1:8000 -t .
 ```
 
-API base URL becomes:
+Then open:
 
-- `http://127.0.0.1:8000/api`
+- http://127.0.0.1:8000/frontend/pages/main.php
 
-## 4) Available endpoints
+## 4) Uploads
 
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `POST /api/auth/logout`
-- `GET /api/auth/me`
-- `GET /api/jobs/datatable`
-- `GET /api/jobs/{id}`
-- `GET /api/users/datatable`
-- `GET /api/profile/me`
-- `PUT /api/profile/me`
-- `GET /api/profile/{id}`
+Avatar uploads are handled by api/upload_avatar.php and are written to frontend/assets/images/uploads.
 
 ## 5) Architecture reference
 
-See [docs/architecture.md](../docs/architecture.md) for the end-to-end wiring between the PHP API, MySQL schema, and frontend pages.
-
-## 6) Frontend credentials and sessions
-
-Frontend requests must use `credentials: "include"` because auth uses PHP sessions and httpOnly cookies.
-
-## 7) Seeded accounts
-
-The seed file creates users with password `password`:
-
-- `arij@insat.ucar.com`
-- `alaa@insat.ucar.com`
-- `talel@insat.ucar.com`
+See [docs/architecture.md](../docs/architecture.md) for the full module map and line references.

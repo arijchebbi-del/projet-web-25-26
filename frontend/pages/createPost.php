@@ -21,12 +21,12 @@ if (!$currentUserId) {
 
 $_SESSION['user_id'] = $currentUserId;
 
-/* ═══════════════════════════════════════════════════════════════════════
-   POST handler  –  create a simple text post
-   ═══════════════════════════════════════════════════════════════════════ */
+/*
+   POST handler ; 
+*/
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = trim($_POST['content'] ?? '');
-
+// aexpliquer
     if ($content === '') {
         $_SESSION['form_errors'] = ['Post content is required.'];
         header('Location: ' . $_SERVER['PHP_SELF']);
@@ -51,16 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: ' . $_SERVER['PHP_SELF'] . '?success=1');
     exit();
 }
-/* ═══════════════════════════════════════════════════════════════════════
-   End of POST handler – HTML rendering starts below
-   ═══════════════════════════════════════════════════════════════════════ */
+/* 
+   End of POST handler */
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<script src="/frontend/assets/js/auth.js"></script>-->
+    <!--<script src="/frontend/assets/js/auth.js"></script>--> 
 
     <title>Alumini | Create Post</title>
     <link rel="stylesheet" href="/frontend/assets/css/bootstrap.min.css">
@@ -72,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if (!empty($_SESSION['form_errors'])): ?>
     <script>
         window.__formErrors = <?= json_encode($_SESSION['form_errors']) ?>;
+        //explain 
     </script>
     <?php unset($_SESSION['form_errors']); endif; ?>
 </head>
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Success state -->
             <div class="cp-success d-none" id="postSuccess">
-                <div class="cp-success-icon">🚀</div>
+                <div class="cp-success-icon"> post created succesfully 😊</div>
                 <h3>Published</h3>
                 <p>Your post is now in the feed.</p>
                 <div class="cp-success-actions">

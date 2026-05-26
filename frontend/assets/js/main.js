@@ -14,12 +14,12 @@ function initPromoRotator() {
 
     const promoSlides = [
         {
-            image: "/frontend/assets/images/promo-1.jpg",
-            caption: "Mentorship circles and career tips, updated weekly."
+            image: "/frontend/assets/images/promo%20images/702715826_2185751255590372_6853688975579402705_n.jpg",
+            caption: "GL2 2025/2026 ayla mouch filiere"
         },
         {
-            image: "/frontend/assets/images/promo-2.jpg",
-            caption: "Discover internships and job posts shared by INSAT alumni."
+            image: "/frontend/assets/images/promo%20images/Capture%20d'%C3%A9cran%202026-05-23%20092547.png",
+            caption: "the beginning of an end o the end of the beginning ?"
         },
         {
             image: "/frontend/assets/images/promo-3.jpg",

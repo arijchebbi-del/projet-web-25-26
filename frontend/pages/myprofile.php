@@ -76,7 +76,7 @@ try {
   $recommendations = [];
   $posts = [];
 }
-
+//expliquer
 function h(?string $val): string {
     return htmlspecialchars($val ?? '', ENT_QUOTES, 'UTF-8');
 }
@@ -194,13 +194,16 @@ function h(?string $val): string {
           <div class="experience-card">
             <div class="exp-icon">🏢</div>
             <div>
+              
               <p class="exp-title"><?= h($exp['entreprise'] ?? '') ?></p>
               <p class="exp-meta">
                 <?= h(ucfirst($exp['experience_type'])) ?> ·
                 <?= h($exp['date_debut'] ?? '') ?> –
                 <?= !empty($exp['date_fin']) ? h($exp['date_fin']) : 'Present' ?>
               </p>
-              <?php if (!empty($exp['description'])): ?>
+              <?php
+              //explain 
+               if (!empty($exp['description'])): ?>
                 <p class="exp-desc"><?= h($exp['description']) ?></p>
               <?php endif; ?>
             </div>

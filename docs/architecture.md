@@ -1,101 +1,76 @@
 # System Architecture
 
-This project is a PHP backend with a vanilla HTML/CSS/JavaScript frontend.
+This project is a PHP-first web app that renders pages on the server and uses vanilla JavaScript for interactivity. It uses PHP sessions + MySQL as the primary data store.
 
-## What runs where
+## Local run flow
 
-- `backend/public/index.php` is the single HTTP entry point for the API.
-- `backend/src/config/App.php` loads `.env` values such as database credentials and allowed CORS origins.
-- `backend/src/config/Database.php` builds the PDO connection to MySQL.
-- `backend/src/controllers/*.php` implement the API behavior.
-- `frontend/pages/*.html` render pages and load shared layout parts.
-- `frontend/assets/js/*.js` call the API and update the DOM.
+1. MySQL provides the schema and seed data ([backend/database/schema.sql](backend/database/schema.sql#L1-L170), [backend/database/seed.sql](backend/database/seed.sql#L1-L120)).
+2. PHP pages use ConnexionDB to load environment config and create a PDO instance ([backend/config/ConnexionDB.php](backend/config/ConnexionDB.php#L1-L51)).
+3. Frontend pages render HTML directly and then load shared UI components + JS helpers with root.js ([frontend/assets/js/root.js](frontend/assets/js/root.js#L1-L70)).
 
-## Request flow
+## Core UI components
 
-1. A user opens an HTML page in `frontend/pages`.
-2. The page loads shared layout components with `frontend/assets/js/root.js`.
-3. Frontend scripts call `authApiFetch()` from `frontend/assets/js/auth.js`.
-4. `authApiFetch()` sends requests to `http://127.0.0.1:8000/api` with `credentials: "include"`.
-5. `backend/public/index.php` routes the request to the correct controller method.
-6. The controller reads or writes MySQL data through `Database::connection()`.
-7. The controller returns JSON to the browser.
-8. Frontend code renders the response into cards, forms, modals, and profile sections.
+- Navbar + global search + navigation links are in [frontend/components/navbar.php](frontend/components/navbar.php#L1-L90).
+- Footer content is in [frontend/components/footer.php](frontend/components/footer.php#L1-L5).
+- Shared helpers (loadComponent, theme toggle, active nav) live in [frontend/assets/js/root.js](frontend/assets/js/root.js#L1-L70).
 
-## API mapping
+## Landing page
 
-- `POST /api/auth/register` and `POST /api/auth/login` are handled by `AuthController`.
-- `GET /api/auth/me` and `POST /api/auth/logout` are also handled by `AuthController`.
-- `GET /api/users/datatable` is handled by `UsersController`.
-- `GET /api/jobs/datatable`, `GET /api/jobs/{id}`, and `POST /api/jobs` are handled by `JobsController`.
-- `GET /api/posts` and `POST /api/posts` are handled by `PostsController`.
-- `GET /api/profile/me`, `PUT /api/profile/me`, `GET /api/profile/{id}`, and `POST /api/profile/{id}/recommend` are handled by `ProfileController`.
+- The landing page layout is in [frontend/pages/main.php](frontend/pages/main.php#L12-L210).
+- The hero background swaps on an interval, preloads slide images, and fades between them in [frontend/assets/js/main.js](frontend/assets/js/main.js#L1-L123).
+	The slide list references images under the promo images folder (see the promoSlides list in [frontend/assets/js/main.js](frontend/assets/js/main.js#L15-L31)).
 
-## Database structure verified against the live MySQL instance
+## Authentication and sessions
 
-The live database matches the repository schema structure for the core tables.
+- Login and signup logic is handled in [frontend/pages/login.php](frontend/pages/login.php#L1-L150).
+- UI toggling between login/signup panels is in [frontend/assets/js/login.js](frontend/assets/js/login.js#L1-L22).
+- Session cleanup + redirect to the home page happens in [frontend/pages/logout.php](frontend/pages/logout.php#L1-L13).
 
-Verified tables:
+## Feed and discovery
 
-- `filieres`
-- `parcours`
-- `countries`
-- `cities`
-- `insatien`
-- `users`
-- `jobs`
-- `recommandations`
-- `experience`
-- `skills`
-- `user_skills`
-- `contact_messages`
+- The feed page pulls profiles, jobs, and internships with repositories and renders cards server-side in [frontend/pages/feed.php](frontend/pages/feed.php#L1-L150).
+- There is also an API-driven feed renderer in [frontend/assets/js/feed.js](frontend/assets/js/feed.js#L1-L200).
 
-Live row snapshot from the database connected through PHP:
+## Jobs and opportunities
 
-- `filieres`: 3
-- `parcours`: 3
-- `countries`: 3
-- `cities`: 5
-- `insatien`: 10
-- `users`: 10
-- `jobs`: 8
-- `recommandations`: 12
-- `experience`: 0
-- `skills`: 6
-- `user_skills`: 7
-- `contact_messages`: 0
+- The job list page with filters is in [frontend/pages/job.php](frontend/pages/job.php#L1-L170).
+- Job filtering + queries are in [backend/repository/jobRepository.php](backend/repository/jobRepository.php#L41-L84).
+- The DataTables-based jobs table and filter wiring lives in [frontend/assets/js/job.js](frontend/assets/js/job.js#L1-L155).
+- Job details (salary, country/city names, responsibilities) render in [frontend/pages/post.php](frontend/pages/post.php#L1-L220), backed by the joined lookup in [backend/repository/jobRepository.php](backend/repository/jobRepository.php#L19-L29).
+- Job creation (full form + insert) is in [frontend/pages/old%20createpost.php](frontend/pages/old%20createpost.php#L1-L230).
+- The job form interactivity (skills, chip toggles, country reveal, submit state) lives in [frontend/assets/js/createPost.js](frontend/assets/js/createPost.js#L1-L190).
 
-Important schema note:
+## Text posts
 
-- The backend profile flow expects `users.profile_link`, `users.bio`, `users.avatar_url`, and `insatien.promo_year`.
-- Those columns exist in the live database, so profile editing, promo updates, and avatar uploads are structurally supported.
+- Text post creation is handled by [frontend/pages/createPost.php](frontend/pages/createPost.php#L1-L170).
+- The text-post client behavior (char counter, loader, success state) is in [frontend/assets/js/textPost.js](frontend/assets/js/textPost.js#L1-L90).
 
-## Frontend wiring
+## Search (global)
 
-- `frontend/assets/js/auth.js` is the shared fetch wrapper and session helper.
-- `frontend/assets/js/login.js` handles login and signup form submission.
-- `frontend/assets/js/root.js` loads the navbar/footer components and theme behavior.
-- `frontend/assets/js/feed.js` builds the feed from `/api/users/datatable`, `/api/jobs/datatable`, and `/api/posts`.
-- `frontend/assets/js/profil.js` loads a user profile page and related recommendations/posts.
+- The navbar search submits to the global search page [frontend/components/navbar.php](frontend/components/navbar.php#L60-L64).
+- The global search query handler (users + jobs + posts) is in [frontend/pages/recherche.php](frontend/pages/recherche.php#L1-L170).
+- Result cards by type (user/job/post) render in [frontend/assets/js/recherche.js](frontend/assets/js/recherche.js#L1-L120).
 
-## How the pages connect to the API
+## Profiles and recommendations
 
-- `frontend/pages/login.html` uses `login.js` and `auth.js` to authenticate users.
-- `frontend/pages/feed.html` uses `feed.js` to fetch profiles, jobs, and posts.
-- `frontend/pages/profil.html` and `frontend/pages/myprofile.html` display profile data and allow updates through the profile endpoints.
-- Pages that require authentication call `requireAuth()` from `auth.js` before loading private data.
+- Self-profile edit view, skill/experience/project/achievement lists, and modal edit flow are in [frontend/pages/myprofile.php](frontend/pages/myprofile.php#L1-L210).
+- Public profile display + recommendation submission is in [frontend/pages/profil.php](frontend/pages/profil.php#L1-L210).
+- Profile aggregation and save logic live in [backend/service/profileService.php](backend/service/profileService.php#L1-L96).
+- User data access and sync helpers are in [backend/repository/userRepository.php](backend/repository/userRepository.php#L1-L200).
+- Client-side modal population and dynamic rows for profile editing are in [frontend/assets/js/myprofile.js](frontend/assets/js/myprofile.js#L1-L200).
+- Client-side profile API rendering and recommendation/post actions are in [frontend/assets/js/profil.js](frontend/assets/js/profil.js#L1-L200).
 
-## Key design decisions
+## Contact and support
 
-- The app uses PHP sessions instead of JWTs, so browser requests must include credentials.
-- The backend is organized as a small router plus controller layer, not a full framework.
-- The frontend stays framework-free and updates the DOM directly.
-- MySQL is the system of record for users, jobs, posts, skills, and recommendations.
+- Contact form UI + Ajax POST lives in [frontend/pages/contact.php](frontend/pages/contact.php#L1-L200).
+- Contact service validation and persistence are in [backend/service/contactService.php](backend/service/contactService.php#L1-L30) and [backend/repository/contactRepository.php](backend/repository/contactRepository.php#L1-L28).
+- Help page content is in [frontend/pages/help.php](frontend/pages/help.php#L1-L120).
 
-## Practical run order
+## Uploads
 
-1. Start MySQL.
-2. Start the PHP server with `C:\tools\php85\php.exe -S 127.0.0.1:8000 -t backend/public backend/public/index.php`.
-3. Open the frontend from a local web server on port `5500` or `5501`.
-4. Log in with a seeded account.
-5. The frontend fetches API data and renders it into the active page.
+- Avatar upload endpoint and file validation are in [api/upload_avatar.php](api/upload_avatar.php#L1-L120).
+
+## Database schema
+
+- Core schema (users, jobs, posts, skills, recommendations, contact) is defined in [backend/database/schema.sql](backend/database/schema.sql#L1-L200).
+- Seed data (filieres, parcours, countries, cities, demo users/jobs) is defined in [backend/database/seed.sql](backend/database/seed.sql#L1-L160).
