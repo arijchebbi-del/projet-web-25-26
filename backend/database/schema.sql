@@ -1,6 +1,6 @@
 
-CREATE DATABASE IF NOT EXISTS webdb2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE webdb2;
+CREATE DATABASE IF NOT EXISTS webdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE webdb;
 
 CREATE TABLE IF NOT EXISTS filieres (
     id   INT          AUTO_INCREMENT PRIMARY KEY,
@@ -67,9 +67,9 @@ CREATE TABLE IF NOT EXISTS jobs (
     job_type         ENUM('part-time','full-time','internship') NOT NULL,
     job_mode         ENUM('remote','onsite','hybrid') NOT NULL,
     description      TEXT           NULL,
-    application_link TEXT         NULL,
-    company_link TEXT         NULL,
-    contact_email        VARCHAR(150) NOT NULL UNIQUE,
+    application_link TEXT           NULL,
+    company_link     TEXT           NULL,
+    contact_email    VARCHAR(150)   NOT NULL UNIQUE,
     requirements     TEXT           NULL,
     responsibilities TEXT           NULL,
     salary_min       DECIMAL(10,2)  NULL,
@@ -79,11 +79,13 @@ CREATE TABLE IF NOT EXISTS jobs (
     country_id       INT            NULL,
     city_id          INT            NULL,
     date_publication TIMESTAMP      DEFAULT CURRENT_TIMESTAMP,
-    deadline TIMESTAMP,
+    deadline         TIMESTAMP NULL DEFAULT NULL,
     created_by       INT            NULL,
-    FOREIGN KEY (created_by)   REFERENCES users(id)     ON DELETE SET NULL,
-    FOREIGN KEY (country_id)   REFERENCES countries(id) ON DELETE SET NULL,
-    FOREIGN KEY (city_id)      REFERENCES cities(id)    ON DELETE SET NULL,
+
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (country_id) REFERENCES countries(id) ON DELETE SET NULL,
+    FOREIGN KEY (city_id) REFERENCES cities(id) ON DELETE SET NULL,
+
     INDEX idx_jobs_type       (job_type),
     INDEX idx_jobs_mode       (job_mode),
     INDEX idx_jobs_salary     (salary_min, salary_max),
